@@ -16,7 +16,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Jupyter Book
-        run: pip install jupyter-book ghp-import
+        run: pip install "jupyter-book<2" ghp-import
 
       - name: Build the book
         run: jupyter-book build .
