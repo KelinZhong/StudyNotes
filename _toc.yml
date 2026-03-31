@@ -11,7 +11,7 @@ chapters:
 
   - caption: Python LeetCode
     chapters:
-      - file: Python/Reference Arrays and Hashing
+      - file: Python/Reference_Arrays_and_Hashing
       - file: Python/Study_Guide_Sliding_Window_and_Two_Pointers
       - file: Python/Cheatsheet_Heap_and_Monotonic_Stack
       - file: Python/Study_Guide_DP
