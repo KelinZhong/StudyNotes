@@ -1,6 +1,6 @@
 format: jb-book
 root: intro
-chapters:
+parts:
   - caption: Pandas
     chapters:
       - file: Pandas/Reference_Pandas
