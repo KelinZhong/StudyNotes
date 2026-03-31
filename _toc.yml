@@ -3,20 +3,20 @@ root: intro
 chapters:
   - caption: Pandas
     chapters:
-      - file: pandas/reference Pandas
+      - file: Pandas/reference Pandas
 
   - caption: SQL LeetCode
     chapters:
-      - file: sql/reference SQL
+      - file: SQL LeetCode/reference SQL
 
   - caption: Python LeetCode
     chapters:
-      - file: python/Reference Arrays and Hashing
-      - file: python/Study Guide Sliding window and Two Pointers
-      - file: python/Cheatsheet Heap and Monotonic Stack
-      - file: python/Study Guide DP
-      - file: python/Cheatsheet backtracking
-      - file: python/Study Guide Trees and Graphs
-      - file: python/Cheatsheet Trie and Union Find
-      - file: python/Cheatsheet Binary Search
-      - file: python/Reference Linkedlists and Bit Manipulation
+      - file: Python LeetCode/Reference Arrays and Hashing
+      - file: Python LeetCode/Study Guide Sliding window and Two Pointers
+      - file: Python LeetCode/Cheatsheet Heap and Monotonic Stack
+      - file: Python LeetCode/Study Guide DP
+      - file: Python LeetCode/Cheatsheet backtracking
+      - file: Python LeetCode/Study Guide Trees and Graphs
+      - file: Python LeetCode/Cheatsheet Trie and Union Find
+      - file: Python LeetCode/Cheatsheet Binary Search
+      - file: Python LeetCode/Reference Linkedlists and Bit Manipulation
