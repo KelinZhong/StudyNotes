@@ -1,0 +1,10 @@
+title: Data Science Study Notes
+author: Kelin Zhong
+logo: ""
+execute:
+  execute_notebooks: "off"   # don't re-run code cells, just render them
+repository:
+  url: https://github.com/KelinZhong/StudyNotes
+html:
+  use_repository_button: true
+  home_page_in_navbar: false
