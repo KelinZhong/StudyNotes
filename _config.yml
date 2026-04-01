@@ -14,11 +14,18 @@ sphinx:
   config:
     html_theme: pydata_sphinx_theme
     html_theme_options:
-      # Ensures the sidebar is on the left and collapsible
+      # 1. Clear the center and end of the navbar to remove links from the top
+      navbar_center: []
+      navbar_end: ["theme-switcher", "navbar-icon-links"]
+      
+      # 2. Force the sidebar to show the first two levels of navigation
+      show_nav_level: 2
+      navigation_depth: 4
+      
+      # 3. Ensure the sidebar is collapsible
       collapse_navigation: true
-      navigation_depth: 3
-      show_nav_level: 1
-      # Optional: Add a GitHub icon to the top right
+      
+      # Optional: Add your GitHub link to the icons section
       icon_links:
         - name: GitHub
           url: https://github.com/KelinZhong/StudyNotes
