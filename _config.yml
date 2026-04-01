@@ -14,19 +14,14 @@ sphinx:
   config:
     html_theme: pydata_sphinx_theme
     html_theme_options:
-      # 1. Clear the center and end of the navbar to remove links from the top
-      navbar_center: []
-      navbar_end: ["theme-switcher", "navbar-icon-links"]
+      # This is the "magic" fix: it forces all navigation to the sidebar
+      header_links_before_dropdown: 0
       
-      # 2. Force the sidebar to show the first two levels of navigation
-      show_nav_level: 2
+      # Ensures the sidebar starts collapsed but is easy to open
+      collapse_navigation: true
+      show_nav_level: 1
       navigation_depth: 4
       
-      # 3. Ensure the sidebar is collapsible
-      collapse_navigation: true
-      
-      # Optional: Add your GitHub link to the icons section
-      icon_links:
-        - name: GitHub
-          url: https://github.com/KelinZhong/StudyNotes
-          icon: fab fa-github-square
+      # Keeps the top bar clean with just your search and icons
+      navbar_center: ["navbar-nav"] # This will now be empty due to the setting above
+      navbar_end: ["theme-switcher", "navbar-icon-links"]
