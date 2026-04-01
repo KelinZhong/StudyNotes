@@ -1,20 +1,26 @@
 title: Data Science Study Notes
 author: Kelin Zhong
-logo: ""
+repository:
+  url: https://github.com/KelinZhong/StudyNotes
 
 execute:
   execute_notebooks: "off"
 
-repository:
-  url: https://github.com/KelinZhong/StudyNotes
-
 html:
   use_repository_button: true
-  home_page_in_navbar: false
+  home_page_in_navbar: true # Adds 'Home' to the top instead of the sidebar
 
 sphinx:
   config:
     html_theme: pydata_sphinx_theme
     html_theme_options:
-      navigation_depth: 2
+      # This ensures the sidebar is collapsed by default
       collapse_navigation: true
+      # This determines how many levels are shown before nesting
+      show_nav_level: 1
+      navigation_depth: 3
+      show_prev_next: true
+      icon_links:
+        - name: GitHub
+          url: https://github.com/KelinZhong/StudyNotes
+          icon: fab fa-github-square

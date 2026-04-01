@@ -1,17 +1,15 @@
 format: jb-book
 root: intro
-parts:
-  - caption: Pandas
-    chapters:
-      - file: Pandas/Reference_Pandas
+chapters:
+  - file: Pandas/Reference_Pandas
+    title: Pandas Reference
 
-  - caption: SQL LeetCode
-    chapters:
-      - file: SQL/Reference_SQL
+  - file: SQL/Reference_SQL
+    title: SQL LeetCode
 
-  - caption: Python LeetCode
-    chapters:
-      - file: Python/Reference_Arrays_and_Hashing
+  - file: Python/Reference_Arrays_and_Hashing
+    title: Python LeetCode
+    sections:
       - file: Python/Study_Guide_Sliding_Window_and_Two_Pointers
       - file: Python/Cheatsheet_Heap_and_Monotonic_Stack
       - file: Python/Study_Guide_DP
