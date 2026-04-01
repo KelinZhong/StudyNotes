@@ -20,3 +20,6 @@ parts:
       - file: Python/Cheatsheet_Trie_and_Union_Find
       - file: Python/Cheatsheet_Binary_Search
       - file: Python/Reference_Linkedlists_and_Bit_Manipulation
+      - file: Python/Reference_Divide_Conquer
+      - file: Python/Cheatsheet_Greedy
+      - file: Python/Reference_Segment_Tree_Bit
