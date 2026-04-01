@@ -15,5 +15,5 @@ html:
 sphinx:
   config:
     html_theme_options:
-      collapse_navigation: false
+      collapse_navigation: true
       navigation_depth: 2
