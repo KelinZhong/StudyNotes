@@ -14,14 +14,21 @@ sphinx:
   config:
     html_theme: pydata_sphinx_theme
     html_theme_options:
-      # This is the "magic" fix: it forces all navigation to the sidebar
+      # 1. Rename the "More" button to "Topics"
+      header_dropdown_text: "Topics"
+      
+      # 2. Force all top-level chapters into the "Topics" dropdown
       header_links_before_dropdown: 0
       
-      # Ensures the sidebar starts collapsed but is easy to open
-      collapse_navigation: true
-      show_nav_level: 1
+      # 3. Keep the Sidebar working as you requested previously
+      primary_sidebar_end: ["page-toc"]
+      secondary_sidebar_items: []
+      
+      # 4. Sidebar behavior settings
+      collapse_navigation: false
+      show_nav_level: 2
       navigation_depth: 4
       
-      # Keeps the top bar clean with just your search and icons
-      navbar_center: ["navbar-nav"] # This will now be empty due to the setting above
+      # 5. Navbar Layout
+      navbar_center: ["navbar-nav"] # This ensures the "Topics" button appears
       navbar_end: ["theme-switcher", "navbar-icon-links"]
