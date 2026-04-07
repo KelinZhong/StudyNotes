@@ -4,6 +4,6 @@ Personal study guides, cheatsheets, and references for data structures, algorith
 
 ## Contents
 
-- **Pandas** — DataFrame operations, indexing, groupby, and data manipulation reference
+- **Python Data Library** — DataFrame operations, indexing, groupby, and data manipulation reference in Python
 - **SQL LeetCode** — SQL query patterns and problem-solving reference
 - **Python LeetCode** — Study guides and cheatsheets for DSA topics including DP, Trees, Graphs, Sliding Window, Binary Search, Backtracking, Heaps, Tries, and more

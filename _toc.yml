@@ -5,24 +5,19 @@ chapters:
     title: Python Data Library
     sections:
       - file: Python Data Libs/Reference_Pandas
-        title: Pandas Reference
       - file: Python Data Libs/Reference_NumPy
-        title: NumPy Reference
 
 
   - file: SQL LeetCode/SQL_quickcheck
-    title: SQL Syntax
+    title: SQL LeetCode
     sections:
       - file: SQL LeetCode/reference_SQL_syntax
-        title: SQL Syntax
       - file: SQL LeetCode/reference_SQL_patterns
-        title: SQL Patterns
 
   - file: Python LeetCode/Python_DSA
     title: Python LeetCode
     sections:
       - file: Python LeetCode/Reference_Arrays_and_Hashing
-        title: Python LeetCode
       - file: Python LeetCode/Study_Guide_Sliding_Window_and_Two_Pointers
       - file: Python LeetCode/Cheatsheet_Heap_and_Monotonic_Stack
       - file: Python LeetCode/Study_Guide_DP
