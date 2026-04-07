@@ -1,26 +1,36 @@
 format: jb-book
 root: intro
 chapters:
-  - file: Pandas/Reference_Pandas
-    title: Pandas Reference
+  - file: Python Data Libs/Python_Data_Libs
+    title: Python Data Library
+    sections:
+      - file: Python Data Libs/Reference_Pandas
+        title: Pandas Reference
+      - file: Python Data Libs/Reference_NumPy
+        title: NumPy Reference
 
-  - file: SQL/reference_SQL_syntax
+
+  - file: SQL LeetCode/SQL_quickcheck
     title: SQL Syntax
     sections:
-      - file: SQL/reference_SQL_patterns
+      - file: SQL LeetCode/reference_SQL_syntax
+        title: SQL Syntax
+      - file: SQL LeetCode/reference_SQL_patterns
         title: SQL Patterns
 
-  - file: Python/Reference_Arrays_and_Hashing
+  - file: Python LeetCode/Python_DSA
     title: Python LeetCode
     sections:
-      - file: Python/Study_Guide_Sliding_Window_and_Two_Pointers
-      - file: Python/Cheatsheet_Heap_and_Monotonic_Stack
-      - file: Python/Study_Guide_DP
-      - file: Python/Cheatsheet_backtracking
-      - file: Python/Study_Guide_Trees_and_Graphs
-      - file: Python/Cheatsheet_Trie_and_Union_Find
-      - file: Python/Cheatsheet_Binary_Search
-      - file: Python/Reference_Linkedlists_and_Bit_Manipulation
-      - file: Python/Reference_Divide_Conquer
-      - file: Python/Cheatsheet_Greedy
-      - file: Python/Reference_Segment_Tree_Bit
+      - file: Python LeetCode/Reference_Arrays_and_Hashing
+        title: Python LeetCode
+      - file: Python LeetCode/Study_Guide_Sliding_Window_and_Two_Pointers
+      - file: Python LeetCode/Cheatsheet_Heap_and_Monotonic_Stack
+      - file: Python LeetCode/Study_Guide_DP
+      - file: Python LeetCode/Cheatsheet_backtracking
+      - file: Python LeetCode/Study_Guide_Trees_and_Graphs
+      - file: Python LeetCode/Cheatsheet_Trie_and_Union_Find
+      - file: Python LeetCode/Cheatsheet_Binary_Search
+      - file: Python LeetCode/Reference_Linkedlists_and_Bit_Manipulation
+      - file: Python LeetCode/Reference_Divide_Conquer
+      - file: Python LeetCode/Cheatsheet_Greedy
+      - file: Python LeetCode/Reference_Segment_Tree_Bit
