@@ -4,8 +4,11 @@ chapters:
   - file: Pandas/Reference_Pandas
     title: Pandas Reference
 
-  - file: SQL/Reference_SQL
-    title: SQL LeetCode
+  - file: SQL/reference_SQL_syntax
+    title: SQL Syntax
+    sections:
+      - file: SQL/reference_SQL_patterns
+        title: SQL Patterns
 
   - file: Python/Reference_Arrays_and_Hashing
     title: Python LeetCode
