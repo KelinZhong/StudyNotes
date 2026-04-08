@@ -50,3 +50,16 @@ chapters:
       - file: Deep Learning/DL5_handling_sequences
       - file: Deep Learning/DL6_how_attention_works
       - file: Deep Learning/DL7_using_pretrained_models
+  
+  - file: PyTorch Guide/P0_pytorch
+    title: PyTorch Notes
+    sections:
+      - file: PyTorch Guide/P1_pytorch_tensors
+      - file: PyTorch Guide/P2_pytorch_autograd
+      - file: PyTorch Guide/P3_pytorch_defining_models
+      - file: PyTorch Guide/P4_pytorch_training_loop
+      - file: PyTorch Guide/P5_pytorch_cnn
+      - file: PyTorch Guide/P6_pytorch_rnn_lstm
+      - file: PyTorch Guide/P7_pytorch_debugging      
+      - file: PyTorch Guide/P8_pytorch_pretrained_models      
+      - file: PyTorch Guide/P9_pytorch_finetuning

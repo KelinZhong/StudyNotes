@@ -8,5 +8,10 @@ transformers
 lightgbm
 xgboost
 catboost
+umap-learn
 jupyter-book
 ipykernel
+datasets
+accelerate
+tqdm
+pillow
