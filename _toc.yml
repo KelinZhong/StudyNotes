@@ -74,4 +74,4 @@ chapters:
       - file: TensorFlow Guide/tf5_cnn
       - file: TensorFlow Guide/tf6_regularization
       - file: TensorFlow Guide/tf7_saving_deployment   
-      - file: TensorFlow Guide/Ptf8_pretrained_finetuning
+      - file: TensorFlow Guide/tf8_pretrained_finetuning
