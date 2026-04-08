@@ -18,3 +18,8 @@ pillow
 tensorflow
 keras-tuner
 pandas
+statsmodels
+networkx
+dowhy
+econml
+causalml

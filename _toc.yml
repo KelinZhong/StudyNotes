@@ -75,3 +75,15 @@ chapters:
       - file: TensorFlow Guide/tf6_regularization
       - file: TensorFlow Guide/tf7_saving_deployment   
       - file: TensorFlow Guide/tf8_pretrained_finetuning
+  
+  - file: Causal ML/cml0
+    title: Causal Machine Learning Notes
+    sections:
+      - file: Causal ML/cml1_foundations
+      - file: Causal ML/cml2_experiments
+      - file: Causal ML/cml3_observational
+      - file: Causal ML/cml4_identification
+      - file: Causal ML/cml5_cate_metalearners
+      - file: Causal ML/cml6_uplift_modeling
+      - file: Causal ML/cml7_causal_forests
+      - file: Causal ML/cml8_endtoend
