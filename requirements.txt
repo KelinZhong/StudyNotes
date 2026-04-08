@@ -1,0 +1,11 @@
+numpy
+matplotlib
+scikit-learn
+scipy
+torch
+torchvision
+transformers
+lightgbm
+xgboost
+catboost
+jupyter-book
