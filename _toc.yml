@@ -63,3 +63,15 @@ chapters:
       - file: PyTorch Guide/P7_pytorch_debugging      
       - file: PyTorch Guide/P8_pytorch_pretrained_models      
       - file: PyTorch Guide/P9_pytorch_finetuning
+  
+  - file: TensorFlow Guide/tf0
+    title: TensorFlow Notes
+    sections:
+      - file: TensorFlow Guide/tf1_building_models
+      - file: TensorFlow Guide/tf2_training
+      - file: TensorFlow Guide/tf3_callbacks
+      - file: TensorFlow Guide/tf4_data_pipelines
+      - file: TensorFlow Guide/tf5_cnn
+      - file: TensorFlow Guide/tf6_regularization
+      - file: TensorFlow Guide/tf7_saving_deployment   
+      - file: TensorFlow Guide/Ptf8_pretrained_finetuning
