@@ -10,4 +10,5 @@ Personal study guides, cheatsheets, and references for data structures, algorith
 - **Machine Learning** - Notes of Machine Learning knowledge
 - **Deep Learning** - Notes of Deep Learning knowledge
 - **PyTorch Guide** - Notes of PyTorch
-- **TensorFlow** - Notes of TensorFlow
+- **TensorFlow Guide** - Notes of TensorFlow
+- **Causal Inference and Machine Learning** - Notes of causal inference and causal ML
