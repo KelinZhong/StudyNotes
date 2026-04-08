@@ -4,7 +4,12 @@ repository:
   url: https://github.com/KelinZhong/StudyNotes
 
 execute:
-  execute_notebooks: "off"
+  execute_notebooks: "force"
+  exclude_patterns:
+    - "Python Data Libs/*"
+    - "SQL LeetCode/*"
+    - "Python LeetCode/*"
+    - "Machine Learning/*"
 
 html:
   use_repository_button: true

@@ -39,3 +39,14 @@ chapters:
       - file: Machine Learning/ML4_unsupervised_learning
       - file: Machine Learning/ML5_tree_based_models
       - file: Machine Learning/ML6_similarity_boundaries
+
+  - file: Deep Learning/DL0
+    title: Deep Learning Notes
+    sections:
+      - file: Deep Learning/DL1_how_neural_networks_learn
+      - file: Deep Learning/DL2_training_networks_effectively
+      - file: Deep Learning/DL3_preventing_overfitting
+      - file: Deep Learning/DL4_cnns_understanding_images
+      - file: Deep Learning/DL5_handling_sequences
+      - file: Deep Learning/DL6_how_attention_works
+      - file: Deep Learning/DL7_using_pretrained_models
