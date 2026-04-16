@@ -87,3 +87,17 @@ chapters:
       - file: Causal ML/cml6_uplift_modeling
       - file: Causal ML/cml7_causal_forests
       - file: Causal ML/cml8_endtoend
+  
+  - file: Data Science Workflow/ds0
+    title: Data Science Workflow
+    sections:
+    - file: Data Science Workflow/ds1_problem_framing
+    - file: Data Science Workflow/ds2_eda
+    - file: Data Science Workflow/ds3_analytics
+    - file: Data Science Workflow/ds4_features
+    - file: Data Science Workflow/ds5_modeling
+    - file: Data Science Workflow/ds6_validation
+    - file: Data Science Workflow/ds7_deployment
+    - file: Data Science Workflow/ds8_communication
+    - file: Data Science Workflow/ds9_analytics_case_study
+    - file: Data Science Workflow/ds10_ml_case_study

@@ -1,6 +1,6 @@
 # My Study Notes
 
-Personal study guides, cheatsheets, and references for data structures, algorithms, and data tools.
+Personal study guides, cheatsheets, and references for data science related knowledge.
 
 ## Contents
 
@@ -12,3 +12,4 @@ Personal study guides, cheatsheets, and references for data structures, algorith
 - **PyTorch Guide** - Notes of PyTorch
 - **TensorFlow Guide** - Notes of TensorFlow
 - **Causal Inference and Machine Learning** - Notes of causal inference and causal ML
+- **Data Science Workflow** - Notes of frame work for Data Science Analysis

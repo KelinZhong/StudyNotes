@@ -23,3 +23,8 @@ networkx
 dowhy
 econml
 causalml
+mlflow
+seaborn
+fastapi
+uvicorn
+evidently

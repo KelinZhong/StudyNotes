@@ -10,6 +10,9 @@ execute:
     - "SQL LeetCode/*"
     - "Python LeetCode/*"
     - "Machine Learning/*"
+    - "Data Science Workflow/DS7_*.ipynb"
+    - "Data Science Workflow/DS9_*.ipynb"
+    - "Data Science Workflow/DS10_*.ipynb"
 
 html:
   use_repository_button: true
