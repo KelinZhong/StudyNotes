@@ -1,0 +1,1754 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SQL — Question Patterns Reference &#8212; Data Science Study Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SQL LeetCode/reference_SQL_patterns';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Data Structures and Algorithm" href="../Python%20LeetCode/Python_DSA.html" />
+    <link rel="prev" title="SQL — Syntax Reference" href="reference_SQL_syntax.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Science Study Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20LeetCode/Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20LeetCode/Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reference_SQL_syntax.html">SQL — Syntax Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SQL — Question Patterns Reference</a></li>
+
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SQL — Question Patterns Reference</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-index">Quick Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use">When to Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deduplication-patterns">§1 — Deduplication Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-distinct-fully-identical-rows">§1a — DISTINCT (fully identical rows)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-group-by-as-deduplication">§1b — GROUP BY as deduplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-row-number-keep-specific-occurrence">§1c — ROW_NUMBER() — keep specific occurrence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-not-exists-not-in-remove-rows-with-a-match-elsewhere">§1d — NOT EXISTS / NOT IN — remove rows with a match elsewhere</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-delete-duplicates-keep-one">§1e — DELETE duplicates, keep one</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking-top-n-per-group">§2 — Ranking &amp; Top N per Group</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-top-n-per-group-row-number">§2a — Top N per group (ROW_NUMBER)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-top-n-per-group-with-ties-dense-rank">§2b — Top N per group with ties (DENSE_RANK)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-nth-highest-single-value">§2c — Nth highest (single value)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-median">§2d — Median</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-transpose">§3 — Pivot &amp; Transpose</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pivot-with-case-when-most-common">§3a — Pivot with CASE WHEN (most common)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-transpose-rows-to-columns-fixed-columns">§3b — Transpose (rows to columns, fixed columns)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-dynamic-pivot-variable-number-of-columns">§3c — Dynamic pivot (variable number of columns)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-top-n-pivot-combined">§3d — Top N + Pivot combined</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaps-islands-streak-detection">§4 — Gaps &amp; Islands — Streak Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-date-streak-detection-row-number-subtraction-trick">§4a — Date streak detection (row number subtraction trick)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-longest-streak-per-user">§4b — Longest streak per user</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-integer-seat-number-gaps-same-trick">§4c — Integer / seat number gaps (same trick)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-flag-then-sum-boundary-flag-approach">§4d — Flag-then-sum (boundary flag approach)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-lag-comparison-consecutive-check-only">§4e — LAG comparison (consecutive-check only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-month-based-consecutiveness-period-diff">§4f — Month-based consecutiveness (PERIOD_DIFF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g-finding-missing-values-in-a-sequence">§4g — Finding missing values in a sequence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-grouping">§5 — Session Grouping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lag-based-session-grouping">§5a — LAG-based session grouping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-metrics">§6 — Product Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-dau-wau-mau">§6a — DAU / WAU / MAU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-cohort-retention">§6b — Cohort retention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-funnel-analysis">§6c — Funnel analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#growth-metrics">§7 — Growth Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-week-over-week-month-over-month-growth">§7a — Week-over-week / Month-over-month growth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rolling-n-day-active-users-sliding-window">§7b — Rolling N-day active users (sliding window)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-day-1-day-7-retention">§7c — Day-1 / Day-7 retention</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-patterns">§8 — Recursive Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-org-chart-top-down-traversal">§8a — Org chart top-down traversal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-find-all-ancestors-bottom-up">§8b — Find all ancestors (bottom-up)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-date-series-generation">§8c — Date series generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-number-series-generation">§8d — Number series generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-multi-level-hierarchy-set-up-relationships-before-aggregating">§8e — Multi-level hierarchy (set up relationships before aggregating)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-aggregation-patterns">§9 — Advanced Aggregation Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-mapping-best-match-with-group-by-min-max">§9a — Mapping / best-match with GROUP BY + MIN/MAX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-tuple-pair-conditions">§9b — Tuple / pair conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-all-rows-must-meet-condition-full-coverage-check">§9c — “All rows must meet condition” (full coverage check)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-multiple-ctes-as-staged-filters">§9d — Multiple CTEs as staged filters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-row-level-vs-aggregate-mixing-avoid-or-resolve">§9e — Row-level vs aggregate mixing (avoid or resolve)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-guide">Decision Guide</a></li>
+</ul>
+
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="SQL_quickcheck.html" class="nav-link">SQL Quick Check</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">SQL — Question Patterns Reference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sql-question-patterns-reference">
+<h1>SQL — Question Patterns Reference<a class="headerlink" href="#sql-question-patterns-reference" title="Link to this heading">#</a></h1>
+<p><strong>Companion to:</strong> <code class="docutils literal notranslate"><span class="pre">reference_sql_syntax.ipynb</span></code> — function names, argument order, dialect differences</p>
+<p><strong>Purpose:</strong> recognize problem types and reach for the right template. Open this when you’re mid-problem and need to identify the pattern.</p>
+<section id="quick-index">
+<h2>Quick Index<a class="headerlink" href="#quick-index" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Section</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>§1</p></td>
+<td class="text-left"><p>Deduplication patterns</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§2</p></td>
+<td class="text-left"><p>Ranking &amp; Top N per group</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§3</p></td>
+<td class="text-left"><p>Pivot &amp; transpose</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§4</p></td>
+<td class="text-left"><p>Gaps &amp; Islands — streak detection</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§5</p></td>
+<td class="text-left"><p>Session grouping</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§6</p></td>
+<td class="text-left"><p>Product metrics: DAU/WAU/MAU, cohort, funnel</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§7</p></td>
+<td class="text-left"><p>Growth metrics: WoW, MoM, rolling active users</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§8</p></td>
+<td class="text-left"><p>Recursive patterns</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§9</p></td>
+<td class="text-left"><p>Advanced aggregation patterns</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>—</p></td>
+<td class="text-left"><p>Decision Guide</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="when-to-use">
+<h2>When to Use<a class="headerlink" href="#when-to-use" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>“remove duplicates”, “keep only one”</p></td>
+<td class="text-left"><p>§1 — Deduplication</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“top N per group”, “highest salary per dept”</p></td>
+<td class="text-left"><p>§2 — Ranking</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“pivot”, “rows to columns”, “each X as a column”</p></td>
+<td class="text-left"><p>§3 — Pivot</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“consecutive days”, “streak”, “unbroken sequence”</p></td>
+<td class="text-left"><p>§4 — Gaps &amp; Islands</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“session”, “group events within N minutes”</p></td>
+<td class="text-left"><p>§5 — Session grouping</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“DAU”, “retention”, “cohort”, “funnel”</p></td>
+<td class="text-left"><p>§6 — Product metrics</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“week over week”, “growth rate”, “rolling users”</p></td>
+<td class="text-left"><p>§7 — Growth metrics</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“hierarchy”, “org chart”, “all ancestors”</p></td>
+<td class="text-left"><p>§8 — Recursive CTE</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“best match”, “pair rows”, “all conditions met”</p></td>
+<td class="text-left"><p>§9 — Advanced aggregation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="deduplication-patterns">
+<h2>§1 — Deduplication Patterns<a class="headerlink" href="#deduplication-patterns" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “remove duplicates”, “keep the earliest/latest record”, “unique users only”</p>
+<section id="a-distinct-fully-identical-rows">
+<h3>§1a — DISTINCT (fully identical rows)<a class="headerlink" href="#a-distinct-fully-identical-rows" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Remove fully duplicate rows across all selected columns</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">event_date</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="b-group-by-as-deduplication">
+<h3>§1b — GROUP BY as deduplication<a class="headerlink" href="#b-group-by-as-deduplication" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Deduplicate and aggregate simultaneously</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">login_count</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">login_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">last_login</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">logins</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-row-number-keep-specific-occurrence">
+<h3>§1c — ROW_NUMBER() — keep specific occurrence<a class="headerlink" href="#c-row-number-keep-specific-occurrence" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Keep the FIRST record per user (earliest date)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">ASC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">-- Keep the LAST record per user (latest date)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="d-not-exists-not-in-remove-rows-with-a-match-elsewhere">
+<h3>§1d — NOT EXISTS / NOT IN — remove rows with a match elsewhere<a class="headerlink" href="#d-not-exists-not-in-remove-rows-with-a-match-elsewhere" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Keep users who have never made a purchase</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="n">u</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">id</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="e-delete-duplicates-keep-one">
+<h3>§1e — DELETE duplicates, keep one<a class="headerlink" href="#e-delete-duplicates-keep-one" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Keep row with smallest id, delete the rest</span>
+<span class="k">DELETE</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Person</span><span class="w"> </span><span class="n">p1</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">Person</span><span class="w"> </span><span class="n">p2</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">email</span>
+<span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Decision — which deduplication method:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Method</p></th>
+<th class="head text-left"><p>Use when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code></p></td>
+<td class="text-left"><p>All selected columns define uniqueness</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code></p></td>
+<td class="text-left"><p>Need to deduplicate AND aggregate simultaneously</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ROW_NUMBER()</span></code></p></td>
+<td class="text-left"><p>Need to keep a specific occurrence (first, last, nth)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">EXISTS</span></code></p></td>
+<td class="text-left"><p>Remove rows that have any match in another table</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">+</span> <span class="pre">JOIN</span></code></p></td>
+<td class="text-left"><p>Physically remove duplicates from the table</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> when you need the first or last — DISTINCT doesn’t control which row is kept</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">IN</span></code> when the subquery can return NULLs — always prefer <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">EXISTS</span></code> for safety</p></li>
+<li><p>Forgetting <code class="docutils literal notranslate"><span class="pre">PARTITION</span> <span class="pre">BY</span></code> in <code class="docutils literal notranslate"><span class="pre">ROW_NUMBER()</span></code> — without it, numbering is global not per-group</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ranking-top-n-per-group">
+<h2>§2 — Ranking &amp; Top N per Group<a class="headerlink" href="#ranking-top-n-per-group" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “highest salary per department”, “top 3 products per category”, “second highest”</p>
+<section id="a-top-n-per-group-row-number">
+<h3>§2a — Top N per group (ROW_NUMBER)<a class="headerlink" href="#a-top-n-per-group-row-number" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Top 3 salaries per department — no ties</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="n">emp_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">Employee</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="n">emp_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="b-top-n-per-group-with-ties-dense-rank">
+<h3>§2b — Top N per group with ties (DENSE_RANK)<a class="headerlink" href="#b-top-n-per-group-with-ties-dense-rank" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Top 3 salary levels per department — ties included</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="n">emp_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">Employee</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="n">emp_id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">dr</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-nth-highest-single-value">
+<h3>§2c — Nth highest (single value)<a class="headerlink" href="#c-nth-highest-single-value" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Nth highest salary — handles case where fewer than N salaries exist</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">getNthHighestSalary</span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INT</span>
+<span class="k">BEGIN</span>
+<span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Employee</span>
+<span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span>
+<span class="w">    </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">OFFSET</span><span class="w"> </span><span class="n">N</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="k">END</span><span class="p">;</span>
+
+<span class="c1">-- Or with DENSE_RANK</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dr</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">Employee</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">dr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+<span class="c1">-- MAX handles the case where N rank doesn&#39;t exist — returns NULL</span>
+</pre></div>
+</div>
+</section>
+<section id="d-median">
+<h3>§2d — Median<a class="headerlink" href="#d-median" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Median using ROW_NUMBER (works in MySQL)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">counted</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">Employee</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">median</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">counted</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="n">FLOOR</span><span class="p">((</span><span class="n">total</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">CEIL</span><span class="p">((</span><span class="n">total</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">));</span>
+</pre></div>
+</div>
+<p><strong>Decision — ROW_NUMBER vs DENSE_RANK for Top N:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Function</p></th>
+<th class="head text-left"><p>Use when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ROW_NUMBER()</span></code></p></td>
+<td class="text-left"><p>Want exactly N rows, ties broken arbitrarily</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">DENSE_RANK()</span></code></p></td>
+<td class="text-left"><p>Want top N distinct values, ties all included</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">+</span> <span class="pre">OFFSET</span></code></p></td>
+<td class="text-left"><p>Single value without window function support</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">RANK()</span></code> for top N — gaps after ties mean rank 2 may not exist</p></li>
+<li><p>Forgetting <code class="docutils literal notranslate"><span class="pre">PARTITION</span> <span class="pre">BY</span></code> — without it, ranking is global not per-group</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">N</span></code> directly without <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> — may return duplicate salary values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">+</span> <span class="pre">OFFSET</span></code> fails silently for some kth-rank problems — prefer <code class="docutils literal notranslate"><span class="pre">DENSE_RANK</span></code> as the reliable fallback</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="pivot-transpose">
+<h2>§3 — Pivot &amp; Transpose<a class="headerlink" href="#pivot-transpose" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “each month as a column”, “show X and Y side by side”, “convert rows to columns”</p>
+<section id="a-pivot-with-case-when-most-common">
+<h3>§3a — Pivot with CASE WHEN (most common)<a class="headerlink" href="#a-pivot-with-case-when-most-common" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Pivot: one row per product, one column per month</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">product_id</span><span class="p">,</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="k">MONTH</span><span class="p">(</span><span class="n">sale_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Jan</span><span class="p">,</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="k">MONTH</span><span class="p">(</span><span class="n">sale_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Feb</span><span class="p">,</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="k">MONTH</span><span class="p">(</span><span class="n">sale_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Mar</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">product_id</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="b-transpose-rows-to-columns-fixed-columns">
+<h3>§3b — Transpose (rows to columns, fixed columns)<a class="headerlink" href="#b-transpose-rows-to-columns-fixed-columns" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- LC 1179: Department table with Department and Revenue per quarter</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">quarter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Q1&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">revenue</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Q1_Revenue</span><span class="p">,</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">quarter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Q2&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">revenue</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Q2_Revenue</span><span class="p">,</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">quarter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Q3&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">revenue</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Q3_Revenue</span><span class="p">,</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">quarter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Q4&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">revenue</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Q4_Revenue</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Department</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-dynamic-pivot-variable-number-of-columns">
+<h3>§3c — Dynamic pivot (variable number of columns)<a class="headerlink" href="#c-dynamic-pivot-variable-number-of-columns" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Not directly supported in MySQL — requires dynamic SQL</span>
+<span class="c1">-- Use GROUP_CONCAT to build the CASE WHEN list dynamically</span>
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="k">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">GROUP_CONCAT</span><span class="p">(</span>
+<span class="w">  </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;SUM(CASE WHEN month = &#39;</span><span class="p">,</span><span class="w"> </span><span class="k">month</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; THEN amount ELSE 0 END) AS m&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">month</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="k">sql</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="p">;</span>
+
+<span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="k">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;SELECT product_id, &#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="k">sql</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; FROM sales GROUP BY product_id&#39;</span><span class="p">);</span>
+<span class="k">PREPARE</span><span class="w"> </span><span class="n">stmt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">@</span><span class="k">sql</span><span class="p">;</span>
+<span class="k">EXECUTE</span><span class="w"> </span><span class="n">stmt</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="d-top-n-pivot-combined">
+<h3>§3d — Top N + Pivot combined<a class="headerlink" href="#d-top-n-pivot-combined" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> “show top N items per group as separate columns”</p>
+<p>When you need to pivot while also selecting only the top N items per group, combine <code class="docutils literal notranslate"><span class="pre">ROW_NUMBER()</span></code> with <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> + <code class="docutils literal notranslate"><span class="pre">MAX</span></code>/<code class="docutils literal notranslate"><span class="pre">MIN</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Align rows with their category rank, then collapse to one row per group</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">dept</span><span class="p">,</span>
+<span class="w">    </span><span class="n">salary</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">Employee</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">dept</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">top1_salary</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">top2_salary</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">top3_salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span>
+<span class="c1">-- MAX extracts the single non-null value per cell; COALESCE fills blanks if needed</span>
+</pre></div>
+</div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Fill missing pivot positions with COALESCE</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">dept</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COALESCE</span><span class="p">(</span><span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">END</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">top1_salary</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COALESCE</span><span class="p">(</span><span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">END</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">top2_salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ranked</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">dept</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Forgetting <code class="docutils literal notranslate"><span class="pre">ELSE</span> <span class="pre">0</span></code> in <code class="docutils literal notranslate"><span class="pre">SUM(CASE</span> <span class="pre">WHEN</span> <span class="pre">...)</span></code> — non-matching rows contribute NULL, not 0</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">MAX</span></code> vs <code class="docutils literal notranslate"><span class="pre">SUM</span></code> in pivot — use <code class="docutils literal notranslate"><span class="pre">MAX</span></code> when each cell has only one value; <code class="docutils literal notranslate"><span class="pre">SUM</span></code> when aggregating multiple rows</p></li>
+<li><p>Not grouping by the row identifier — always <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> the column that defines each output row</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="gaps-islands-streak-detection">
+<h2>§4 — Gaps &amp; Islands — Streak Detection<a class="headerlink" href="#gaps-islands-streak-detection" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “consecutive days”, “longest streak”, “unbroken sequence”, “find gaps in dates”</p>
+<section id="a-date-streak-detection-row-number-subtraction-trick">
+<h3>§4a — Date streak detection (row number subtraction trick)<a class="headerlink" href="#a-date-streak-detection-row-number-subtraction-trick" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Trick: date - ROW_NUMBER() = constant within a consecutive streak</span>
+<span class="c1">-- If dates are consecutive daily, the difference stays the same</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">numbered</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">    </span><span class="n">activity_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grp</span><span class="w">                           </span><span class="c1">-- same value = same streak</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MIN</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">streak_start</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MAX</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">streak_end</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w">           </span><span class="k">AS</span><span class="w"> </span><span class="n">streak_length</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">numbered</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">streak_start</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>MySQL date subtraction variant using DATE_SUB:</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="n">numbered</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DATE_SUB</span><span class="p">(</span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">      </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">DAY</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grp</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">activity_date</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">activity_date</span><span class="p">),</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">streak_len</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">numbered</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="b-longest-streak-per-user">
+<h3>§4b — Longest streak per user<a class="headerlink" href="#b-longest-streak-per-user" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="n">numbered</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">    </span><span class="n">activity_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grp</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span>
+<span class="p">),</span>
+<span class="n">streak_lengths</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">streak_len</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">numbered</span>
+<span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">streak_len</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">longest_streak</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">streak_lengths</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-integer-seat-number-gaps-same-trick">
+<h3>§4c — Integer / seat number gaps (same trick)<a class="headerlink" href="#c-integer-seat-number-gaps-same-trick" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Find consecutive seat ranges</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">numbered</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">seat_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">seat_id</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">seat_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grp</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">available_seats</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">seat_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">range_start</span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">seat_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">range_end</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">seats</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">numbered</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">grp</span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">                  </span><span class="c1">-- only groups of 2+ consecutive seats</span>
+</pre></div>
+</div>
+</section>
+<section id="d-flag-then-sum-boundary-flag-approach">
+<h3>§4d — Flag-then-sum (boundary flag approach)<a class="headerlink" href="#d-flag-then-sum-boundary-flag-approach" title="Link to this heading">#</a></h3>
+<p><strong>Use when:</strong> the row-subtraction trick is hard to apply, or when you need to detect boundaries based on a condition (not just consecutive integers/dates).</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Step 1: flag each row as 1 if it starts a new group, 0 otherwise</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">flagged</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">    </span><span class="k">CASE</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">activity_date</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span>
+<span class="w">        </span><span class="n">LAG</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span><span class="p">),</span>
+<span class="w">        </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span>
+<span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">is_new_group</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span>
+<span class="p">),</span>
+<span class="c1">-- Step 2: cumulative sum of flags = group ID</span>
+<span class="n">grouped</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">    </span><span class="k">SUM</span><span class="p">(</span><span class="n">is_new_group</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grp_id</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">flagged</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp_id</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">activity_date</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">activity_date</span><span class="p">),</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">streak_len</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">grouped</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">grp_id</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Flag direction matters:</strong> setting the flag to 1 at the <em>start</em> of a new group (as above) vs 1 at the <em>end</em> of a group gives different cumulative sums. Always verify which boundary you’re flagging.</p>
+</section>
+<section id="e-lag-comparison-consecutive-check-only">
+<h3>§4e — LAG comparison (consecutive-check only)<a class="headerlink" href="#e-lag-comparison-consecutive-check-only" title="Link to this heading">#</a></h3>
+<p><strong>Use when:</strong> you just need to know <em>whether</em> a pair of rows is consecutive — no group ID needed.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Check if each day is consecutive with the previous</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">activity_date</span><span class="p">,</span>
+<span class="w">  </span><span class="n">LAG</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prev_date</span><span class="p">,</span>
+<span class="w">  </span><span class="n">TIMESTAMPDIFF</span><span class="p">(</span><span class="k">DAY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">LAG</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">activity_date</span><span class="p">),</span>
+<span class="w">    </span><span class="n">activity_date</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gap_days</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">activity</span><span class="p">;</span>
+<span class="c1">-- gap_days = 1 means consecutive; &gt; 1 means a gap; NULL means first row</span>
+</pre></div>
+</div>
+</section>
+<section id="f-month-based-consecutiveness-period-diff">
+<h3>§4f — Month-based consecutiveness (PERIOD_DIFF)<a class="headerlink" href="#f-month-based-consecutiveness-period-diff" title="Link to this heading">#</a></h3>
+<p><strong>Use when:</strong> you want to detect consecutive months instead of consecutive days.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="n">ordered</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DATE_FORMAT</span><span class="p">(</span><span class="n">activity_date</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%Y%m&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">yr_month</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">DATE_FORMAT</span><span class="p">(</span><span class="n">activity_date</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%Y%m&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">DATE_FORMAT</span><span class="p">(</span><span class="n">activity_date</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%Y-%m-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">activity_date</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span><span class="p">)</span><span class="w"> </span><span class="n">deduped</span>
+<span class="p">),</span>
+<span class="n">grouped</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">yr_month</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">-- PERIOD_DIFF returns months between two YYYYMM values</span>
+<span class="w">    </span><span class="n">PERIOD_DIFF</span><span class="p">(</span><span class="n">yr_month</span><span class="p">,</span>
+<span class="w">      </span><span class="n">LAG</span><span class="p">(</span><span class="n">yr_month</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">yr_month</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">month_gap</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">ordered</span>
+<span class="p">)</span>
+<span class="c1">-- month_gap = 1 means consecutive months; group using flag-then-sum from §4d</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">grouped</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="g-finding-missing-values-in-a-sequence">
+<h3>§4g — Finding missing values in a sequence<a class="headerlink" href="#g-finding-missing-values-in-a-sequence" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Find missing dates using date series + LEFT JOIN</span>
+<span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">date_series</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span>
+<span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">date_series</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">activity_date</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">activity</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">dt</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">missing_date</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">date_series</span><span class="w"> </span><span class="n">d</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">activity</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">activity_date</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">activity_date</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Decision — which Gaps &amp; Islands approach:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Method</p></th>
+<th class="head text-left"><p>Use when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Row subtraction (<code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">-</span> <span class="pre">ROW_NUMBER()</span></code>)</p></td>
+<td class="text-left"><p>Consecutive daily dates or integers — simplest</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">DATE_SUB(...,</span> <span class="pre">INTERVAL</span> <span class="pre">ROW_NUMBER()</span> <span class="pre">DAY)</span></code></p></td>
+<td class="text-left"><p>Same as above, MySQL explicit syntax</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Flag-then-sum</p></td>
+<td class="text-left"><p>Condition-based boundaries, or non-fixed step sizes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LAG comparison</p></td>
+<td class="text-left"><p>Only need to identify gaps — no group assignment needed</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">PERIOD_DIFF</span></code></p></td>
+<td class="text-left"><p>Consecutive months (not days)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Recursive CTE + LEFT JOIN</p></td>
+<td class="text-left"><p>Find missing values in a sequence</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">RANK()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">ROW_NUMBER()</span></code> — ties in dates break the subtraction trick; always use <code class="docutils literal notranslate"><span class="pre">ROW_NUMBER()</span></code></p></li>
+<li><p>Forgetting <code class="docutils literal notranslate"><span class="pre">PARTITION</span> <span class="pre">BY</span> <span class="pre">user_id</span></code> — groups streaks across all users instead of per user</p></li>
+<li><p>Not deduplicating dates first — if a user has multiple events on the same date, duplicate dates break the row-subtraction trick</p></li>
+<li><p>Setting the flag at the wrong boundary (start vs end of group) in the flag-then-sum approach — verify which side you’re marking</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="session-grouping">
+<h2>§5 — Session Grouping<a class="headerlink" href="#session-grouping" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “group events into sessions”, “events within N minutes of each other belong to the same session”</p>
+<p>This is a generalized Gaps &amp; Islands variant — instead of consecutive dates, you group events where the gap to the previous event is below a threshold.</p>
+<section id="a-lag-based-session-grouping">
+<h3>§5a — LAG-based session grouping<a class="headerlink" href="#a-lag-based-session-grouping" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Step 1: flag new session start (gap &gt; threshold)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">flagged</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">event_time</span><span class="p">,</span>
+<span class="w">    </span><span class="k">CASE</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">TIMESTAMPDIFF</span><span class="p">(</span>
+<span class="w">        </span><span class="k">MINUTE</span><span class="p">,</span>
+<span class="w">        </span><span class="n">LAG</span><span class="p">(</span><span class="n">event_time</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">event_time</span><span class="p">),</span>
+<span class="w">        </span><span class="n">event_time</span>
+<span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">30</span><span class="w">                           </span><span class="c1">-- 30-minute session gap threshold</span>
+<span class="w">      </span><span class="k">OR</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">event_time</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">event_time</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">      </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">is_new_session</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span>
+<span class="p">),</span>
+<span class="c1">-- Step 2: assign session ID using cumulative sum of new session flags</span>
+<span class="n">sessions</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">event_time</span><span class="p">,</span>
+<span class="w">    </span><span class="k">SUM</span><span class="p">(</span><span class="n">is_new_session</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">event_time</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">session_id</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">flagged</span>
+<span class="p">)</span>
+<span class="c1">-- Step 3: aggregate per session</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">session_id</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MIN</span><span class="p">(</span><span class="n">event_time</span><span class="p">)</span><span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="n">session_start</span><span class="p">,</span>
+<span class="w">  </span><span class="k">MAX</span><span class="p">(</span><span class="n">event_time</span><span class="p">)</span><span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="n">session_end</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w">         </span><span class="k">AS</span><span class="w"> </span><span class="n">events_in_session</span><span class="p">,</span>
+<span class="w">  </span><span class="n">TIMESTAMPDIFF</span><span class="p">(</span><span class="k">MINUTE</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">event_time</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">event_time</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">session_duration_min</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sessions</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Decision — Gaps &amp; Islands vs Session Grouping:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Use when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Row number subtraction</p></td>
+<td class="text-left"><p>Consecutive dates or integers — fixed step size</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LAG + cumulative SUM</p></td>
+<td class="text-left"><p>Variable time gaps — group by threshold</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Forgetting <code class="docutils literal notranslate"><span class="pre">OR</span> <span class="pre">LAG(...)</span> <span class="pre">IS</span> <span class="pre">NULL</span></code> for the first event — first row has no previous event and should always start a new session</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">DATEDIFF</span></code> instead of <code class="docutils literal notranslate"><span class="pre">TIMESTAMPDIFF</span></code> — <code class="docutils literal notranslate"><span class="pre">DATEDIFF</span></code> only returns days; use <code class="docutils literal notranslate"><span class="pre">TIMESTAMPDIFF(MINUTE,</span> <span class="pre">...)</span></code> for sub-day gaps</p></li>
+<li><p>Applying the session flag without cumulative SUM — a flag alone doesn’t assign a unique session ID</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="product-metrics">
+<h2>§6 — Product Metrics<a class="headerlink" href="#product-metrics" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “daily active users”, “retention rate”, “cohort”, “conversion funnel”</p>
+<section id="a-dau-wau-mau">
+<h3>§6a — DAU / WAU / MAU<a class="headerlink" href="#a-dau-wau-mau" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">event_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="k">CURRENT_DATE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="w">  </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">DAU</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">event_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="k">CURRENT_DATE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="k">DAY</span><span class="w">  </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">WAU</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span>
+<span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">event_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="k">CURRENT_DATE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="k">DAY</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">MAU</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="b-cohort-retention">
+<h3>§6b — Cohort retention<a class="headerlink" href="#b-cohort-retention" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Assign each user to their cohort (first activity date)</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">cohort</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="nb">DATE</span><span class="p">(</span><span class="n">event_ts</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cohort_date</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span>
+<span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span>
+<span class="p">),</span>
+<span class="c1">-- Calculate week number relative to cohort date</span>
+<span class="n">activity</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">e</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">cohort_date</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FLOOR</span><span class="p">(</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="nb">DATE</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">event_ts</span><span class="p">),</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">cohort_date</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">week_num</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="n">e</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">cohort</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">user_id</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">cohort_date</span><span class="p">,</span>
+<span class="w">  </span><span class="n">week_num</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">retained_users</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">activity</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">cohort_date</span><span class="p">,</span><span class="w"> </span><span class="n">week_num</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">cohort_date</span><span class="p">,</span><span class="w"> </span><span class="n">week_num</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-funnel-analysis">
+<h3>§6c — Funnel analysis<a class="headerlink" href="#c-funnel-analysis" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Count distinct users at each step</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;view&#39;</span><span class="w">     </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">step1_view</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cart&#39;</span><span class="w">     </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">step2_cart</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;checkout&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">step3_checkout</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="p">;</span>
+
+<span class="c1">-- With conversion rates</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;view&#39;</span><span class="w">     </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span>
+<span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cart&#39;</span><span class="w">     </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span>
+<span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;checkout&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s3</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">s1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">view_users</span><span class="p">,</span>
+<span class="w">  </span><span class="n">s2</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cart_users</span><span class="p">,</span>
+<span class="w">  </span><span class="n">s3</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">checkout_users</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ROUND</span><span class="p">(</span><span class="n">s2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">NULLIF</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">view_to_cart_pct</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ROUND</span><span class="p">(</span><span class="n">s3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">NULLIF</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cart_to_checkout_pct</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">steps</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Funnel with ordered steps (user must complete steps in sequence):</strong>
+When users must hit steps in order, use <code class="docutils literal notranslate"><span class="pre">JOIN</span> <span class="pre">...</span> <span class="pre">ON</span> <span class="pre">...</span> <span class="pre">AND</span></code> to filter — not <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> — to preserve all step-1 users in the result.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Keep all step-1 users; join step-2 only where it follows step-1</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">s1</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">s1</span><span class="p">.</span><span class="n">event_time</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">step1_time</span><span class="p">,</span>
+<span class="w">  </span><span class="n">s2</span><span class="p">.</span><span class="n">event_time</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">step2_time</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="n">s1</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="n">s2</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2</span><span class="p">.</span><span class="n">user_id</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">s2</span><span class="p">.</span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cart&#39;</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">s2</span><span class="p">.</span><span class="n">event_time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="n">event_time</span><span class="w">   </span><span class="c1">-- step 2 must come after step 1</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;view&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Funnel: <code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">step</span> <span class="pre">=</span> <span class="pre">'view'</span></code> instead of <code class="docutils literal notranslate"><span class="pre">CASE</span> <span class="pre">WHEN</span></code> — collapses to only view-step rows</p></li>
+<li><p>Cohort: not deduplicating events per day — use <code class="docutils literal notranslate"><span class="pre">COUNT(DISTINCT</span> <span class="pre">user_id)</span></code> not <code class="docutils literal notranslate"><span class="pre">COUNT(*)</span></code></p></li>
+<li><p>Division by zero in conversion rates — always wrap denominator in <code class="docutils literal notranslate"><span class="pre">NULLIF(...,</span> <span class="pre">0)</span></code></p></li>
+<li><p>Ordered funnel: using <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> instead of <code class="docutils literal notranslate"><span class="pre">ON</span> <span class="pre">+</span> <span class="pre">AND</span></code> — loses users who didn’t reach step 2</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="growth-metrics">
+<h2>§7 — Growth Metrics<a class="headerlink" href="#growth-metrics" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “week-over-week change”, “month-over-month growth”, “rolling 7-day active users”</p>
+<section id="a-week-over-week-month-over-month-growth">
+<h3>§7a — Week-over-week / Month-over-month growth<a class="headerlink" href="#a-week-over-week-month-over-month-growth" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Weekly active users with WoW growth rate</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">weekly</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">YEARWEEK</span><span class="p">(</span><span class="n">event_date</span><span class="p">)</span><span class="w">              </span><span class="k">AS</span><span class="w"> </span><span class="n">yr_week</span><span class="p">,</span>
+<span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">user_id</span><span class="p">)</span><span class="w">           </span><span class="k">AS</span><span class="w"> </span><span class="n">wau</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span>
+<span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">YEARWEEK</span><span class="p">(</span><span class="n">event_date</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">yr_week</span><span class="p">,</span>
+<span class="w">  </span><span class="n">wau</span><span class="p">,</span>
+<span class="w">  </span><span class="n">LAG</span><span class="p">(</span><span class="n">wau</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">yr_week</span><span class="p">)</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="n">prev_week_wau</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ROUND</span><span class="p">(</span>
+<span class="w">    </span><span class="p">(</span><span class="n">wau</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">wau</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">yr_week</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span>
+<span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="k">NULLIF</span><span class="p">(</span><span class="n">LAG</span><span class="p">(</span><span class="n">wau</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">yr_week</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">)</span><span class="w">                                   </span><span class="k">AS</span><span class="w"> </span><span class="n">wow_growth_pct</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">weekly</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">yr_week</span><span class="p">;</span>
+
+<span class="c1">-- Month-over-month: replace YEARWEEK with DATE_FORMAT(date, &#39;%Y-%m&#39;)</span>
+</pre></div>
+</div>
+</section>
+<section id="b-rolling-n-day-active-users-sliding-window">
+<h3>§7b — Rolling N-day active users (sliding window)<a class="headerlink" href="#b-rolling-n-day-active-users-sliding-window" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Rolling 7-day distinct active users for each date</span>
+<span class="c1">-- Different from MAU: window slides daily, not fixed from a start date</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">daily</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="nb">DATE</span><span class="p">(</span><span class="n">event_ts</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">event_date</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">d1</span><span class="p">.</span><span class="n">event_date</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">d2</span><span class="p">.</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rolling_7d_users</span>
+<span class="k">FROM</span>
+<span class="w">  </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">event_date</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">daily</span><span class="p">)</span><span class="w"> </span><span class="n">d1</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">daily</span><span class="w"> </span><span class="n">d2</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">d2</span><span class="p">.</span><span class="n">event_date</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">DATE_SUB</span><span class="p">(</span><span class="n">d1</span><span class="p">.</span><span class="n">event_date</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span>
+<span class="w">                         </span><span class="k">AND</span><span class="w"> </span><span class="n">d1</span><span class="p">.</span><span class="n">event_date</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d1</span><span class="p">.</span><span class="n">event_date</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d1</span><span class="p">.</span><span class="n">event_date</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Self-join for pair-based aggregation:</strong>
+Self-joins are useful when you need to aggregate over pairs of rows from the same table (e.g., compare distances between all point pairs, or match records by a condition).</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Example: aggregate across all pairs satisfying a condition</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">id1</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">id2</span><span class="p">,</span>
+<span class="w">  </span><span class="n">SQRT</span><span class="p">(</span><span class="n">POW</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">POW</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">a</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="w">   </span><span class="c1">-- avoid counting (a,b) and (b,a) separately</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-day-1-day-7-retention">
+<h3>§7c — Day-1 / Day-7 retention<a class="headerlink" href="#c-day-1-day-7-retention" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- For each install date cohort, what fraction returned on day 1 and day 7?</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">installs</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">player_id</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">event_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">install_date</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">Activity</span>
+<span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">player_id</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="w">  </span><span class="n">ROUND</span><span class="p">(</span>
+<span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CASE</span>
+<span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">event_date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">install_date</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span>
+<span class="w">      </span><span class="k">THEN</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">player_id</span><span class="w"> </span><span class="k">END</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">player_id</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">day1_retention</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">installs</span><span class="w"> </span><span class="n">i</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Activity</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">player_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">player_id</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Decision — fixed window vs rolling window:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Metric</p></th>
+<th class="head text-left"><p>Window type</p></th>
+<th class="head text-left"><p>Use when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>MAU</p></td>
+<td class="text-left"><p>Fixed 30-day from today</p></td>
+<td class="text-left"><p>Snapshot of recent activity</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Rolling 7d users</p></td>
+<td class="text-left"><p>Sliding 7-day per date</p></td>
+<td class="text-left"><p>Trend over time, each date gets its own window</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Rolling window via self-join without deduplication — use <code class="docutils literal notranslate"><span class="pre">DISTINCT</span> <span class="pre">user_id</span></code> before joining</p></li>
+<li><p>WoW growth: using <code class="docutils literal notranslate"><span class="pre">WEEK()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">YEARWEEK()</span></code> — <code class="docutils literal notranslate"><span class="pre">WEEK()</span></code> resets at year boundary causing wrong week 1 pairing</p></li>
+<li><p>Day-N retention: off-by-one in <code class="docutils literal notranslate"><span class="pre">INTERVAL</span></code> — day 1 retention = returned exactly 1 day after install</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">LAG</span></code>/<code class="docutils literal notranslate"><span class="pre">LEAD</span></code> in the same query as <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> without a CTE — always pre-aggregate in a CTE, then apply <code class="docutils literal notranslate"><span class="pre">LAG</span></code> in the outer query</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="recursive-patterns">
+<h2>§8 — Recursive Patterns<a class="headerlink" href="#recursive-patterns" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “hierarchy”, “org chart”, “all managers of”, “generate date series”, “find all ancestors”</p>
+<section id="a-org-chart-top-down-traversal">
+<h3>§8a — Org chart top-down traversal<a class="headerlink" href="#a-org-chart-top-down-traversal" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="k">hierarchy</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- Anchor: root nodes</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">manager_id</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">depth</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">manager_id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+
+<span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+
+<span class="w">  </span><span class="c1">-- Recursive: one level deeper each iteration</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="k">hierarchy</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">id</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">hierarchy</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="b-find-all-ancestors-bottom-up">
+<h3>§8b — Find all ancestors (bottom-up)<a class="headerlink" href="#b-find-all-ancestors-bottom-up" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">ancestors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- Anchor: start from a specific node</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">manager_id</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span>
+
+<span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+
+<span class="w">  </span><span class="c1">-- Recursive: walk up to parent</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">ancestors</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">manager_id</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ancestors</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="c-date-series-generation">
+<h3>§8c — Date series generation<a class="headerlink" href="#c-date-series-generation" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Generate every date in a range</span>
+<span class="c1">-- Use case: LEFT JOIN to show zero-activity days</span>
+<span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">date_series</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dt</span>
+<span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">date_series</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2024-01-31&#39;</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="k">COALESCE</span><span class="p">(</span><span class="k">COUNT</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">user_id</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">event_count</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">date_series</span><span class="w"> </span><span class="n">d</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="nb">DATE</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">event_ts</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">dt</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">dt</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">dt</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="d-number-series-generation">
+<h3>§8d — Number series generation<a class="headerlink" href="#d-number-series-generation" title="Link to this heading">#</a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Generate integers 1 to N</span>
+<span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">numbers</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">n</span>
+<span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">numbers</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">numbers</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="e-multi-level-hierarchy-set-up-relationships-before-aggregating">
+<h3>§8e — Multi-level hierarchy (set up relationships before aggregating)<a class="headerlink" href="#e-multi-level-hierarchy-set-up-relationships-before-aggregating" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> “find all descendants”, “path from root to node”, “total reports under a manager”</p>
+<p>For hierarchy problems, first build the full relationship structure in one or more CTEs (level, descendants, path), then do any processing or aggregation on top.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Step 1: build full hierarchy with path</span>
+<span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">org</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">manager_id</span><span class="p">,</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lvl</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">manager_id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span><span class="p">,</span>
+<span class="w">         </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">lvl</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">org</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">manager_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">id</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">lvl</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="w">                  </span><span class="c1">-- safety limit to prevent runaway recursion</span>
+<span class="p">)</span>
+<span class="c1">-- Step 2: aggregate on top of the hierarchy CTE</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">manager_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_reports</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">org</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">manager_id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">manager_id</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">UNION</span></code> instead of <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> — deduplication breaks the recursion</p></li>
+<li><p>Missing termination condition — causes infinite recursion</p></li>
+<li><p>Column types in anchor vs recursive step must match exactly</p></li>
+<li><p>Writing <code class="docutils literal notranslate"><span class="pre">RECURSIVE</span> <span class="pre">WITH</span></code> — correct syntax is <code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">RECURSIVE</span></code></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="advanced-aggregation-patterns">
+<h2>§9 — Advanced Aggregation Patterns<a class="headerlink" href="#advanced-aggregation-patterns" title="Link to this heading">#</a></h2>
+<p><strong>Signal:</strong> “best match”, “mapping”, “all rows must meet condition”, “pair-based comparison”, “tuple condition”</p>
+<section id="a-mapping-best-match-with-group-by-min-max">
+<h3>§9a — Mapping / best-match with GROUP BY + MIN/MAX<a class="headerlink" href="#a-mapping-best-match-with-group-by-min-max" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> “find the best matching X for each Y”, “assign the closest”, “match records by criteria”</p>
+<p>When you need to find the best match between two sets of records, set up the join criteria first, then use <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> + <code class="docutils literal notranslate"><span class="pre">MIN</span></code> or <code class="docutils literal notranslate"><span class="pre">MAX</span></code> to select the single best match per group.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Find the best (earliest) assignment for each student</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">matches</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">student_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">assignment_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">due_date</span><span class="p">,</span>
+<span class="w">    </span><span class="k">ABS</span><span class="p">(</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">preferred_date</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">due_date</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">date_diff</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="n">s</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">assignments</span><span class="w"> </span><span class="n">a</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">course_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">course_id</span><span class="w">           </span><span class="c1">-- eligibility condition</span>
+<span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">due_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">enrollment_date</span><span class="w">    </span><span class="c1">-- additional filter</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">date_diff</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">closest_gap</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">matches</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">student_id</span><span class="p">;</span>
+<span class="c1">-- Then rejoin to get the full assignment row if needed</span>
+</pre></div>
+</div>
+</section>
+<section id="b-tuple-pair-conditions">
+<h3>§9b — Tuple / pair conditions<a class="headerlink" href="#b-tuple-pair-conditions" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> “find rows where (col_a, col_b) matches a known pair”</p>
+<p>Use tuple conditions instead of two separate <code class="docutils literal notranslate"><span class="pre">AND</span></code> filters when checking compound key matches.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Check if (product_id, warehouse_id) pair exists in a list</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">inventory</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">product_id</span><span class="p">,</span><span class="w"> </span><span class="n">warehouse_id</span><span class="p">)</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">product_id</span><span class="p">,</span><span class="w"> </span><span class="n">warehouse_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span>
+<span class="p">);</span>
+
+<span class="c1">-- Self-join using tuple to find symmetric pairs</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">user_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">friendships</span><span class="w"> </span><span class="n">a</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">friendships</span><span class="w"> </span><span class="n">b</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">user1_id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">user2_id</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">user2_id</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">user1_id</span><span class="p">);</span><span class="w">  </span><span class="c1">-- bidirectional check</span>
+</pre></div>
+</div>
+</section>
+<section id="c-all-rows-must-meet-condition-full-coverage-check">
+<h3>§9c — “All rows must meet condition” (full coverage check)<a class="headerlink" href="#c-all-rows-must-meet-condition-full-coverage-check" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> “only include groups where every row satisfies X”, “mandatory requirement for all”</p>
+<p>Use conditional aggregation to count how many rows satisfy the condition and compare to the total.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Only include students who passed ALL mandatory courses</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">grades</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">mandatory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Yes&#39;</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">student_id</span>
+<span class="k">HAVING</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">mandatory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Yes&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">-- left side: mandatory rows with grade A</span>
+<span class="w">  </span><span class="c1">-- right side: total mandatory rows</span>
+<span class="w">  </span><span class="c1">-- if equal, all mandatory rows passed</span>
+</pre></div>
+</div>
+</section>
+<section id="d-multiple-ctes-as-staged-filters">
+<h3>§9d — Multiple CTEs as staged filters<a class="headerlink" href="#d-multiple-ctes-as-staged-filters" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> complex eligibility rules, multi-step funnel, layered conditions</p>
+<p>Build up the answer step-by-step: each CTE applies one layer of filtering or transformation.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WITH</span><span class="w"> </span><span class="n">step1_eligible</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- Filter to active users only</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span>
+<span class="p">),</span>
+<span class="n">step2_qualified</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- Among active users, those who completed required courses</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">student_id</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">grades</span><span class="w"> </span><span class="k">g</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">step1_eligible</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">student_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">user_id</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">mandatory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Yes&#39;</span>
+<span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">student_id</span>
+<span class="w">  </span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span>
+<span class="p">),</span>
+<span class="n">step3_ranked</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- Rank the qualified students by GPA</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">gpa</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">gpa</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gpa_rank</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="n">s</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">step2_qualified</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">student_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">student_id</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">step3_ranked</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">gpa_rank</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="e-row-level-vs-aggregate-mixing-avoid-or-resolve">
+<h3>§9e — Row-level vs aggregate mixing (avoid or resolve)<a class="headerlink" href="#e-row-level-vs-aggregate-mixing-avoid-or-resolve" title="Link to this heading">#</a></h3>
+<p><strong>Signal:</strong> you need a value like <code class="docutils literal notranslate"><span class="pre">COUNT(*)</span></code> from the full table alongside row-level data</p>
+<p>You cannot mix row-level and aggregate values in the same <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> without <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code>. If you need aggregate context for each row, either use a window function or join back to a CTE.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- WRONG: mixing row-level and aggregate</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span><span class="w">  </span><span class="c1">-- error or single-row result</span>
+
+<span class="c1">-- RIGHT option 1: window function</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_orders</span><span class="w">   </span><span class="c1">-- window function keeps all rows</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
+
+<span class="c1">-- RIGHT option 2: join back to aggregate CTE</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">totals</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_orders</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">total_orders</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">totals</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Using a self-join without <code class="docutils literal notranslate"><span class="pre">ON</span> <span class="pre">a.id</span> <span class="pre">&lt;</span> <span class="pre">b.id</span></code> — creates duplicate pairs (a,b) and (b,a)</p></li>
+<li><p>Tuple conditions with NULLs — <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">NULL)</span> <span class="pre">IN</span> <span class="pre">(...)</span></code> behaves unexpectedly; filter NULLs first</p></li>
+<li><p>Mixing row-level and aggregate values without a window function or subquery</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="decision-guide">
+<h1>Decision Guide<a class="headerlink" href="#decision-guide" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>What is the problem asking?
+│
+├── Remove or identify duplicate rows?
+│   ├── All columns identical                → DISTINCT
+│   ├── Deduplicate + aggregate              → GROUP BY
+│   ├── Keep first / last / nth occurrence   → ROW_NUMBER() + filter
+│   ├── Find rows with no match elsewhere    → NOT EXISTS
+│   └── Physically delete duplicates         → DELETE + self-join
+│
+├── Find top N or ranked rows?
+│   ├── Exactly N rows, ties broken          → ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)
+│   ├── Top N values, ties all included      → DENSE_RANK() OVER (...) WHERE dr &lt;= N
+│   └── Single Nth value                     → DENSE_RANK or LIMIT + OFFSET (prefer DENSE_RANK)
+│
+├── Pivot rows into columns?
+│   ├── Fixed, known columns                 → SUM(CASE WHEN col = val THEN ... END)
+│   ├── Top N items as columns               → ROW_NUMBER() + MAX(CASE WHEN rn = k THEN ...)
+│   └── Dynamic columns                      → Dynamic SQL with GROUP_CONCAT
+│
+├── Find consecutive sequences or gaps?
+│   ├── Fixed step (daily dates, integers)   → date - ROW_NUMBER() grouping trick
+│   ├── Fixed step, MySQL explicit           → DATE_SUB(date, INTERVAL ROW_NUMBER() DAY)
+│   ├── Condition-based boundary             → flag is_new_group + cumulative SUM
+│   ├── Just checking for gaps               → LAG comparison + TIMESTAMPDIFF
+│   ├── Consecutive months                   → PERIOD_DIFF on DATE_FORMAT &#39;%Y%m&#39;
+│   └── Find missing values                  → Recursive date series + LEFT JOIN IS NULL
+│
+├── Product / user metrics?
+│   ├── Active users in a fixed window       → COUNT(DISTINCT) with INTERVAL filter
+│   ├── Active users in a sliding window     → Self-join with BETWEEN date range
+│   ├── Cohort retention                     → cohort CTE + DATEDIFF / 7 for week_num
+│   ├── Funnel (unordered steps)             → COUNT(DISTINCT CASE WHEN step = X)
+│   ├── Funnel (ordered steps)               → LEFT JOIN ... ON step + event_time order
+│   └── WoW / MoM growth                    → aggregate first in CTE, then LAG
+│
+├── Hierarchical or recursive data?
+│   ├── Top-down traversal                   → Recursive CTE, anchor = root
+│   ├── Bottom-up (find ancestors)           → Recursive CTE, anchor = leaf node
+│   ├── Path / depth tracking                → Include path/lvl column in anchor + recursive step
+│   └── Generate date / number series        → Recursive CTE, anchor = start value
+│
+├── Window function frame?
+│   ├── Last k physical rows                 → ROWS BETWEEN k PRECEDING AND CURRENT ROW
+│   ├── All rows in partition                → ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+│   ├── Value-based / tie-aware              → RANGE BETWEEN ... AND CURRENT ROW
+│   ├── Auto-fill missing time periods       → RANGE BETWEEN (fills gaps with 0 automatically)
+│   └── Running total                        → ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+│
+├── Advanced aggregation?
+│   ├── Best match / closest record          → JOIN on eligibility, GROUP BY + MIN/MAX
+│   ├── All rows in group must pass          → HAVING SUM(condition) = SUM(mandatory)
+│   ├── Compound key pair matching           → (col_a, col_b) IN (subquery)
+│   ├── Row-level + aggregate together       → Window function or CROSS JOIN to CTE
+│   └── Multi-step eligibility               → Chained CTEs, one filter per step
+│
+├── String matching?
+│   ├── Simple contains / starts / ends      → LIKE with % and _
+│   ├── Exact substring replacement          → REPLACE()
+│   ├── Format validation / complex pattern  → REGEXP / REGEXP_LIKE
+│   ├── Extract portion matching pattern     → REGEXP_SUBSTR
+│   └── Known position or delimiter          → SUBSTRING / LEFT / RIGHT / INSTR
+│
+└── Deduplication inside aggregation?
+    ├── Count unique values                  → COUNT(DISTINCT col)
+    └── Sum only matching rows               → SUM(CASE WHEN ... THEN val ELSE 0 END)
+</pre></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./SQL LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="reference_SQL_syntax.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">SQL — Syntax Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Python%20LeetCode/Python_DSA.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python Data Structures and Algorithm</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

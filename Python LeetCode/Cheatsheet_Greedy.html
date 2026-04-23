@@ -1,0 +1,1148 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Greedy — Cheat Sheet &#8212; Data Science Study Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/Cheatsheet_Greedy';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference" href="Reference_Segment_Tree_Bit.html" />
+    <link rel="prev" title="Divide &amp; Conquer — Technical Reference" href="Reference_Divide_Conquer.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Science Study Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Reference_Arrays_and_Hashing.html">Arrays &amp; Hashing — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Sliding_Window_and_Two_Pointers.html">Sliding Window &amp; Two Pointers — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Heap_and_Monotonic_Stack.html">Heap &amp; Monotonic Stack — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_DP.html">Dynamic Programming — Study Guide</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_backtracking.html">Backtracking — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Trees_and_Graphs.html">Trees &amp; Graphs — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Binary_Search.html">Binary Search — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Linkedlists_and_Bit_Manipulation.html">Linked Lists &amp; Bit Manipulation — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference_Divide_Conquer.html">Divide &amp; Conquer — Technical Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Greedy — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Segment_Tree_Bit.html">Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Greedy — Cheat Sheet</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use">When to Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patterns-at-a-glance">Patterns at a Glance</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-quick-recap">Part 0 — Quick Recap</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-interval-scheduling">Part 1 — Interval Scheduling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-idea">Core idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-mistakes">Common mistakes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-jump-game">Part 2 — Jump Game</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Core idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Common mistakes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-greedy-with-heap">Part 3 — Greedy with Heap</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Core idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Common mistakes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-sorting-matching">Part 4 — Sorting + Matching</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Core idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Common mistakes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-prefix-running-choice">Part 5 — Prefix / Running Choice</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Core idea</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Common mistakes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-guide">Decision Guide</a></li>
+</ul>
+
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Python_DSA.html" class="nav-link">Python Data Structures and Algorithm</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Greedy — Cheat Sheet</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="greedy-cheat-sheet">
+<h1>Greedy — Cheat Sheet<a class="headerlink" href="#greedy-cheat-sheet" title="Link to this heading">#</a></h1>
+<p><strong>Companion to:</strong> DP Study Guide, Backtracking Cheat Sheet</p>
+<p><strong>What this adds:</strong> Greedy was not covered in any study guide. Unlike Backtracking (universal template) or DP (5-step framework), Greedy has no single template — the structure varies by problem type. This cheat sheet is organized by problem type rather than by template.</p>
+<hr class="docutils" />
+<section id="when-to-use">
+<h2>When to Use<a class="headerlink" href="#when-to-use" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Signal</p></th>
+<th class="head text-left"><p>Pattern to reach for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>“minimum number of intervals”, “non-overlapping”</p></td>
+<td class="text-left"><p>Interval scheduling</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“meeting rooms”, “can attend all meetings”</p></td>
+<td class="text-left"><p>Interval overlap detection</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“can reach the end”, “minimum jumps”</p></td>
+<td class="text-left"><p>Jump game</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“minimum cost to connect”, “huffman”</p></td>
+<td class="text-left"><p>Greedy with heap</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“assign tasks”, “match pairs optimally”</p></td>
+<td class="text-left"><p>Greedy sorting + matching</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“maximize/minimize with a local choice”</p></td>
+<td class="text-left"><p>Greedy (if optimal substructure + greedy choice property holds)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="patterns-at-a-glance">
+<h2>Patterns at a Glance<a class="headerlink" href="#patterns-at-a-glance" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Greedy choice</p></th>
+<th class="head text-left"><p>Sort by</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Interval scheduling</p></td>
+<td class="text-left"><p>Pick interval ending earliest</p></td>
+<td class="text-left"><p>End time ASC</p></td>
+<td class="text-left"><p>435, 452, 56</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Interval overlap detection</p></td>
+<td class="text-left"><p>Track max end of overlapping group</p></td>
+<td class="text-left"><p>Start time ASC</p></td>
+<td class="text-left"><p>56, 57, 986</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Jump game</p></td>
+<td class="text-left"><p>Maximize reachable index at each step</p></td>
+<td class="text-left"><p>No sort</p></td>
+<td class="text-left"><p>55, 45</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Greedy with heap</p></td>
+<td class="text-left"><p>Always pick the smallest/largest available</p></td>
+<td class="text-left"><p>Heap order</p></td>
+<td class="text-left"><p>621, 767, 1405</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Sorting + matching</p></td>
+<td class="text-left"><p>Sort both arrays, match greedily</p></td>
+<td class="text-left"><p>Varies</p></td>
+<td class="text-left"><p>455, 881, 870</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Prefix / running choice</p></td>
+<td class="text-left"><p>Make locally optimal decision at each position</p></td>
+<td class="text-left"><p>No sort</p></td>
+<td class="text-left"><p>134, 135, 406</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-0-quick-recap">
+<h1>Part 0 — Quick Recap<a class="headerlink" href="#part-0-quick-recap" title="Link to this heading">#</a></h1>
+<p>A greedy algorithm makes the <strong>locally optimal choice at each step</strong> without backtracking, and this leads to a globally optimal solution. It works when two properties hold:</p>
+<ol class="arabic simple">
+<li><p><strong>Greedy choice property</strong> — the local optimum at each step is always part of some global optimum</p></li>
+<li><p><strong>Optimal substructure</strong> — the optimal solution to the whole problem contains optimal solutions to subproblems</p></li>
+</ol>
+<p><strong>How it differs from DP:</strong> DP considers all choices and stores results. Greedy commits to one choice immediately and never revisits it. Greedy is faster (usually O(n log n) vs O(n²) or more for DP) but only correct when the greedy choice property holds.</p>
+<p><strong>How it differs from Backtracking:</strong> Backtracking explores all paths and backtracks on dead ends. Greedy never backtracks — it commits to each choice permanently.</p>
+<p><strong>The hardest part of greedy problems:</strong> recognizing that greedy works and proving why. If you’re unsure, ask: “Can I construct a counterexample where the local optimum leads to a globally wrong answer?” If yes — use DP. If no — greedy is likely correct.</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-1-interval-scheduling">
+<h1>Part 1 — Interval Scheduling<a class="headerlink" href="#part-1-interval-scheduling" title="Link to this heading">#</a></h1>
+<section id="core-idea">
+<h2>Core idea<a class="headerlink" href="#core-idea" title="Link to this heading">#</a></h2>
+<p>Given a set of intervals, select the maximum number of non-overlapping intervals, or find the minimum number needed to cover/remove.</p>
+<p><strong>The key greedy insight:</strong> always pick the interval that <strong>ends earliest</strong> — it leaves the most room for future intervals. Sort by end time, then greedily select intervals that don’t overlap with the last selected.</p>
+<p><strong>Overlap condition:</strong> two intervals <code class="docutils literal notranslate"><span class="pre">[a,</span> <span class="pre">b]</span></code> and <code class="docutils literal notranslate"><span class="pre">[c,</span> <span class="pre">d]</span></code> overlap if <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">&lt;</span> <span class="pre">b</span></code> (start of second is before end of first).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — Maximum non-overlapping intervals (LC 435)</span>
+<span class="c1"># Returns minimum number of intervals to REMOVE</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">eraseOverlapIntervals</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
+    <span class="n">intervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># sort by END time</span>
+    <span class="n">removed</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">last_end</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">last_end</span><span class="p">:</span>            <span class="c1"># overlaps with previous — remove it</span>
+            <span class="n">removed</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">last_end</span> <span class="o">=</span> <span class="n">end</span>              <span class="c1"># no overlap — keep it, update last_end</span>
+    <span class="k">return</span> <span class="n">removed</span>
+
+
+<span class="c1"># Template — Minimum arrows to burst balloons (LC 452)</span>
+<span class="c1"># Same pattern: sort by end, shoot at last_end</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">findMinArrowShots</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>    <span class="c1"># sort by END</span>
+    <span class="n">arrows</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">last_end</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">last_end</span><span class="p">:</span>            <span class="c1"># balloon not reached by current arrow</span>
+            <span class="n">arrows</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">last_end</span> <span class="o">=</span> <span class="n">end</span>
+    <span class="k">return</span> <span class="n">arrows</span>
+
+
+<span class="c1"># Template — Merge overlapping intervals (LC 56)</span>
+<span class="c1"># Sort by START time — merge when next start &lt;= current end</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
+    <span class="n">intervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># sort by START time</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="p">[</span><span class="n">intervals</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>       <span class="c1"># overlaps — extend current interval</span>
+            <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">end</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">merged</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span>  <span class="c1"># no overlap — new interval</span>
+    <span class="k">return</span> <span class="n">merged</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="common-mistakes">
+<h2>Common mistakes<a class="headerlink" href="#common-mistakes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Sorting by start instead of end for non-overlapping selection — sorting by start doesn’t minimize conflicts; always sort by end for scheduling</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> vs <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> for overlap condition — <code class="docutils literal notranslate"><span class="pre">[1,2]</span></code> and <code class="docutils literal notranslate"><span class="pre">[2,3]</span></code> are NOT overlapping (they share a boundary); use <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">last_end</span></code> not <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></p></li>
+<li><p>Forgetting to update <code class="docutils literal notranslate"><span class="pre">last_end</span></code> only when keeping an interval, not when removing</p></li>
+</ul>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Sort by</p></th>
+<th class="head text-left"><p>Greedy choice</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 435 — Non-overlapping Intervals</p></td>
+<td class="text-left"><p>End ASC</p></td>
+<td class="text-left"><p>Keep earliest-ending, remove overlap</p></td>
+<td class="text-left"><p>Count removals</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 452 — Minimum Arrows</p></td>
+<td class="text-left"><p>End ASC</p></td>
+<td class="text-left"><p>Shoot at current end</p></td>
+<td class="text-left"><p>Count arrows</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 56 — Merge Intervals</p></td>
+<td class="text-left"><p>Start ASC</p></td>
+<td class="text-left"><p>Extend if overlapping</p></td>
+<td class="text-left"><p>Build merged list</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-2-jump-game">
+<h1>Part 2 — Jump Game<a class="headerlink" href="#part-2-jump-game" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Core idea<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>At each position, you can jump up to <code class="docutils literal notranslate"><span class="pre">nums[i]</span></code> steps forward. The greedy insight: track the <strong>maximum reachable index</strong> as you scan left to right. You never need to simulate individual jumps — just track how far you can reach.</p>
+<p><strong>For minimum jumps (LC 45):</strong> track the current jump boundary and the farthest reachable within that boundary. When you reach the boundary, you must take another jump.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 55 — Jump Game (can you reach the end?)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">canJump</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">max_reach</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">jump</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">max_reach</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># current index is unreachable</span>
+        <span class="n">max_reach</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_reach</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">jump</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="c1"># LC 45 — Jump Game II (minimum jumps to reach end)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">jumps</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">current_end</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c1"># boundary of current jump range</span>
+    <span class="n">farthest</span> <span class="o">=</span> <span class="mi">0</span>                        <span class="c1"># farthest reachable within current range</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>     <span class="c1"># don&#39;t need to jump from last position</span>
+        <span class="n">farthest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">farthest</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">current_end</span><span class="p">:</span>            <span class="c1"># reached boundary — must jump</span>
+            <span class="n">jumps</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">current_end</span> <span class="o">=</span> <span class="n">farthest</span>
+    <span class="k">return</span> <span class="n">jumps</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>Common mistakes<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Simulating individual jumps instead of tracking max reachable — O(n²) vs O(n)</p></li>
+<li><p>In LC 45: iterating to <code class="docutils literal notranslate"><span class="pre">len(nums)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">len(nums)</span> <span class="pre">-</span> <span class="pre">1</span></code> — causes an off-by-one extra jump</p></li>
+<li><p>Confusing <code class="docutils literal notranslate"><span class="pre">current_end</span></code> (boundary of current jump) with <code class="docutils literal notranslate"><span class="pre">farthest</span></code> (best reachable from current jump)</p></li>
+</ul>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 55 — Jump Game</p></td>
+<td class="text-left"><p>Can reach? Track max_reach, return False if i &gt; max_reach</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 45 — Jump Game II</p></td>
+<td class="text-left"><p>Min jumps: boundary + farthest pattern</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 1696 — Jump Game VI</p></td>
+<td class="text-left"><p>Max score: monotonic deque DP hybrid</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-3-greedy-with-heap">
+<h1>Part 3 — Greedy with Heap<a class="headerlink" href="#part-3-greedy-with-heap" title="Link to this heading">#</a></h1>
+<section id="id3">
+<h2>Core idea<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>When the greedy choice at each step is “pick the most/least frequent” or “pick the largest/smallest available”, use a max-heap (negate for Python’s min-heap) to always access the optimal choice in O(log n).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="c1"># LC 621 — Task Scheduler</span>
+<span class="c1"># Minimum time to finish all tasks with cooldown n between same tasks</span>
+<span class="c1"># Greedy: always schedule the most frequent remaining task</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">leastInterval</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="n">max_heap</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>  <span class="c1"># max-heap (negate)</span>
+    <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">max_heap</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>                              <span class="c1"># (next_available_time, freq)</span>
+
+    <span class="k">while</span> <span class="n">max_heap</span> <span class="ow">or</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">time</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">max_heap</span><span class="p">:</span>
+            <span class="n">freq</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">max_heap</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># use one instance (negate back)</span>
+            <span class="k">if</span> <span class="n">freq</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>                         <span class="c1"># still has remaining count</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">time</span> <span class="o">+</span> <span class="n">n</span><span class="p">,</span> <span class="n">freq</span><span class="p">))</span>   <span class="c1"># available again after cooldown</span>
+        <span class="k">if</span> <span class="n">queue</span> <span class="ow">and</span> <span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">time</span><span class="p">:</span>        <span class="c1"># task cooled down</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">max_heap</span><span class="p">,</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">time</span>
+
+
+<span class="c1"># LC 767 — Reorganize String</span>
+<span class="c1"># Rearrange so no two adjacent chars are same</span>
+<span class="c1"># Greedy: always place the most frequent remaining character</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">reorganizeString</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">max_heap</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">f</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">max_heap</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">prev_f</span><span class="p">,</span> <span class="n">prev_ch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">while</span> <span class="n">max_heap</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">,</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">max_heap</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prev_f</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>                      <span class="c1"># previous char still has remaining count</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">max_heap</span><span class="p">,</span> <span class="p">(</span><span class="n">prev_f</span><span class="p">,</span> <span class="n">prev_ch</span><span class="p">))</span>
+        <span class="n">prev_f</span><span class="p">,</span> <span class="n">prev_ch</span> <span class="o">=</span> <span class="n">f</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ch</span>         <span class="c1"># decrement count (negated)</span>
+
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Common mistakes<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Forgetting Python only has min-heap — negate values to simulate max-heap</p></li>
+<li><p>In task scheduler: using idle time formula shortcut without understanding it — the heap simulation is more generalizable</p></li>
+<li><p>Not re-adding the previous character to the heap before placing a new one — causes adjacent duplicates</p></li>
+</ul>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Heap type</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 621 — Task Scheduler</p></td>
+<td class="text-left"><p>Max-heap on frequency</p></td>
+<td class="text-left"><p>Cooldown queue + heap</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 767 — Reorganize String</p></td>
+<td class="text-left"><p>Max-heap on frequency</p></td>
+<td class="text-left"><p>Place most frequent, hold previous</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 1405 — Longest Happy String</p></td>
+<td class="text-left"><p>Max-heap on frequency</p></td>
+<td class="text-left"><p>Same as 767 but max 2 consecutive</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-4-sorting-matching">
+<h1>Part 4 — Sorting + Matching<a class="headerlink" href="#part-4-sorting-matching" title="Link to this heading">#</a></h1>
+<section id="id5">
+<h2>Core idea<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>Sort one or both arrays, then match greedily. The sort order depends on what you’re optimizing — match smallest to smallest, or smallest need to smallest supply.</p>
+<p><strong>Key insight:</strong> after sorting, you never need to consider non-adjacent pairs. The optimal match for the current element is always the closest valid element in the sorted other array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 455 — Assign Cookies</span>
+<span class="c1"># Match smallest sufficient cookie to each child greedily</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">findContentChildren</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">sort</span><span class="p">();</span> <span class="n">s</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="n">cookie</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">child</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="ow">and</span> <span class="n">cookie</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">cookie</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">child</span><span class="p">]:</span>       <span class="c1"># cookie satisfies child</span>
+            <span class="n">child</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">cookie</span> <span class="o">+=</span> <span class="mi">1</span>                     <span class="c1"># always move to next cookie</span>
+    <span class="k">return</span> <span class="n">child</span>
+
+
+<span class="c1"># LC 881 — Boats to Save People</span>
+<span class="c1"># Pair heaviest with lightest if possible — two pointers after sorting</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">numRescueBoats</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+    <span class="n">people</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">people</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">boats</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">people</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">people</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">limit</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>                   <span class="c1"># lightest can share with heaviest</span>
+        <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>                      <span class="c1"># heaviest always gets a boat</span>
+        <span class="n">boats</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">boats</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>Common mistakes<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Sorting only one array when both need sorting — matching requires both to be ordered</p></li>
+<li><p>Moving both pointers when only one should move — in boats, only move <code class="docutils literal notranslate"><span class="pre">left</span></code> if paired; always move <code class="docutils literal notranslate"><span class="pre">right</span></code></p></li>
+<li><p>Forgetting to increment <code class="docutils literal notranslate"><span class="pre">cookie</span></code> even when a child is not satisfied — must try the next cookie regardless</p></li>
+</ul>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Sort strategy</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 455 — Assign Cookies</p></td>
+<td class="text-left"><p>Both ASC</p></td>
+<td class="text-left"><p>Two pointers, move cookie always</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 881 — Boats to Save People</p></td>
+<td class="text-left"><p>ASC</p></td>
+<td class="text-left"><p>Opposite ends two pointers</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 870 — Advantage Shuffle</p></td>
+<td class="text-left"><p>Both ASC</p></td>
+<td class="text-left"><p>Match smallest winning card to each opponent card</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-5-prefix-running-choice">
+<h1>Part 5 — Prefix / Running Choice<a class="headerlink" href="#part-5-prefix-running-choice" title="Link to this heading">#</a></h1>
+<section id="id7">
+<h2>Core idea<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>Scan left to right, making a greedy decision at each position based on accumulated information so far. No sorting needed — the order is fixed. The greedy choice is usually “can I afford to do this here, or should I reset?”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 134 — Gas Station</span>
+<span class="c1"># Can we complete the circuit? If yes, find starting index.</span>
+<span class="c1"># Greedy: if total gas &gt;= total cost, a solution exists.</span>
+<span class="c1"># Start from the point after the last deficit.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">canCompleteCircuit</span><span class="p">(</span><span class="n">gas</span><span class="p">,</span> <span class="n">cost</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">tank</span> <span class="o">=</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gas</span><span class="p">)):</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">gas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">diff</span>
+        <span class="n">tank</span>  <span class="o">+=</span> <span class="n">diff</span>
+        <span class="k">if</span> <span class="n">tank</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>                    <span class="c1"># can&#39;t reach next station from current start</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>              <span class="c1"># try starting from next station</span>
+            <span class="n">tank</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">start</span> <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># total &lt; 0 means no solution exists</span>
+
+
+<span class="c1"># LC 135 — Candy</span>
+<span class="c1"># Each child must have more candy than neighbors with lower rating.</span>
+<span class="c1"># Two-pass greedy: left-to-right then right-to-left.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">candy</span><span class="p">(</span><span class="n">ratings</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ratings</span><span class="p">)</span>
+    <span class="n">candies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>              <span class="c1"># left pass: satisfy left neighbor condition</span>
+        <span class="k">if</span> <span class="n">ratings</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ratings</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">candies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">candies</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>      <span class="c1"># right pass: satisfy right neighbor condition</span>
+        <span class="k">if</span> <span class="n">ratings</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ratings</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">candies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">candies</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">candies</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">candies</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h2>Common mistakes<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In gas station: checking only one direction — the total gas check proves existence; the running tank finds the start</p></li>
+<li><p>In candy: doing only one pass — one pass can’t satisfy both left and right neighbor constraints simultaneously</p></li>
+<li><p>In two-pass problems: forgetting to take <code class="docutils literal notranslate"><span class="pre">max</span></code> in the second pass — the second pass should strengthen, not overwrite, the first pass result</p></li>
+</ul>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Passes</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 134 — Gas Station</p></td>
+<td class="text-left"><p>One pass</p></td>
+<td class="text-left"><p>Reset start after deficit; check total at end</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 135 — Candy</p></td>
+<td class="text-left"><p>Two passes</p></td>
+<td class="text-left"><p>Left → right then right → left; take max</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 406 — Queue Reconstruction by Height</p></td>
+<td class="text-left"><p>Sort + insert</p></td>
+<td class="text-left"><p>Sort DESC by height, insert by index</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="decision-guide">
+<h1>Decision Guide<a class="headerlink" href="#decision-guide" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Is the problem about intervals?
+├── Select max non-overlapping        → Sort by END, keep earliest-ending   (LC 435)
+├── Merge overlapping                 → Sort by START, extend if overlap     (LC 56)
+└── Minimum coverage / arrows         → Sort by END, shoot at current end    (LC 452)
+
+Is the problem about reachability on an array?
+└── Jump Game pattern
+    ├── Can you reach end?            → Track max_reach                      (LC 55)
+    └── Minimum jumps?                → Boundary + farthest pattern          (LC 45)
+
+Does the greedy choice involve frequency?
+└── Use a max-heap
+    ├── Task cooldown                 → Heap + cooldown queue                (LC 621)
+    └── No adjacent duplicates        → Always place most frequent           (LC 767)
+
+Does the problem involve matching two groups?
+└── Sort + two pointers
+    ├── Match smallest to smallest    → Both ASC, advance both when matched  (LC 455)
+    └── Pair lightest with heaviest   → ASC, opposite ends two pointers      (LC 881)
+
+Does the problem require scanning with a running decision?
+├── Single pass                       → Reset on failure, check total        (LC 134)
+└── Two passes                        → Left → right then right → left       (LC 135)
+
+Should I use Greedy or DP?
+├── Need ALL solutions                → Backtracking
+├── Subproblems overlap               → DP
+├── Greedy choice property holds AND  → Greedy
+│   optimal substructure holds
+└── Unsure                            → Try greedy, construct a counterexample;
+                                        if found → use DP
+</pre></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Reference_Divide_Conquer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Divide &amp; Conquer — Technical Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Reference_Segment_Tree_Bit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

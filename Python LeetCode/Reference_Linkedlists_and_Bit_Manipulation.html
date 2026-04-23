@@ -1,0 +1,941 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Linked Lists &amp; Bit Manipulation — Technical Reference &#8212; Data Science Study Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/Reference_Linkedlists_and_Bit_Manipulation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Divide &amp; Conquer — Technical Reference" href="Reference_Divide_Conquer.html" />
+    <link rel="prev" title="Binary Search — Cheat Sheet" href="Cheatsheet_Binary_Search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Science Study Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Reference_Arrays_and_Hashing.html">Arrays &amp; Hashing — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Sliding_Window_and_Two_Pointers.html">Sliding Window &amp; Two Pointers — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Heap_and_Monotonic_Stack.html">Heap &amp; Monotonic Stack — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_DP.html">Dynamic Programming — Study Guide</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_backtracking.html">Backtracking — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Trees_and_Graphs.html">Trees &amp; Graphs — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Binary_Search.html">Binary Search — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Linked Lists &amp; Bit Manipulation — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference_Divide_Conquer.html">Divide &amp; Conquer — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Greedy.html">Greedy — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Segment_Tree_Bit.html">Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-index">Quick Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dummy-node">Dummy Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-place-reversal">In-place Reversal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fast-slow-pointers">Fast &amp; Slow Pointers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-two-sorted-lists">Merge Two Sorted Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-intersection">Find Intersection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xor-tricks">XOR Tricks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-tricks">AND Tricks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit-masking-subset-enumeration">Bit Masking — Subset Enumeration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brian-kernighan-count-set-bits">Brian Kernighan — Count Set Bits</a></li>
+</ul>
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Python_DSA.html" class="nav-link">Python Data Structures and Algorithm</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Linked Lists &amp; Bit Manipulation — Technical Reference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linked-lists-bit-manipulation-technical-reference">
+<h1>Linked Lists &amp; Bit Manipulation — Technical Reference<a class="headerlink" href="#linked-lists-bit-manipulation-technical-reference" title="Link to this heading">#</a></h1>
+<section id="quick-index">
+<h2>Quick Index<a class="headerlink" href="#quick-index" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Technique</p></th>
+<th class="head text-left"><p>When to use</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Dummy Node</p></td>
+<td class="text-left"><p>Simplify insert/delete at head; avoid null checks</p></td>
+<td class="text-left"><p>21, 82, 203</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>In-place Reversal</p></td>
+<td class="text-left"><p>Reverse full list or sublist without extra space</p></td>
+<td class="text-left"><p>206, 92, 25</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Fast &amp; Slow Pointers</p></td>
+<td class="text-left"><p>Cycle detection, find middle, kth from end</p></td>
+<td class="text-left"><p>141, 142, 876</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Merge Two Sorted Lists</p></td>
+<td class="text-left"><p>Combine two sorted lists in O(n + m)</p></td>
+<td class="text-left"><p>21, 23</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Find Intersection</p></td>
+<td class="text-left"><p>Two lists meet at a node — equalize lengths</p></td>
+<td class="text-left"><p>160</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>XOR tricks</p></td>
+<td class="text-left"><p>Find single number, swap without temp</p></td>
+<td class="text-left"><p>136, 260</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AND tricks</p></td>
+<td class="text-left"><p>Check bit, clear lowest set bit, power of two</p></td>
+<td class="text-left"><p>191, 231, 338</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Bit masking</p></td>
+<td class="text-left"><p>Enumerate all subsets of a set</p></td>
+<td class="text-left"><p>78, 90</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Brian Kernighan</p></td>
+<td class="text-left"><p>Count set bits in O(number of set bits)</p></td>
+<td class="text-left"><p>191, 338</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dummy-node">
+<h2>Dummy Node<a class="headerlink" href="#dummy-node" title="Link to this heading">#</a></h2>
+<p>Create a throwaway node before the head. Eliminates special cases for operations on the head node — the real head is always <code class="docutils literal notranslate"><span class="pre">dummy.next</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — dummy node</span>
+<span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">dummy</span>
+<span class="c1"># ... manipulate list using cur ...</span>
+<span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>               <span class="c1"># real head may have changed</span>
+
+
+<span class="c1"># LC 82 — Remove Duplicates from Sorted List II</span>
+<span class="c1"># Remove all nodes whose value appears more than once</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">deleteDuplicates</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">head</span><span class="p">)</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span>
+    <span class="k">while</span> <span class="n">prev</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">if</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>          <span class="c1"># skip all nodes with this value</span>
+            <span class="n">prev</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>        <span class="c1"># bypass the duplicate group</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">next</span>
+    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 21, LC 82, LC 203</p>
+</section>
+<hr class="docutils" />
+<section id="in-place-reversal">
+<h2>In-place Reversal<a class="headerlink" href="#in-place-reversal" title="Link to this heading">#</a></h2>
+<p>Reverse a linked list using three pointers: <code class="docutils literal notranslate"><span class="pre">prev</span></code>, <code class="docutils literal notranslate"><span class="pre">cur</span></code>, <code class="docutils literal notranslate"><span class="pre">next_node</span></code>. No extra space. For sublist reversal, locate the sublist boundaries first using a dummy node.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 206 — Reverse Linked List</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">reverseList</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">prev</span><span class="p">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">head</span>
+    <span class="k">while</span> <span class="n">cur</span><span class="p">:</span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>    <span class="c1"># save next before overwriting</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">next</span>  <span class="o">=</span> <span class="n">prev</span>        <span class="c1"># reverse pointer</span>
+        <span class="n">prev</span>      <span class="o">=</span> <span class="n">cur</span>         <span class="c1"># advance prev</span>
+        <span class="n">cur</span>       <span class="o">=</span> <span class="n">next_node</span>   <span class="c1"># advance cur</span>
+    <span class="k">return</span> <span class="n">prev</span>                 <span class="c1"># prev is new head</span>
+
+
+<span class="c1"># LC 92 — Reverse Linked List II (reverse sublist from left to right)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">reverseBetween</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+    <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">head</span><span class="p">)</span>
+    <span class="n">prev</span>  <span class="o">=</span> <span class="n">dummy</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>      <span class="c1"># move prev to node just before sublist</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">next</span>
+
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">next</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">):</span>  <span class="c1"># reverse (right - left) times</span>
+        <span class="n">next_node</span>    <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">next</span>     <span class="o">=</span> <span class="n">next_node</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">next_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">prev</span><span class="o">.</span><span class="n">next</span>    <span class="o">=</span> <span class="n">next_node</span>
+    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 206, LC 92, LC 25</p>
+</section>
+<hr class="docutils" />
+<section id="fast-slow-pointers">
+<h2>Fast &amp; Slow Pointers<a class="headerlink" href="#fast-slow-pointers" title="Link to this heading">#</a></h2>
+<p><strong>Full explanation and worked examples in:</strong> Sliding Window &amp; Two Pointers Study Guide — Part 1, Fast &amp; Slow Pointers section.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fast</span></code> moves two steps per iteration, <code class="docutils literal notranslate"><span class="pre">slow</span></code> moves one. If a cycle exists they meet inside it. When <code class="docutils literal notranslate"><span class="pre">fast</span></code> reaches null, <code class="docutils literal notranslate"><span class="pre">slow</span></code> is at the middle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cycle detection</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hasCycle</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="k">while</span> <span class="n">fast</span> <span class="ow">and</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">if</span> <span class="n">slow</span> <span class="o">==</span> <span class="n">fast</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># Find middle (slow is at middle when fast hits end)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">findMiddle</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="k">while</span> <span class="n">fast</span> <span class="ow">and</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+    <span class="k">return</span> <span class="n">slow</span>
+
+<span class="c1"># Find kth node from end (advance fast k steps first)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kthFromEnd</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span>        <span class="c1"># fast is k steps ahead</span>
+    <span class="k">while</span> <span class="n">fast</span><span class="p">:</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span>
+    <span class="k">return</span> <span class="n">slow</span>                 <span class="c1"># when fast hits null, slow is k from end</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 141, LC 142, LC 876, LC 19</p>
+</section>
+<hr class="docutils" />
+<section id="merge-two-sorted-lists">
+<h2>Merge Two Sorted Lists<a class="headerlink" href="#merge-two-sorted-lists" title="Link to this heading">#</a></h2>
+<p>Use a dummy node as the anchor. At each step, append the smaller of the two current nodes. After one list is exhausted, attach the remainder of the other.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 21 — Merge Two Sorted Lists</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mergeTwoLists</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">):</span>
+    <span class="n">dummy</span> <span class="o">=</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">l1</span> <span class="ow">and</span> <span class="n">l2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">l1</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">l2</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+            <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">l1</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">l2</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">l1</span> <span class="ow">or</span> <span class="n">l2</span>         <span class="c1"># attach remaining nodes</span>
+    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 21, LC 23 (K-way merge — see Heap cheat sheet)</p>
+</section>
+<hr class="docutils" />
+<section id="find-intersection">
+<h2>Find Intersection<a class="headerlink" href="#find-intersection" title="Link to this heading">#</a></h2>
+<p>Two pointers walk both lists. When one reaches the end, redirect it to the head of the other list. After at most <code class="docutils literal notranslate"><span class="pre">len(A)</span> <span class="pre">+</span> <span class="pre">len(B)</span></code> steps both pointers are equidistant from the intersection — they meet at it, or both hit null together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 160 — Intersection of Two Linked Lists</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">getIntersectionNode</span><span class="p">(</span><span class="n">headA</span><span class="p">,</span> <span class="n">headB</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">headA</span><span class="p">,</span> <span class="n">headB</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">next</span> <span class="k">if</span> <span class="n">a</span> <span class="k">else</span> <span class="n">headB</span>  <span class="c1"># redirect to other list&#39;s head at end</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">next</span> <span class="k">if</span> <span class="n">b</span> <span class="k">else</span> <span class="n">headA</span>
+    <span class="k">return</span> <span class="n">a</span>                        <span class="c1"># intersection node, or None if no intersection</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 160</p>
+</section>
+<hr class="docutils" />
+<section id="xor-tricks">
+<h2>XOR Tricks<a class="headerlink" href="#xor-tricks" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">^</span> <span class="pre">a</span> <span class="pre">=</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">^</span> <span class="pre">0</span> <span class="pre">=</span> <span class="pre">a</span></code>. XOR is commutative and associative — order doesn’t matter. Use to find an element that appears an odd number of times, or to swap two values without a temp variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Swap without temp</span>
+<span class="n">a</span> <span class="o">^=</span> <span class="n">b</span>
+<span class="n">b</span> <span class="o">^=</span> <span class="n">a</span>
+<span class="n">a</span> <span class="o">^=</span> <span class="n">b</span>
+
+<span class="c1"># LC 136 — Single Number</span>
+<span class="c1"># All numbers appear twice except one — XOR cancels pairs</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">singleNumber</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;functools&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">,</span> <span class="n">nums</span><span class="p">)</span>
+
+<span class="c1"># LC 260 — Single Number III (two unique numbers)</span>
+<span class="c1"># XOR all → result = a ^ b. Find any set bit → use as mask to separate a and b</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">singleNumberIII</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">xor</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span> <span class="n">xor</span> <span class="o">^=</span> <span class="n">n</span>
+    <span class="n">diff_bit</span> <span class="o">=</span> <span class="n">xor</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">xor</span><span class="p">)</span>             <span class="c1"># isolate rightmost set bit</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="n">diff_bit</span><span class="p">:</span> <span class="n">a</span> <span class="o">^=</span> <span class="n">n</span>         <span class="c1"># XOR only numbers with this bit set</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">xor</span> <span class="o">^</span> <span class="n">a</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 136, LC 137, LC 260</p>
+</section>
+<hr class="docutils" />
+<section id="and-tricks">
+<h2>AND Tricks<a class="headerlink" href="#and-tricks" title="Link to this heading">#</a></h2>
+<p>Common bitwise operations using AND. Each trick is a one-liner.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if bit i is set</span>
+<span class="n">is_set</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span>
+
+<span class="c1"># Check odd / even</span>
+<span class="n">is_odd</span>  <span class="o">=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span>             <span class="c1"># 1 if odd, 0 if even</span>
+
+<span class="c1"># Clear the lowest set bit  — used in Brian Kernighan</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Isolate the lowest set bit</span>
+<span class="n">lowest</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Power of two check — exactly one bit set</span>
+<span class="n">is_power_of_two</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="c1"># Set bit i</span>
+<span class="n">n</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Clear bit i</span>
+<span class="n">n</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Toggle bit i</span>
+<span class="n">n</span> <span class="o">^=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 231, LC 342, LC 191</p>
+</section>
+<hr class="docutils" />
+<section id="bit-masking-subset-enumeration">
+<h2>Bit Masking — Subset Enumeration<a class="headerlink" href="#bit-masking-subset-enumeration" title="Link to this heading">#</a></h2>
+<p>Represent each subset of <code class="docutils literal notranslate"><span class="pre">n</span></code> elements as an integer bitmask of <code class="docutils literal notranslate"><span class="pre">n</span></code> bits. Bit <code class="docutils literal notranslate"><span class="pre">i</span></code> is set if element <code class="docutils literal notranslate"><span class="pre">i</span></code> is included. Iterate from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">2^n</span> <span class="pre">-</span> <span class="pre">1</span></code> to enumerate all <code class="docutils literal notranslate"><span class="pre">2^n</span></code> subsets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enumerate all subsets of nums using bitmask</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">subsets_bitmask</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">n</span><span class="p">):</span>          <span class="c1"># 1 &lt;&lt; n = 2^n</span>
+        <span class="n">subset</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">):</span>         <span class="c1"># bit i is set → include nums[i]</span>
+                <span class="n">subset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="c1"># Enumerate all subsets of a bitmask (iterate over sub-masks)</span>
+<span class="c1"># Used in DP on subsets problems</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">enumerate_submasks</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">mask</span>
+    <span class="k">while</span> <span class="n">sub</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># process sub</span>
+        <span class="n">sub</span> <span class="o">=</span> <span class="p">(</span><span class="n">sub</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">mask</span>          <span class="c1"># next smaller submask</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 78, LC 90, LC 1986</p>
+</section>
+<hr class="docutils" />
+<section id="brian-kernighan-count-set-bits">
+<h2>Brian Kernighan — Count Set Bits<a class="headerlink" href="#brian-kernighan-count-set-bits" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&amp;</span> <span class="pre">(n-1)</span></code> clears the lowest set bit. Repeat until <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">==</span> <span class="pre">0</span></code> — the number of iterations equals the number of set bits. Faster than checking each bit when the number is sparse.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count set bits — O(number of set bits)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">countBits</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">&amp;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>                      <span class="c1"># clear lowest set bit</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">count</span>
+
+
+<span class="c1"># LC 338 — Counting Bits (count set bits for all numbers 0..n)</span>
+<span class="c1"># DP: bits[i] = bits[i &gt;&gt; 1] + (i &amp; 1)</span>
+<span class="c1"># i &gt;&gt; 1 shifts right by 1 (same as i // 2); add 1 if i is odd</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">countBitsDP</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">bits</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bits</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Problems: LC 191, LC 338, LC 461</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Cheatsheet_Binary_Search.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Binary Search — Cheat Sheet</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Reference_Divide_Conquer.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Divide &amp; Conquer — Technical Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

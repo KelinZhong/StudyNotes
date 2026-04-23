@@ -1,0 +1,1833 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Trees &amp; Graphs — Study Guide &#8212; Data Science Study Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/Study_Guide_Trees_and_Graphs';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Binary Search — Cheat Sheet" href="Cheatsheet_Binary_Search.html" />
+    <link rel="prev" title="Backtracking — Cheat Sheet" href="Cheatsheet_backtracking.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Science Study Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Reference_Arrays_and_Hashing.html">Arrays &amp; Hashing — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Sliding_Window_and_Two_Pointers.html">Sliding Window &amp; Two Pointers — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Heap_and_Monotonic_Stack.html">Heap &amp; Monotonic Stack — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_DP.html">Dynamic Programming — Study Guide</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_backtracking.html">Backtracking — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Trees &amp; Graphs — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Binary_Search.html">Binary Search — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Linkedlists_and_Bit_Manipulation.html">Linked Lists &amp; Bit Manipulation — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference_Divide_Conquer.html">Divide &amp; Conquer — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Greedy.html">Greedy — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Segment_Tree_Bit.html">Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Trees &amp; Graphs — Study Guide</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-dfs-bfs-core-algorithms">Part 0 — DFS &amp; BFS Core Algorithms</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dfs-depth-first-search">DFS — Depth First Search</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bfs-breadth-first-search">BFS — Breadth First Search</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dfs-vs-bfs-core-comparison">DFS vs BFS — Core Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dfs-bfs-in-trees-vs-graphs-similarities-and-differences">DFS &amp; BFS in Trees vs Graphs — Similarities and Differences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarities">Similarities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differences">Differences</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-single-most-important-rule">The single most important rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-subtle-but-important-bfs-trick">One subtle but important BFS trick</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-trees">Part 1 — Trees</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-1-traversals">Type 1 — Traversals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-2-subtree-return-value-pattern">Type 2 — Subtree return value pattern</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-3-global-variable-path-across-root">Type 3 — Global variable (path across root)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-4-bst-problems">Type 4 — BST problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-5-structure-checks">Type 5 — Structure checks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trees-question-type-summary">Trees — Question Type Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-graphs">Part 2 — Graphs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-choose-your-representation">Step 1 — Choose your representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-1-dfs-bfs-traversal-connected-components">Type 1 — DFS / BFS traversal (connected components)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-2-shortest-path-bfs">Type 2 — Shortest path (BFS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-3-cycle-detection">Type 3 — Cycle detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-4-topological-sort">Type 4 — Topological sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-5-union-find">Type 5 — Union Find</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-6-weighted-shortest-path">Type 6 — Weighted Shortest Path</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-mistakes">Common mistakes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs-question-type-summary">Graphs — Question Type Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-decision-guide">Part 3 — Decision Guide</a></li>
+</ul>
+
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Python_DSA.html" class="nav-link">Python Data Structures and Algorithm</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Trees &amp; Graphs — Study Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="trees-graphs-study-guide">
+<h1>Trees &amp; Graphs — Study Guide<a class="headerlink" href="#trees-graphs-study-guide" title="Link to this heading">#</a></h1>
+<p><strong>Learning order:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Part 0 — DFS &amp; BFS Core Algorithms
+  └── How they work → Trees vs Graphs comparison
+Part 1 — Trees
+  └── Traversals → Subtree return value → Global variable → BST → Structure checks
+Part 2 — Graphs
+  └── Representations → DFS/BFS → Shortest path → Cycle detection → Topological sort → Union Find → Weighted Shortest Path
+Part 3 — Decision Guide
+</pre></div>
+</div>
+<p>Each section introduces the concept first, then shows the pseudo-code immediately after.</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-0-dfs-bfs-core-algorithms">
+<h1>Part 0 — DFS &amp; BFS Core Algorithms<a class="headerlink" href="#part-0-dfs-bfs-core-algorithms" title="Link to this heading">#</a></h1>
+<p>DFS and BFS are the two fundamental traversal strategies used across both trees and graphs. Understanding them as standalone algorithms first makes it much easier to see how they adapt to each context.</p>
+<hr class="docutils" />
+<section id="dfs-depth-first-search">
+<h2>DFS — Depth First Search<a class="headerlink" href="#dfs-depth-first-search" title="Link to this heading">#</a></h2>
+<p><strong>Core idea:</strong> Go as deep as possible along one path before backtracking. Uses a <strong>stack</strong> — either the call stack (recursion) or an explicit stack (iterative).</p>
+<p><strong>How it works:</strong></p>
+<ol class="arabic simple">
+<li><p>Visit current node</p></li>
+<li><p>Recursively visit each unvisited neighbor</p></li>
+<li><p>Backtrack when no unvisited neighbors remain</p></li>
+</ol>
+<p><strong>When to use DFS:</strong></p>
+<ul class="simple">
+<li><p>Exploring all paths (backtracking)</p></li>
+<li><p>Detecting cycles</p></li>
+<li><p>Topological sort</p></li>
+<li><p>Problems where you need to go deep before coming back (subtree computations)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># DFS — recursive (universal template)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="c1"># 1. Base case / boundary check</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+
+    <span class="c1"># 2. Visit / process current node</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="c1"># 3. Recurse into neighbors</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">get_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+
+<span class="c1"># DFS — iterative using explicit stack</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_iterative</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>          <span class="c1"># LIFO — last in, first out</span>
+        <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">get_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="bfs-breadth-first-search">
+<h2>BFS — Breadth First Search<a class="headerlink" href="#bfs-breadth-first-search" title="Link to this heading">#</a></h2>
+<p><strong>Core idea:</strong> Visit all nodes at the current depth level before moving to the next. Uses a <strong>queue</strong> — always iterative.</p>
+<p><strong>How it works:</strong></p>
+<ol class="arabic simple">
+<li><p>Enqueue the start node</p></li>
+<li><p>Dequeue a node, visit it, enqueue all unvisited neighbors</p></li>
+<li><p>Repeat until queue is empty</p></li>
+</ol>
+<p><strong>When to use BFS:</strong></p>
+<ul class="simple">
+<li><p>Shortest path in unweighted graphs (first time you reach a node = shortest route)</p></li>
+<li><p>Level-by-level processing</p></li>
+<li><p>Spreading from multiple sources simultaneously</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="c1"># BFS — universal template</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>          <span class="c1"># FIFO — first in, first out</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>      <span class="c1"># always dequeue from front</span>
+        <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">get_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>  <span class="c1"># enqueue to back</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dfs-vs-bfs-core-comparison">
+<h2>DFS vs BFS — Core Comparison<a class="headerlink" href="#dfs-vs-bfs-core-comparison" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p>DFS</p></th>
+<th class="head text-left"><p>BFS</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Data structure</strong></p></td>
+<td class="text-left"><p>Stack (call stack or explicit)</p></td>
+<td class="text-left"><p>Queue (<code class="docutils literal notranslate"><span class="pre">deque</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Implementation</strong></p></td>
+<td class="text-left"><p>Usually recursive</p></td>
+<td class="text-left"><p>Always iterative</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Explores</strong></p></td>
+<td class="text-left"><p>Deep first, then backtracks</p></td>
+<td class="text-left"><p>Wide first, level by level</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Memory</strong></p></td>
+<td class="text-left"><p>O(h) — height / max depth</p></td>
+<td class="text-left"><p>O(w) — width of widest level</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Best for</strong></p></td>
+<td class="text-left"><p>Path exploration, cycle detection, subtree logic</p></td>
+<td class="text-left"><p>Shortest path, level problems, multi-source spread</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Guarantees shortest path?</strong></p></td>
+<td class="text-left"><p>No</p></td>
+<td class="text-left"><p>Yes (unweighted graphs only)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dfs-bfs-in-trees-vs-graphs-similarities-and-differences">
+<h2>DFS &amp; BFS in Trees vs Graphs — Similarities and Differences<a class="headerlink" href="#dfs-bfs-in-trees-vs-graphs-similarities-and-differences" title="Link to this heading">#</a></h2>
+<p>The algorithms are structurally identical. The differences come from the <strong>properties of the data structure</strong>, not the algorithm itself.</p>
+<section id="similarities">
+<h3>Similarities<a class="headerlink" href="#similarities" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Both use the same core loop: visit a node, process neighbors, continue</p></li>
+<li><p>Both DFS and BFS work on both trees and graphs</p></li>
+<li><p>Time complexity is O(V + E) in both cases (vertices + edges)</p></li>
+<li><p>The queue / stack mechanics are exactly the same</p></li>
+</ul>
+</section>
+<section id="differences">
+<h3>Differences<a class="headerlink" href="#differences" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p>Trees</p></th>
+<th class="head text-left"><p>Graphs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Visited set</strong></p></td>
+<td class="text-left"><p>Not needed — trees are acyclic</p></td>
+<td class="text-left"><p>Always required — graphs can have cycles</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Entry point</strong></p></td>
+<td class="text-left"><p>Always the root</p></td>
+<td class="text-left"><p>Any node (or all nodes for disconnected graphs)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Neighbors</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">node.left</span></code>, <code class="docutils literal notranslate"><span class="pre">node.right</span></code> (fixed 2)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">graph[node]</span></code> (dynamic, any number)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Cycles</strong></p></td>
+<td class="text-left"><p>Impossible</p></td>
+<td class="text-left"><p>Possible — must guard against infinite loops</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>DFS ordering</strong></p></td>
+<td class="text-left"><p>Has meaningful preorder / inorder / postorder</p></td>
+<td class="text-left"><p>No ordering — just visited vs unvisited</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>BFS levels</strong></p></td>
+<td class="text-left"><p>Levels = depth from root</p></td>
+<td class="text-left"><p>Levels = distance from source node</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Disconnected components</strong></p></td>
+<td class="text-left"><p>Not possible (tree is always connected)</p></td>
+<td class="text-left"><p>Possible — loop over all nodes to ensure full coverage</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="the-single-most-important-rule">
+<h3>The single most important rule<a class="headerlink" href="#the-single-most-important-rule" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Trees:</strong> no <code class="docutils literal notranslate"><span class="pre">visited</span></code> set needed.<br />
+<strong>Graphs:</strong> always use a <code class="docutils literal notranslate"><span class="pre">visited</span></code> set — without it, cycles cause infinite loops.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Side-by-side: DFS on a Tree vs DFS on a Graph ──────────────────────────</span>
+
+<span class="c1"># Tree DFS — no visited set needed</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_tree</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>             <span class="c1"># base case: null node</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">dfs_tree</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>             <span class="c1"># fixed left/right children</span>
+    <span class="n">dfs_tree</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+
+<span class="c1"># Graph DFS — visited set required</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_graph</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>               <span class="c1"># mark before visiting neighbors</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>    <span class="c1"># dynamic neighbors from adjacency list</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">dfs_graph</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
+
+
+<span class="c1"># Handle disconnected graph components</span>
+<span class="c1"># (A tree is always connected — one call from root is enough.</span>
+<span class="c1">#  A graph may have multiple disconnected components.)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_all_components</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">dfs_graph</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>  <span class="c1"># starts a new component</span>
+
+
+<span class="c1"># ── Side-by-side: BFS on a Tree vs BFS on a Graph ──────────────────────────</span>
+
+<span class="c1"># Tree BFS — no visited set needed</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs_tree</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">root</span><span class="p">])</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+
+<span class="c1"># Graph BFS — visited set required</span>
+<span class="c1"># IMPORTANT: add to visited when ENQUEUING, not when dequeuing</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs_graph</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>          <span class="c1"># mark at enqueue time</span>
+    <span class="n">queue</span>   <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>   <span class="c1"># mark HERE before appending</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="one-subtle-but-important-bfs-trick">
+<h3>One subtle but important BFS trick<a class="headerlink" href="#one-subtle-but-important-bfs-trick" title="Link to this heading">#</a></h3>
+<p>In graph BFS, always add to <code class="docutils literal notranslate"><span class="pre">visited</span></code> <strong>when you enqueue</strong>, not when you dequeue.<br />
+If you wait until dequeue, the same node can be enqueued multiple times from different neighbors — causing redundant work or wrong shortest-path counts.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># WRONG — adds to visited at dequeue time</span>
+<span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>           <span class="c1"># too late — node may already be in queue twice</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+<span class="c1"># CORRECT — adds to visited at enqueue time</span>
+<span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+<span class="n">queue</span>   <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+<span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>   <span class="c1"># mark here</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-1-trees">
+<h1>Part 1 — Trees<a class="headerlink" href="#part-1-trees" title="Link to this heading">#</a></h1>
+<p><strong>Core concept:</strong> A tree is a connected, acyclic structure. Every node has exactly one parent except the root.</p>
+<p>Key implications:</p>
+<ul class="simple">
+<li><p>No cycles → no <code class="docutils literal notranslate"><span class="pre">visited</span></code> set needed</p></li>
+<li><p>Always start from the root</p></li>
+<li><p>Each node can be reached by exactly one path</p></li>
+</ul>
+<section id="type-1-traversals">
+<h2>Type 1 — Traversals<a class="headerlink" href="#type-1-traversals" title="Link to this heading">#</a></h2>
+<p>The foundation of all tree problems. DFS has 3 orderings depending on when you visit the current node:</p>
+<ul class="simple">
+<li><p><strong>Preorder</strong> (root → left → right): copying, serializing a tree</p></li>
+<li><p><strong>Inorder</strong> (left → root → right): gives sorted output for BST</p></li>
+<li><p><strong>Postorder</strong> (left → right → root): when a node needs its children’s results first (heights, sums)</p></li>
+</ul>
+<p>BFS explores level by level. Use when the problem involves layers, levels, or “closest to root”.</p>
+<p><strong>Decision rule:</strong> problem mentions levels / layers / “closest to root” → BFS. Everything else → DFS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># DFS — Preorder (root → left → right)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">preorder</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">preorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">preorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="c1"># DFS — Inorder (left → root → right)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inorder</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="c1"># DFS — Postorder (left → right → root)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">postorder</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">postorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">postorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+<span class="c1"># BFS — Level Order (with layer tracking)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs_level_order</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">root</span><span class="p">])</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">level_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>         <span class="c1"># snapshot of current level</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">level_size</span><span class="p">):</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+            <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 102 — Binary Tree Level Order Traversal</p></td>
+<td class="text-left"><p>BFS</p></td>
+<td class="text-left"><p>Track layer size with <code class="docutils literal notranslate"><span class="pre">len(queue)</span></code> at start of each level</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 103 — Zigzag Level Order</p></td>
+<td class="text-left"><p>BFS</p></td>
+<td class="text-left"><p>Alternate append direction per level</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 199 — Right Side View</p></td>
+<td class="text-left"><p>BFS</p></td>
+<td class="text-left"><p>Take last node of each level</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-2-subtree-return-value-pattern">
+<h2>Type 2 — Subtree return value pattern<a class="headerlink" href="#type-2-subtree-return-value-pattern" title="Link to this heading">#</a></h2>
+<p>The most common DFS pattern. Each recursive call <strong>returns something useful to its parent</strong> — height, sum, bool, etc.</p>
+<p><strong>Before coding, always ask:</strong> “What should this function return to its parent?” Write that as a comment first.</p>
+<p>Structure:</p>
+<ol class="arabic simple">
+<li><p>Base case (null node)</p></li>
+<li><p>Recurse left and right</p></li>
+<li><p>Combine results and return to parent</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — subtree return value</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="n">BASE_CASE</span>       <span class="c1"># e.g. 0, True, float(&#39;-inf&#39;)</span>
+
+    <span class="n">left</span>  <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>              <span class="c1"># get result from left subtree</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>             <span class="c1"># get result from right subtree</span>
+
+    <span class="c1"># combine and return to parent</span>
+    <span class="k">return</span> <span class="n">SOMETHING_TO_PARENT</span>
+
+
+<span class="c1"># Example: LC 104 — Maximum Depth</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">maxDepth</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">left</span>  <span class="o">=</span> <span class="n">maxDepth</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">maxDepth</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+
+
+<span class="c1"># Example: LC 110 — Balanced Binary Tree</span>
+<span class="c1"># Returns height if balanced, -1 if not</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">left</span>  <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">left</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">right</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>   <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="n">right</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>       <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Return value</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 104 — Maximum Depth</p></td>
+<td class="text-left"><p>height (int)</p></td>
+<td class="text-left"><p>Classic starter</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 110 — Balanced Binary Tree</p></td>
+<td class="text-left"><p>height or -1</p></td>
+<td class="text-left"><p>Encode “invalid” as a sentinel value</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 543 — Diameter of Binary Tree</p></td>
+<td class="text-left"><p>height (int)</p></td>
+<td class="text-left"><p>Diameter = left height + right height at each node</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-3-global-variable-path-across-root">
+<h2>Type 3 — Global variable (path across root)<a class="headerlink" href="#type-3-global-variable-path-across-root" title="Link to this heading">#</a></h2>
+<p>When the answer can pass <strong>through any node</strong> — not just root-to-leaf — you cannot return it up the recursion because it involves both subtrees simultaneously.</p>
+<p><strong>Pattern:</strong> use a global variable to track the best answer. Update it inside the recursion, but <strong>return only one side</strong> to the parent (a parent can only extend one branch).</p>
+<p><strong>Key trick:</strong> <code class="docutils literal notranslate"><span class="pre">max(0,</span> <span class="pre">dfs(child))</span></code> — ignore negative-contributing subtrees by flooring at 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — global variable for cross-root paths</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">left</span>  <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">))</span>   <span class="c1"># ignore negative paths</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">))</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># update global (uses BOTH sides)</span>
+    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>                 <span class="c1"># return ONE side to parent</span>
+
+
+<span class="c1"># Example: LC 124 — Binary Tree Maximum Path Sum</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">maxPathSum</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">left</span>  <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">))</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+
+    <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">res</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 124 — Binary Tree Maximum Path Sum</p></td>
+<td class="text-left"><p>Classic global var problem</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 687 — Longest Univalue Path</p></td>
+<td class="text-left"><p>Global tracks max, return extends one side only</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-4-bst-problems">
+<h2>Type 4 — BST problems<a class="headerlink" href="#type-4-bst-problems" title="Link to this heading">#</a></h2>
+<p>BST property: <code class="docutils literal notranslate"><span class="pre">left</span> <span class="pre">&lt;</span> <span class="pre">node</span> <span class="pre">&lt;</span> <span class="pre">right</span></code>. This gives you two powerful tools:</p>
+<ol class="arabic simple">
+<li><p><strong>Inorder traversal</strong> always yields sorted output</p></li>
+<li><p>You can <strong>prune half the tree</strong> at each step — O(n) becomes O(log n)</p></li>
+</ol>
+<p><strong>Before coding:</strong> ask “can I use the BST property to skip a subtree?” If yes, branch left or right based on comparison instead of visiting both sides.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inorder traversal on BST → sorted list</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inorder</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+    <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+
+<span class="c1"># Search in BST — O(log n)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>  <span class="k">return</span> <span class="n">node</span>
+    <span class="k">if</span> <span class="n">target</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>   <span class="k">return</span> <span class="n">search</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">search</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+
+<span class="c1"># Example: LC 230 — Kth Smallest in BST (iterative inorder)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kthSmallest</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">root</span><span class="p">:</span>                 <span class="c1"># go as left as possible</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>          <span class="c1"># visit node</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span>           <span class="c1"># move to right subtree</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 98 — Validate BST</p></td>
+<td class="text-left"><p>Pass <code class="docutils literal notranslate"><span class="pre">(min_val,</span> <span class="pre">max_val)</span></code> bounds down the recursion</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 230 — Kth Smallest</p></td>
+<td class="text-left"><p>Iterative inorder — stop at kth visit</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 235 — Lowest Common Ancestor of BST</p></td>
+<td class="text-left"><p>Both targets &lt; node → go left; both &gt; node → go right; else current node is LCA</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-5-structure-checks">
+<h2>Type 5 — Structure checks<a class="headerlink" href="#type-5-structure-checks" title="Link to this heading">#</a></h2>
+<p>Problems about symmetry, validation, or comparing two trees.</p>
+<p><strong>Key idea:</strong> pass constraints <strong>downward</strong> as parameters rather than checking neighbors. This avoids having to look up or sideways in the tree.</p>
+<p>For symmetry problems: mirror recursion — compare <code class="docutils literal notranslate"><span class="pre">left.left</span></code> with <code class="docutils literal notranslate"><span class="pre">right.right</span></code> and <code class="docutils literal notranslate"><span class="pre">left.right</span></code> with <code class="docutils literal notranslate"><span class="pre">right.left</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 101 — Symmetric Tree (mirror recursion)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">isMirror</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">left</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">right</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">left</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">right</span><span class="p">:</span>  <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">right</span><span class="o">.</span><span class="n">val</span>
+            <span class="ow">and</span> <span class="n">isMirror</span><span class="p">(</span><span class="n">left</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>  <span class="n">right</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isMirror</span><span class="p">(</span><span class="n">left</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">right</span><span class="o">.</span><span class="n">left</span><span class="p">))</span>
+
+
+<span class="c1"># LC 98 — Validate BST (pass min/max bounds down)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">isValid</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">min_val</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">max_val</span><span class="p">):</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">isValid</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>  <span class="n">min_val</span><span class="p">,</span>   <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="n">isValid</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">,</span>  <span class="n">max_val</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 101 — Symmetric Tree</p></td>
+<td class="text-left"><p>Mirror recursion: compare opposite children</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 100 — Same Tree</p></td>
+<td class="text-left"><p>Recursively check val + left + right match</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 572 — Subtree of Another Tree</p></td>
+<td class="text-left"><p>Check <code class="docutils literal notranslate"><span class="pre">isSameTree</span></code> at every node of the main tree</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="trees-question-type-summary">
+<h3>Trees — Question Type Summary<a class="headerlink" href="#trees-question-type-summary" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Traversal</p></td>
+<td class="text-left"><p>“level order”, “zigzag”, “right side view”</p></td>
+<td class="text-left"><p>BFS with layer tracking</p></td>
+<td class="text-left"><p>102, 103, 199</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Subtree return</p></td>
+<td class="text-left"><p>“height”, “balanced”, “diameter”</p></td>
+<td class="text-left"><p>Return value up recursion</p></td>
+<td class="text-left"><p>104, 110, 543</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Path across root</p></td>
+<td class="text-left"><p>“max path sum”, “any node to any node”</p></td>
+<td class="text-left"><p>Global var + return one side</p></td>
+<td class="text-left"><p>124, 687</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>BST</p></td>
+<td class="text-left"><p>“kth smallest”, “validate”, “sorted”</p></td>
+<td class="text-left"><p>BST property + inorder</p></td>
+<td class="text-left"><p>98, 230, 235</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Structure check</p></td>
+<td class="text-left"><p>“symmetric”, “same tree”, “subtree of”</p></td>
+<td class="text-left"><p>Mirror recursion or pass bounds down</p></td>
+<td class="text-left"><p>100, 101, 572</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-2-graphs">
+<h1>Part 2 — Graphs<a class="headerlink" href="#part-2-graphs" title="Link to this heading">#</a></h1>
+<p><strong>Core concept:</strong> A graph generalizes a tree — nodes connected by edges, but with possible <strong>cycles and no fixed root</strong>.</p>
+<p>Key implications:</p>
+<ul class="simple">
+<li><p>Cycles are possible → <strong>always use a <code class="docutils literal notranslate"><span class="pre">visited</span></code> set</strong></p></li>
+<li><p>No fixed root → can start from any node</p></li>
+<li><p>Can be directed or undirected, weighted or unweighted</p></li>
+</ul>
+<section id="step-1-choose-your-representation">
+<h2>Step 1 — Choose your representation<a class="headerlink" href="#step-1-choose-your-representation" title="Link to this heading">#</a></h2>
+<p>Decide this <strong>before coding</strong>. The input format usually tells you which to use:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Representation</p></th>
+<th class="head text-left"><p>When to use</p></th>
+<th class="head text-left"><p>Structure</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Adjacency list</p></td>
+<td class="text-left"><p>Most LeetCode graph problems</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{node:</span> <span class="pre">[neighbors]}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Grid</p></td>
+<td class="text-left"><p>Input is a 2D matrix</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">grid[i][j]</span></code>, neighbors = up/down/left/right</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Edge list</p></td>
+<td class="text-left"><p>Union Find problems</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[(u,</span> <span class="pre">v),</span> <span class="pre">...]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-1-dfs-bfs-traversal-connected-components">
+<h2>Type 1 — DFS / BFS traversal (connected components)<a class="headerlink" href="#type-1-dfs-bfs-traversal-connected-components" title="Link to this heading">#</a></h2>
+<p>The same DFS and BFS from Part 0 apply here, but <strong>always with a <code class="docutils literal notranslate"><span class="pre">visited</span></code> set</strong> to prevent infinite loops on cycles.</p>
+<p><strong>Grid trick:</strong> for grid problems, mutate the cell value to mark visited (e.g. <code class="docutils literal notranslate"><span class="pre">'1'</span> <span class="pre">→</span> <span class="pre">'#'</span></code>) instead of a separate set — simpler and saves space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># DFS — adjacency list</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
+
+
+<span class="c1"># BFS — adjacency list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+    <span class="n">queue</span>   <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+
+<span class="c1"># Grid DFS — LC 200 (Number of Islands)</span>
+<span class="c1"># Trick: mutate cell to &#39;#&#39; instead of a visited set</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_grid</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span>                            <span class="c1"># mark visited</span>
+    <span class="k">for</span> <span class="n">di</span><span class="p">,</span> <span class="n">dj</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)]:</span>
+        <span class="n">dfs_grid</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">di</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">dj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 200 — Number of Islands</p></td>
+<td class="text-left"><p>Grid DFS</p></td>
+<td class="text-left"><p>Count how many times you trigger DFS on an unvisited ‘1’</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 547 — Number of Provinces</p></td>
+<td class="text-left"><p>Adjacency list DFS</p></td>
+<td class="text-left"><p>Count connected components</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 695 — Max Area of Island</p></td>
+<td class="text-left"><p>Grid DFS</p></td>
+<td class="text-left"><p>Return area from each DFS call</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-2-shortest-path-bfs">
+<h2>Type 2 — Shortest path (BFS)<a class="headerlink" href="#type-2-shortest-path-bfs" title="Link to this heading">#</a></h2>
+<p>BFS guarantees shortest path in <strong>unweighted</strong> graphs because it explores layer by layer — the first time you reach a node is always via the shortest route.</p>
+<p><strong>Multi-source BFS:</strong> when the problem asks “minimum steps to spread from multiple starting points” — initialize the queue with <strong>all sources at once</strong> before starting BFS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># BFS shortest path template</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">shortestPath</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+    <span class="n">queue</span>   <span class="o">=</span> <span class="n">deque</span><span class="p">([(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>        <span class="c1"># (node, distance)</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span> <span class="k">return</span> <span class="n">dist</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">dist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="c1"># Multi-source BFS — LC 994 (Rotting Oranges)</span>
+<span class="c1"># Start BFS from ALL source nodes simultaneously</span>
+<span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>     <span class="c1"># all rotten oranges are sources at time=0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 994 — Rotting Oranges</p></td>
+<td class="text-left"><p>Multi-source BFS</p></td>
+<td class="text-left"><p>Add all rotten cells to queue first</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 127 — Word Ladder</p></td>
+<td class="text-left"><p>BFS</p></td>
+<td class="text-left"><p>Each word transformation = one edge</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 1091 — Shortest Path in Binary Matrix</p></td>
+<td class="text-left"><p>Grid BFS</p></td>
+<td class="text-left"><p>8-directional neighbors</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-3-cycle-detection">
+<h2>Type 3 — Cycle detection<a class="headerlink" href="#type-3-cycle-detection" title="Link to this heading">#</a></h2>
+<p><strong>Directed graphs</strong> need 3 states — 2 states is not enough:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> = unvisited</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> = visiting (currently in the recursion stack)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> = done</p></li>
+</ul>
+<p>A node being “visited” (state 2) doesn’t mean cycle — only a node currently <strong>in the stack</strong> (state 1) does.</p>
+<p><strong>Undirected graphs</strong> are simpler — just track the parent node to avoid going back on the same edge.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Directed graph — 3-state DFS (LC 207 — Course Schedule)</span>
+<span class="c1"># state: 0 = unvisited, 1 = visiting, 2 = done</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hasCycle</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="n">state</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                             <span class="c1"># mark as visiting</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>    <span class="c1"># back edge = cycle</span>
+        <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">hasCycle</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">state</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>                             <span class="c1"># mark as done</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="c1"># Undirected graph — track parent to avoid false positives</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_undirected</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="o">==</span> <span class="n">parent</span><span class="p">:</span> <span class="k">continue</span>         <span class="c1"># skip the edge we came from</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>     <span class="c1"># real cycle found</span>
+        <span class="k">if</span> <span class="n">dfs_undirected</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 207 — Course Schedule</p></td>
+<td class="text-left"><p>3-state DFS (directed)</p></td>
+<td class="text-left"><p>Return <code class="docutils literal notranslate"><span class="pre">False</span></code> if any cycle found</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 802 — Find Eventual Safe States</p></td>
+<td class="text-left"><p>3-state DFS</p></td>
+<td class="text-left"><p>Nodes in state 2 = safe nodes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-4-topological-sort">
+<h2>Type 4 — Topological sort<a class="headerlink" href="#type-4-topological-sort" title="Link to this heading">#</a></h2>
+<p>Used when there are <strong>dependencies</strong>: “do A before B”. Only valid on DAGs (directed acyclic graphs).</p>
+<p><strong>Kahn’s Algorithm (BFS on indegrees):</strong></p>
+<ol class="arabic simple">
+<li><p>Compute indegree (number of incoming edges) for each node</p></li>
+<li><p>Start with all nodes that have indegree 0 (no dependencies)</p></li>
+<li><p>Process node → reduce neighbors’ indegree → add to queue if indegree hits 0</p></li>
+</ol>
+<p><strong>Cycle detection bonus:</strong> if <code class="docutils literal notranslate"><span class="pre">len(order)</span> <span class="pre">!=</span> <span class="pre">n</span></code> after the algorithm finishes, a cycle exists.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kahn&#39;s Algorithm — BFS topological sort (LC 210)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">topoSort</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="n">graph</span>    <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+    <span class="n">indegree</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">indegree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># start with nodes that have no dependencies</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">order</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="k">else</span> <span class="p">[]</span>  <span class="c1"># empty list = cycle exists</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 207 — Course Schedule</p></td>
+<td class="text-left"><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">len(order)</span> <span class="pre">==</span> <span class="pre">n</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 210 — Course Schedule II</p></td>
+<td class="text-left"><p>Return the <code class="docutils literal notranslate"><span class="pre">order</span></code> array itself</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 329 — Longest Increasing Path in Matrix</p></td>
+<td class="text-left"><p>Topo sort on implicit DAG (values as nodes)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="type-5-union-find">
+<h2>Type 5 — Union Find<a class="headerlink" href="#type-5-union-find" title="Link to this heading">#</a></h2>
+<p>For <strong>grouping nodes into connected components</strong>, especially when edges are added dynamically.</p>
+<p>Two optimizations are mandatory for efficiency:</p>
+<ul class="simple">
+<li><p><strong>Path compression</strong> in <code class="docutils literal notranslate"><span class="pre">find()</span></code>: flatten the tree so future lookups are near O(1)</p></li>
+<li><p><strong>Union by rank</strong> in <code class="docutils literal notranslate"><span class="pre">union()</span></code>: always attach the smaller tree under the larger</p></li>
+</ul>
+<p><strong>Key trick:</strong> if <code class="docutils literal notranslate"><span class="pre">union()</span></code> returns <code class="docutils literal notranslate"><span class="pre">False</span></code>, the two nodes are already in the same component — use this to detect redundant or cycle-forming edges.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Union Find — path compression + union by rank</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnionFind</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span>   <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="n">x</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  <span class="c1"># path compression</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">px</span> <span class="o">==</span> <span class="n">py</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>               <span class="c1"># already connected</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">px</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">py</span><span class="p">]:</span>
+            <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">py</span><span class="p">,</span> <span class="n">px</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">py</span><span class="p">]</span> <span class="o">=</span> <span class="n">px</span>                    <span class="c1"># attach smaller under larger</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">px</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">py</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">px</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="c1"># Usage example: LC 684 — Redundant Connection</span>
+<span class="c1"># The edge whose union() returns False is the redundant one</span>
+<span class="n">uf</span> <span class="o">=</span> <span class="n">UnionFind</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">uf</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">]</span>               <span class="c1"># this edge creates a cycle</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 547 — Number of Provinces</p></td>
+<td class="text-left"><p>Count distinct <code class="docutils literal notranslate"><span class="pre">find()</span></code> roots after all unions</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 684 — Redundant Connection</p></td>
+<td class="text-left"><p>The edge where <code class="docutils literal notranslate"><span class="pre">union()</span></code> returns <code class="docutils literal notranslate"><span class="pre">False</span></code> is the answer</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 128 — Longest Consecutive Sequence</p></td>
+<td class="text-left"><p>Union consecutive numbers; track component sizes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="type-6-weighted-shortest-path">
+<h2>Type 6 — Weighted Shortest Path<a class="headerlink" href="#type-6-weighted-shortest-path" title="Link to this heading">#</a></h2>
+<p><strong>When to use:</strong> the graph has weighted edges and you need the shortest path by total weight, not by number of hops. BFS only works for unweighted graphs — when edges have different costs, use one of the three algorithms below.</p>
+<p><strong>Choosing the right algorithm:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Algorithm</p></th>
+<th class="head text-left"><p>Edge weights</p></th>
+<th class="head text-left"><p>Handles negative?</p></th>
+<th class="head text-left"><p>Complexity</p></th>
+<th class="head text-left"><p>Use case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Dijkstra</p></td>
+<td class="text-left"><p>Non-negative only</p></td>
+<td class="text-left"><p>No</p></td>
+<td class="text-left"><p>O((V + E) log V)</p></td>
+<td class="text-left"><p>Single source, no negative weights</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Bellman-Ford</p></td>
+<td class="text-left"><p>Any</p></td>
+<td class="text-left"><p>Yes (detects negative cycles)</p></td>
+<td class="text-left"><p>O(V × E)</p></td>
+<td class="text-left"><p>Single source, negative weights allowed</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Floyd-Warshall</p></td>
+<td class="text-left"><p>Any</p></td>
+<td class="text-left"><p>Yes</p></td>
+<td class="text-left"><p>O(V³)</p></td>
+<td class="text-left"><p>All pairs shortest path</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Key insight for Dijkstra:</strong> always process the unvisited node with the smallest known distance first — use a min-heap for efficiency. Once a node is popped from the heap, its shortest distance is finalized and never updated again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="c1"># ── Dijkstra — single source shortest path (non-negative weights) ─────────────</span>
+<span class="c1"># graph: {node: [(neighbor, weight), ...]}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dijkstra</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">}</span>
+    <span class="n">dist</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">heap</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">)]</span>                <span class="c1"># (distance, node)</span>
+
+    <span class="k">while</span> <span class="n">heap</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span> <span class="k">continue</span>    <span class="c1"># stale entry — skip</span>
+        <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">new_dist</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight</span>
+            <span class="k">if</span> <span class="n">new_dist</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]:</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_dist</span>
+                <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">new_dist</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dist</span>                        <span class="c1"># dist[node] = shortest distance from start</span>
+
+
+<span class="c1"># ── Bellman-Ford — handles negative weights, detects negative cycles ──────────</span>
+<span class="c1"># edges: [(u, v, weight), ...]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bellman_ford</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">dist</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>             <span class="c1"># relax all edges n-1 times</span>
+        <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span>
+
+    <span class="c1"># Check for negative cycle — if any edge still relaxes, cycle exists</span>
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>                <span class="c1"># negative cycle detected</span>
+
+    <span class="k">return</span> <span class="n">dist</span>
+
+
+<span class="c1"># ── Floyd-Warshall — all pairs shortest path ──────────────────────────────────</span>
+<span class="c1"># dist[i][j] = shortest distance from node i to node j</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">floyd_warshall</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                 <span class="c1"># distance to self is 0</span>
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span>                 <span class="c1"># initialize direct edges</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>                 <span class="c1"># k = intermediate node</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">dist</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="common-mistakes">
+<h2>Common mistakes<a class="headerlink" href="#common-mistakes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Using BFS for weighted graphs — BFS counts hops, not total weight; always use Dijkstra for weighted shortest path</p></li>
+<li><p>Forgetting the stale entry check in Dijkstra (<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">d</span> <span class="pre">&gt;</span> <span class="pre">dist[node]:</span> <span class="pre">continue</span></code>) — without it, outdated heap entries cause incorrect distance updates</p></li>
+<li><p>Using Dijkstra with negative weights — produces wrong results; use Bellman-Ford instead</p></li>
+</ul>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Algorithm</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 743 — Network Delay Time</p></td>
+<td class="text-left"><p>Dijkstra</p></td>
+<td class="text-left"><p>Single source, find max of all shortest distances</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 787 — Cheapest Flights Within K Stops</p></td>
+<td class="text-left"><p>Bellman-Ford</p></td>
+<td class="text-left"><p>K-limited hops — run K+1 relaxation rounds</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 1334 — Find the City With Smallest Number of Neighbors</p></td>
+<td class="text-left"><p>Floyd-Warshall</p></td>
+<td class="text-left"><p>All pairs — use when source is not fixed</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 778 — Swim in Rising Water</p></td>
+<td class="text-left"><p>Dijkstra (modified)</p></td>
+<td class="text-left"><p>Edge weight = max height along path</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="graphs-question-type-summary">
+<h3>Graphs — Question Type Summary<a class="headerlink" href="#graphs-question-type-summary" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Connected components</p></td>
+<td class="text-left"><p>“number of islands”, “provinces”</p></td>
+<td class="text-left"><p>DFS/BFS + visited set</p></td>
+<td class="text-left"><p>200, 547, 695</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Shortest path (unweighted)</p></td>
+<td class="text-left"><p>“minimum steps”, “minimum distance”</p></td>
+<td class="text-left"><p>BFS</p></td>
+<td class="text-left"><p>127, 994, 1091</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cycle detection</p></td>
+<td class="text-left"><p>“can finish”, “valid path”</p></td>
+<td class="text-left"><p>3-state DFS (directed)</p></td>
+<td class="text-left"><p>207, 802</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Topological sort</p></td>
+<td class="text-left"><p>“prerequisites”, “order of tasks”</p></td>
+<td class="text-left"><p>Kahn’s BFS on indegrees</p></td>
+<td class="text-left"><p>207, 210, 329</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Union Find</p></td>
+<td class="text-left"><p>“connected components”, “redundant edge”</p></td>
+<td class="text-left"><p>Union + path compression</p></td>
+<td class="text-left"><p>128, 547, 684</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Weighted shortest path</p></td>
+<td class="text-left"><p>“cheapest”, “minimum cost”, edge weights given</p></td>
+<td class="text-left"><p>Dijkstra / Bellman-Ford / Floyd-Warshall</p></td>
+<td class="text-left"><p>743, 787, 1334</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-3-decision-guide">
+<h1>Part 3 — Decision Guide<a class="headerlink" href="#part-3-decision-guide" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Which algorithm?
+├── DFS
+│   ├── Need to explore all paths?              → DFS (backtracking)
+│   ├── Computing subtree values?               → DFS postorder
+│   ├── Answer spans across the root?           → DFS + global variable
+│   └── Detecting cycles (directed graph)?      → DFS 3-state
+│
+└── BFS
+    ├── Shortest path (unweighted)?             → BFS
+    ├── Level-by-level processing?              → BFS
+    └── Spreading from multiple sources?        → Multi-source BFS
+
+Is the input a tree?
+├── Yes → No visited set needed
+│         ├── Problem about levels / layers?    → BFS
+│         ├── Answer passes through any node?   → Global var + DFS (return one side)
+│         ├── BST?                              → Use BST property to prune
+│         └── Otherwise                         → DFS postorder (return value up)
+│
+└── No  → It&#39;s a graph — always use visited set
+          ├── Grid input?                       → Mutate cell to mark visited
+          ├── Shortest path?                    → BFS
+          ├── Prerequisites / ordering?         → Topological sort (Kahn&#39;s)
+          ├── Grouping / merging components?    → Union Find
+          └── Cycle detection?
+                ├── Directed graph             → 3-state DFS (0 / 1 / 2)
+                └── Undirected graph           → Parent-tracking DFS
+</pre></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Cheatsheet_backtracking.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Backtracking — Cheat Sheet</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Cheatsheet_Binary_Search.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Binary Search — Cheat Sheet</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

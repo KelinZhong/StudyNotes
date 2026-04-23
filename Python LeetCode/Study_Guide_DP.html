@@ -1,0 +1,1684 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dynamic Programming — Study Guide &#8212; Data Science Study Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/Study_Guide_DP';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Backtracking — Cheat Sheet" href="Cheatsheet_backtracking.html" />
+    <link rel="prev" title="Heap &amp; Monotonic Stack — Cheat Sheet" href="Cheatsheet_Heap_and_Monotonic_Stack.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Science Study Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Reference_Arrays_and_Hashing.html">Arrays &amp; Hashing — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Sliding_Window_and_Two_Pointers.html">Sliding Window &amp; Two Pointers — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Heap_and_Monotonic_Stack.html">Heap &amp; Monotonic Stack — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dynamic Programming — Study Guide</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_backtracking.html">Backtracking — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Trees_and_Graphs.html">Trees &amp; Graphs — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Binary_Search.html">Binary Search — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Linkedlists_and_Bit_Manipulation.html">Linked Lists &amp; Bit Manipulation — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference_Divide_Conquer.html">Divide &amp; Conquer — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Greedy.html">Greedy — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Segment_Tree_Bit.html">Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dynamic Programming — Study Guide</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-what-is-dp-the-universal-framework">Part 0 — What is DP &amp; The Universal Framework</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-dynamic-programming">What is Dynamic Programming?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-dp">When to use DP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-5-step-framework">The 5-Step Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down-vs-bottom-up-two-implementation-styles">Top-down vs Bottom-up — Two Implementation Styles</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-1d-dp-patterns">Part 1 — 1D DP Patterns</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-1-linear-fibonacci-style-dp">Type 1 — Linear / Fibonacci-style DP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-2-kadane-s-algorithm-maximum-subarray">Type 2 — Kadane’s Algorithm (Maximum Subarray)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-3-longest-increasing-subsequence-lis">Type 3 — Longest Increasing Subsequence (LIS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-dp-question-type-summary">1D DP — Question Type Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-2d-dp-patterns">Part 2 — 2D DP Patterns</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-4-grid-dp">Type 4 — Grid DP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-5-string-dp-lcs-edit-distance">Type 5 — String DP (LCS &amp; Edit Distance)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2D DP — Question Type Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-knapsack-patterns">Part 3 — Knapsack Patterns</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-6-0-1-knapsack">Type 6 — 0/1 Knapsack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-7-unbounded-knapsack">Type 7 — Unbounded Knapsack</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-unbounded-the-one-rule-that-matters">0/1 vs Unbounded — The One Rule That Matters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knapsack-question-type-summary">Knapsack — Question Type Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-interval-advanced-dp">Part 4 — Interval &amp; Advanced DP</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-8-interval-dp">Type 8 — Interval DP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-9-dp-on-trees">Type 9 — DP on Trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interval-advanced-dp-summary">Interval &amp; Advanced DP — Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-decision-guide">Part 5 — Decision Guide</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-pattern-cheat-sheet">Full Pattern Cheat Sheet</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Python_DSA.html" class="nav-link">Python Data Structures and Algorithm</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Dynamic Programming — Study Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dynamic-programming-study-guide">
+<h1>Dynamic Programming — Study Guide<a class="headerlink" href="#dynamic-programming-study-guide" title="Link to this heading">#</a></h1>
+<p><strong>Learning order:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Part 0 — What is DP &amp; The Universal Framework
+  └── When to use DP → Top-down vs Bottom-up → The 5-step framework
+Part 1 — 1D DP Patterns
+  └── Linear DP → Kadane&#39;s → Fibonacci-style
+Part 2 — 2D DP Patterns
+  └── Grid DP → String DP (LCS, Edit Distance)
+Part 3 — Knapsack Patterns
+  └── 0/1 Knapsack → Unbounded Knapsack → Subset Sum
+Part 4 — Interval &amp; Advanced DP
+  └── Interval DP → DP on Trees
+Part 5 — Decision Guide
+</pre></div>
+</div>
+<p>Each section introduces the concept first, then shows the pseudo-code immediately after.</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-0-what-is-dp-the-universal-framework">
+<h1>Part 0 — What is DP &amp; The Universal Framework<a class="headerlink" href="#part-0-what-is-dp-the-universal-framework" title="Link to this heading">#</a></h1>
+<section id="what-is-dynamic-programming">
+<h2>What is Dynamic Programming?<a class="headerlink" href="#what-is-dynamic-programming" title="Link to this heading">#</a></h2>
+<p>DP is an optimization technique for problems that have two properties:</p>
+<ol class="arabic simple">
+<li><p><strong>Overlapping subproblems</strong> — the same subproblem is solved multiple times in a naive recursion</p></li>
+<li><p><strong>Optimal substructure</strong> — the optimal solution to the whole problem can be built from optimal solutions to subproblems</p></li>
+</ol>
+<p>The core idea is simple: <strong>solve each subproblem once and store the result</strong> so you never compute it again.</p>
+</section>
+<hr class="docutils" />
+<section id="when-to-use-dp">
+<h2>When to use DP<a class="headerlink" href="#when-to-use-dp" title="Link to this heading">#</a></h2>
+<p>Look for these signal words and patterns in the problem:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Signal</p></th>
+<th class="head text-left"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>“maximum / minimum” of something</p></td>
+<td class="text-left"><p>Maximum profit, minimum cost, minimum steps</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“number of ways”</p></td>
+<td class="text-left"><p>How many ways to climb stairs, how many distinct paths</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>“can you reach / is it possible”</p></td>
+<td class="text-left"><p>Can you reach the last index, can the sum be achieved</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>“longest / shortest” subsequence or substring</p></td>
+<td class="text-left"><p>Longest common subsequence, longest increasing subsequence</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Decision at each step affects future decisions</p></td>
+<td class="text-left"><p>Buy/sell stock, take/skip an item</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Quick test:</strong> Can you draw a recursion tree where the same node appears more than once? If yes → DP.</p>
+</section>
+<hr class="docutils" />
+<section id="the-5-step-framework">
+<h2>The 5-Step Framework<a class="headerlink" href="#the-5-step-framework" title="Link to this heading">#</a></h2>
+<p>Apply these five steps in order for every DP problem. Writing them as comments before coding saves enormous time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Step 1 — Define the state
+         What does dp[i] (or dp[i][j]) represent?
+         Be precise: &quot;dp[i] = maximum profit using the first i items&quot;
+
+Step 2 — Find the transition (recurrence)
+         How do I compute dp[i] from smaller subproblems?
+         e.g. dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+
+Step 3 — Identify the base case
+         What are the smallest subproblems I can answer directly?
+         e.g. dp[0] = 0, dp[1] = nums[0]
+
+Step 4 — Determine the order of computation
+         Which direction do I fill the table?
+         Usually left-to-right, top-to-bottom
+
+Step 5 — Extract the final answer
+         Where in dp is the answer?
+         e.g. dp[n], max(dp), dp[n][m]
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="top-down-vs-bottom-up-two-implementation-styles">
+<h2>Top-down vs Bottom-up — Two Implementation Styles<a class="headerlink" href="#top-down-vs-bottom-up-two-implementation-styles" title="Link to this heading">#</a></h2>
+<p>Every DP problem can be implemented in either style. They always produce the same answer.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p>Top-down (Recursion + Memo)</p></th>
+<th class="head text-left"><p>Bottom-up (Iterative Table)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>How it works</strong></p></td>
+<td class="text-left"><p>Recurse naturally, cache results</p></td>
+<td class="text-left"><p>Fill a table from base case upward</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Code style</strong></p></td>
+<td class="text-left"><p>Recursive function + <code class="docutils literal notranslate"><span class="pre">memo</span></code> dict</p></td>
+<td class="text-left"><p>Loops + <code class="docutils literal notranslate"><span class="pre">dp</span></code> array</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Ease of writing</strong></p></td>
+<td class="text-left"><p>Easier — mirrors the recurrence directly</p></td>
+<td class="text-left"><p>Requires knowing the fill order</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Stack overflow risk</strong></p></td>
+<td class="text-left"><p>Yes — deep recursion on large inputs</p></td>
+<td class="text-left"><p>No</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Space optimization</strong></p></td>
+<td class="text-left"><p>Harder</p></td>
+<td class="text-left"><p>Easy — can reduce to O(1) by reusing rows</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>When to prefer</strong></p></td>
+<td class="text-left"><p>When the state space is sparse (not all states visited)</p></td>
+<td class="text-left"><p>When you need maximum performance</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: LC 70 — Climbing Stairs (can take 1 or 2 steps)</span>
+<span class="c1"># dp[i] = number of ways to reach step i</span>
+
+<span class="c1"># ── Top-down (recursion + memo) ──────────────────────────────────────────────</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">climbStairs_topdown</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dp</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>                 <span class="c1"># base case</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span> <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>        <span class="c1"># return cached result</span>
+        <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>    <span class="c1"># recurrence</span>
+        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+
+<span class="c1"># ── Bottom-up (iterative table) ───────────────────────────────────────────────</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">climbStairs_bottomup</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>             <span class="c1"># base cases</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># recurrence</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+
+<span class="c1"># ── Space-optimized bottom-up (O(1) space) ────────────────────────────────────</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">climbStairs_optimized</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">prev2</span><span class="p">,</span> <span class="n">prev1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">prev2</span><span class="p">,</span> <span class="n">prev1</span> <span class="o">=</span> <span class="n">prev1</span><span class="p">,</span> <span class="n">prev1</span> <span class="o">+</span> <span class="n">prev2</span>
+    <span class="k">return</span> <span class="n">prev1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-1-1d-dp-patterns">
+<h1>Part 1 — 1D DP Patterns<a class="headerlink" href="#part-1-1d-dp-patterns" title="Link to this heading">#</a></h1>
+<p>The simplest DP problems: <code class="docutils literal notranslate"><span class="pre">dp</span></code> is a 1D array and each state depends on a fixed number of previous states.</p>
+<hr class="docutils" />
+<section id="type-1-linear-fibonacci-style-dp">
+<h2>Type 1 — Linear / Fibonacci-style DP<a class="headerlink" href="#type-1-linear-fibonacci-style-dp" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> <code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> depends on <code class="docutils literal notranslate"><span class="pre">dp[i-1]</span></code>, <code class="docutils literal notranslate"><span class="pre">dp[i-2]</span></code>, or a small fixed window of previous values.</p>
+<p><strong>Signal words:</strong> “number of ways”, “reach the end”, “minimum cost to reach”.</p>
+<p><strong>Key insight:</strong> if <code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> only depends on the last 1–2 values, you can reduce space from O(n) to O(1) using two variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — linear 1D DP</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">linear_dp</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">BASE_CASE</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">TRANSITION</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>  <span class="c1"># depends on previous states</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># or max(dp), sum(dp), etc.</span>
+
+
+<span class="c1"># Example: LC 746 — Min Cost Climbing Stairs</span>
+<span class="c1"># dp[i] = minimum cost to reach step i</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">minCostClimbingStairs</span><span class="p">(</span><span class="n">cost</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 198 — House Robber</span>
+<span class="c1"># dp[i] = maximum money robbing from houses 0..i</span>
+<span class="c1"># Cannot rob two adjacent houses</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rob</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">nums</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>            <span class="c1"># skip house i</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># rob house i</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>State definition</p></th>
+<th class="head text-left"><p>Transition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 70 — Climbing Stairs</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> = ways to reach step i</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i-1]</span> <span class="pre">+</span> <span class="pre">dp[i-2]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 198 — House Robber</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> = max money from first i houses</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">max(dp[i-1],</span> <span class="pre">dp[i-2]</span> <span class="pre">+</span> <span class="pre">nums[i])</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 746 — Min Cost Climbing Stairs</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> = min cost to reach step i</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">min(dp[i-1]</span> <span class="pre">+</span> <span class="pre">cost[i-1],</span> <span class="pre">dp[i-2]</span> <span class="pre">+</span> <span class="pre">cost[i-2])</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="type-2-kadane-s-algorithm-maximum-subarray">
+<h2>Type 2 — Kadane’s Algorithm (Maximum Subarray)<a class="headerlink" href="#type-2-kadane-s-algorithm-maximum-subarray" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> at each position, decide whether to <strong>extend</strong> the current subarray or <strong>start fresh</strong>.</p>
+<p><strong>Signal words:</strong> “maximum sum subarray”, “contiguous subarray”.</p>
+<p><strong>Key insight:</strong> <code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> = max subarray ending exactly at index i. If <code class="docutils literal notranslate"><span class="pre">dp[i-1]</span> <span class="pre">&lt;</span> <span class="pre">0</span></code>, starting fresh is always better.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 53 — Maximum Subarray (Kadane&#39;s Algorithm)</span>
+<span class="c1"># dp[i] = maximum sum of subarray ending at index i</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">maxSubArray</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>            <span class="c1"># start fresh at i</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># extend previous subarray</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+
+
+<span class="c1"># Space-optimized version — O(1) space</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">maxSubArray_optimized</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">cur_sum</span> <span class="o">=</span> <span class="n">res</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">cur_sum</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">cur_sum</span> <span class="o">+</span> <span class="n">num</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">cur_sum</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 53 — Maximum Subarray</p></td>
+<td class="text-left"><p>Classic Kadane’s</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 152 — Maximum Product Subarray</p></td>
+<td class="text-left"><p>Track both max and min (negative × negative = positive)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 918 — Maximum Sum Circular Subarray</p></td>
+<td class="text-left"><p>Answer = max(normal Kadane, total sum − min subarray)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="type-3-longest-increasing-subsequence-lis">
+<h2>Type 3 — Longest Increasing Subsequence (LIS)<a class="headerlink" href="#type-3-longest-increasing-subsequence-lis" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> for each element, look back at all previous elements and extend the best valid subsequence.</p>
+<p><strong>Signal words:</strong> “longest increasing subsequence”, “longest non-decreasing”, “minimum number of chains”.</p>
+<p><strong>Key insight:</strong> <code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> = length of LIS ending at index i. Answer is <code class="docutils literal notranslate"><span class="pre">max(dp)</span></code>, not <code class="docutils literal notranslate"><span class="pre">dp[-1]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LC 300 — Longest Increasing Subsequence</span>
+<span class="c1"># dp[i] = length of LIS ending at index i</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lengthOfLIS</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>                        <span class="c1"># every element is a subsequence of length 1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>              <span class="c1"># look back at all previous elements</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>       <span class="c1"># valid extension</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>                      <span class="c1"># answer is the max over all ending positions</span>
+
+
+<span class="c1"># O(n log n) version using binary search + patience sorting</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bisect</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lengthOfLIS_fast</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">tails</span> <span class="o">=</span> <span class="p">[]</span>                          <span class="c1"># tails[i] = smallest tail of all LIS of length i+1</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">tails</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">tails</span><span class="p">):</span>
+            <span class="n">tails</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>           <span class="c1"># extend LIS</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tails</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>            <span class="c1"># replace with smaller tail</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">tails</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 300 — Longest Increasing Subsequence</p></td>
+<td class="text-left"><p>Core LIS — start here</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 354 — Russian Doll Envelopes</p></td>
+<td class="text-left"><p>Sort by width ASC, height DESC → LIS on height</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 673 — Number of LIS</p></td>
+<td class="text-left"><p>Track both length and count arrays</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="d-dp-question-type-summary">
+<h3>1D DP — Question Type Summary<a class="headerlink" href="#d-dp-question-type-summary" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Linear / Fibonacci</p></td>
+<td class="text-left"><p>“ways to reach”, “min cost”</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i]</span></code> from fixed previous window</p></td>
+<td class="text-left"><p>70, 198, 746</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Kadane’s</p></td>
+<td class="text-left"><p>“maximum sum subarray”</p></td>
+<td class="text-left"><p>Extend or start fresh at each step</p></td>
+<td class="text-left"><p>53, 152, 918</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LIS</p></td>
+<td class="text-left"><p>“longest increasing subsequence”</p></td>
+<td class="text-left"><p>Look back at all previous, extend best</p></td>
+<td class="text-left"><p>300, 354, 673</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-2-2d-dp-patterns">
+<h1>Part 2 — 2D DP Patterns<a class="headerlink" href="#part-2-2d-dp-patterns" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">dp</span></code> becomes a 2D table. The state needs two dimensions — usually position in two sequences, or row/column in a grid.</p>
+<hr class="docutils" />
+<section id="type-4-grid-dp">
+<h2>Type 4 — Grid DP<a class="headerlink" href="#type-4-grid-dp" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> navigate a 2D grid, making decisions at each cell. <code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = best result reaching cell <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j)</span></code>.</p>
+<p><strong>Signal words:</strong> “unique paths”, “minimum path sum”, “reach bottom-right corner”.</p>
+<p><strong>Key insight:</strong> initialize the first row and column as base cases (can only come from one direction), then fill the rest using transitions from top and left.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — Grid DP</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grid_dp</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>               <span class="c1"># base case: top-left cell</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>               <span class="c1"># first column — can only come from above</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>               <span class="c1"># first row — can only come from left</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>  <span class="c1"># from top or left</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 62 — Unique Paths</span>
+<span class="c1"># dp[i][j] = number of unique paths to reach cell (i, j)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">uniquePaths</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>    <span class="c1"># base case: first row and col = 1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 64 — Minimum Path Sum</span>
+<span class="c1"># dp[i][j] = minimum sum path to reach cell (i, j)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">minPathSum</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>State definition</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 62 — Unique Paths</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = paths to <code class="docutils literal notranslate"><span class="pre">(i,j)</span></code></p></td>
+<td class="text-left"><p>Base case: all 1s in row 0 and col 0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 63 — Unique Paths II</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = paths to <code class="docutils literal notranslate"><span class="pre">(i,j)</span></code></p></td>
+<td class="text-left"><p>Set <code class="docutils literal notranslate"><span class="pre">dp[i][j]</span> <span class="pre">=</span> <span class="pre">0</span></code> if obstacle</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 64 — Minimum Path Sum</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = min sum to <code class="docutils literal notranslate"><span class="pre">(i,j)</span></code></p></td>
+<td class="text-left"><p>Take min from top or left</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="type-5-string-dp-lcs-edit-distance">
+<h2>Type 5 — String DP (LCS &amp; Edit Distance)<a class="headerlink" href="#type-5-string-dp-lcs-edit-distance" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> two strings as input. <code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = answer for the first <code class="docutils literal notranslate"><span class="pre">i</span></code> chars of string 1 and first <code class="docutils literal notranslate"><span class="pre">j</span></code> chars of string 2.</p>
+<p><strong>Signal words:</strong> “longest common subsequence”, “edit distance”, “shortest common supersequence”, “delete operations”.</p>
+<p><strong>Key insight:</strong> the transition always branches on whether <code class="docutils literal notranslate"><span class="pre">s1[i-1]</span> <span class="pre">==</span> <span class="pre">s2[j-1]</span></code>:</p>
+<ul class="simple">
+<li><p>If characters match → extend the diagonal</p></li>
+<li><p>If they don’t → take the best of top, left, or diagonal (depending on problem)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: LC 1143 — Longest Common Subsequence (LCS)</span>
+<span class="c1"># dp[i][j] = LCS length of s1[:i] and s2[:j]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">longestCommonSubsequence</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>  <span class="c1"># extra row/col as base case (empty string)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>              <span class="c1"># characters match → extend diagonal</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>                                <span class="c1"># skip one character from either string</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 72 — Edit Distance</span>
+<span class="c1"># dp[i][j] = min operations to convert s1[:i] to s2[:j]</span>
+<span class="c1"># Operations: insert, delete, replace</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">minDistance</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>  <span class="c1"># delete all chars from s1</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>  <span class="c1"># insert all chars of s2</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>          <span class="c1"># characters match — no operation needed</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span>              <span class="c1"># delete from s1</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>              <span class="c1"># insert into s1</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>             <span class="c1"># replace</span>
+                <span class="p">)</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>State definition</p></th>
+<th class="head text-left"><p>Match transition</p></th>
+<th class="head text-left"><p>No-match transition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 1143 — LCS</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = LCS of <code class="docutils literal notranslate"><span class="pre">s1[:i]</span></code>, <code class="docutils literal notranslate"><span class="pre">s2[:j]</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i-1][j-1]</span> <span class="pre">+</span> <span class="pre">1</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">max(dp[i-1][j],</span> <span class="pre">dp[i][j-1])</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 72 — Edit Distance</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = min edits</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i-1][j-1]</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">min(top,</span> <span class="pre">left,</span> <span class="pre">diagonal)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 583 — Delete Operations</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = min deletions</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i-1][j-1]</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">min(dp[i-1][j],</span> <span class="pre">dp[i][j-1])</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="id1">
+<h3>2D DP — Question Type Summary<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Key idea</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Grid DP</p></td>
+<td class="text-left"><p>“unique paths”, “min path sum”</p></td>
+<td class="text-left"><p>Fill from top-left; init first row/col</p></td>
+<td class="text-left"><p>62, 63, 64</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>String DP</p></td>
+<td class="text-left"><p>“LCS”, “edit distance”, “common subsequence”</p></td>
+<td class="text-left"><p>Branch on character match; extra row/col for empty string</p></td>
+<td class="text-left"><p>1143, 72, 583</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-3-knapsack-patterns">
+<h1>Part 3 — Knapsack Patterns<a class="headerlink" href="#part-3-knapsack-patterns" title="Link to this heading">#</a></h1>
+<p>Knapsack problems are the most important DP family. Master these and you can solve a large class of optimization problems.</p>
+<p><strong>Core setup:</strong> you have a set of items, each with a weight and value. You have a capacity. Maximize value without exceeding capacity.</p>
+<hr class="docutils" />
+<section id="type-6-0-1-knapsack">
+<h2>Type 6 — 0/1 Knapsack<a class="headerlink" href="#type-6-0-1-knapsack" title="Link to this heading">#</a></h2>
+<p><strong>Rule:</strong> each item can be used <strong>at most once</strong> (take it or skip it).</p>
+<p><strong>Signal words:</strong> “subset sum”, “partition equal subset”, “target sum”, “can you pick items to reach exactly X”.</p>
+<p><strong>Key insight:</strong> iterate items in the outer loop, capacity in the inner loop. <strong>Iterate capacity backwards</strong> to prevent reusing the same item.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — 0/1 Knapsack</span>
+<span class="c1"># dp[j] = max value achievable with capacity j</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">knapsack_01</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)):</span>           <span class="c1"># for each item</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># iterate BACKWARDS</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>              <span class="c1"># skip item i</span>
+                        <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># take item i</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">capacity</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 416 — Partition Equal Subset Sum</span>
+<span class="c1"># Can we split nums into two subsets with equal sum?</span>
+<span class="c1"># → Is there a subset that sums to total/2?</span>
+<span class="c1"># dp[j] = True if subset summing to j exists</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">canPartition</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">total</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                            <span class="c1"># empty subset sums to 0</span>
+
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># iterate BACKWARDS</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">or</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">num</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 494 — Target Sum</span>
+<span class="c1"># Assign + or - to each number to reach target</span>
+<span class="c1"># dp[j] = number of ways to reach sum j</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">findTargetSumWays</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="c1"># math reduction: let P = positive subset sum</span>
+    <span class="c1"># P - (total - P) = target → P = (total + target) / 2</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">total</span> <span class="o">+</span> <span class="n">target</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">total</span> <span class="o">+</span> <span class="n">target</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>     <span class="c1"># iterate BACKWARDS</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">num</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Knapsack framing</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 416 — Partition Equal Subset Sum</p></td>
+<td class="text-left"><p>Can subset reach <code class="docutils literal notranslate"><span class="pre">total/2</span></code>?</p></td>
+<td class="text-left"><p>Boolean DP</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 494 — Target Sum</p></td>
+<td class="text-left"><p>Count subsets reaching <code class="docutils literal notranslate"><span class="pre">(total+target)/2</span></code></p></td>
+<td class="text-left"><p>Count DP</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 474 — Ones and Zeroes</p></td>
+<td class="text-left"><p>2D knapsack (m zeros, n ones as capacity)</p></td>
+<td class="text-left"><p>Two-dimensional capacity</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="type-7-unbounded-knapsack">
+<h2>Type 7 — Unbounded Knapsack<a class="headerlink" href="#type-7-unbounded-knapsack" title="Link to this heading">#</a></h2>
+<p><strong>Rule:</strong> each item can be used <strong>unlimited times</strong>.</p>
+<p><strong>Signal words:</strong> “coin change”, “infinite supply”, “complete”, “any number of times”.</p>
+<p><strong>Key insight:</strong> iterate capacity <strong>forwards</strong> (not backwards) — this allows the same item to be reused.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — Unbounded Knapsack</span>
+<span class="c1"># Iterate capacity FORWARDS to allow reuse</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">knapsack_unbounded</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># iterate FORWARDS</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">capacity</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 322 — Coin Change</span>
+<span class="c1"># dp[j] = minimum coins needed to make amount j</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">coinChange</span><span class="p">(</span><span class="n">coins</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                               <span class="c1"># base case: 0 coins for amount 0</span>
+    <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coin</span><span class="p">,</span> <span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>   <span class="c1"># iterate FORWARDS (unbounded)</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">coin</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="c1"># Example: LC 518 — Coin Change II</span>
+<span class="c1"># dp[j] = number of combinations to make amount j</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">change</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">coins</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                               <span class="c1"># one way to make 0: use no coins</span>
+    <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coin</span><span class="p">,</span> <span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>   <span class="c1"># iterate FORWARDS (unbounded)</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">coin</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>dp meaning</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 322 — Coin Change</p></td>
+<td class="text-left"><p>min coins for amount j</p></td>
+<td class="text-left"><p>Init with <code class="docutils literal notranslate"><span class="pre">inf</span></code>, answer is <code class="docutils literal notranslate"><span class="pre">dp[amount]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 518 — Coin Change II</p></td>
+<td class="text-left"><p>number of combinations for j</p></td>
+<td class="text-left"><p>Init <code class="docutils literal notranslate"><span class="pre">dp[0]=1</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 139 — Word Break</p></td>
+<td class="text-left"><p>can string be segmented?</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[j]</span> <span class="pre">=</span> <span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">s[:j]</span></code> can be built from wordDict</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="vs-unbounded-the-one-rule-that-matters">
+<h3>0/1 vs Unbounded — The One Rule That Matters<a class="headerlink" href="#vs-unbounded-the-one-rule-that-matters" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Each item usable ONCE  → iterate capacity BACKWARDS   (0/1 knapsack)
+Each item usable MANY  → iterate capacity FORWARDS     (unbounded knapsack)
+</pre></div>
+</div>
+<p>Everything else in the template stays the same.</p>
+</section>
+<hr class="docutils" />
+<section id="knapsack-question-type-summary">
+<h3>Knapsack — Question Type Summary<a class="headerlink" href="#knapsack-question-type-summary" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Each item</p></th>
+<th class="head text-left"><p>Capacity direction</p></th>
+<th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>0/1 Knapsack</p></td>
+<td class="text-left"><p>Once</p></td>
+<td class="text-left"><p>Backwards</p></td>
+<td class="text-left"><p>“subset”, “partition”, “target sum”</p></td>
+<td class="text-left"><p>416, 494, 474</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Unbounded Knapsack</p></td>
+<td class="text-left"><p>Unlimited</p></td>
+<td class="text-left"><p>Forwards</p></td>
+<td class="text-left"><p>“coin change”, “infinite supply”</p></td>
+<td class="text-left"><p>322, 518, 139</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-4-interval-advanced-dp">
+<h1>Part 4 — Interval &amp; Advanced DP<a class="headerlink" href="#part-4-interval-advanced-dp" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="type-8-interval-dp">
+<h2>Type 8 — Interval DP<a class="headerlink" href="#type-8-interval-dp" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> the problem is defined on a contiguous range <code class="docutils literal notranslate"><span class="pre">[i,</span> <span class="pre">j]</span></code> of elements. You split the range at some midpoint <code class="docutils literal notranslate"><span class="pre">k</span></code> and combine results from <code class="docutils literal notranslate"><span class="pre">[i,</span> <span class="pre">k]</span></code> and <code class="docutils literal notranslate"><span class="pre">[k+1,</span> <span class="pre">j]</span></code>.</p>
+<p><strong>Signal words:</strong> “burst balloons”, “matrix chain multiplication”, “minimum cost to merge”, “score from splitting”.</p>
+<p><strong>Key insight:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = answer for the subarray/range from index i to j</p></li>
+<li><p>Fill by <strong>increasing length</strong> (small ranges first, then build up to the full range)</p></li>
+<li><p>The final answer is <code class="docutils literal notranslate"><span class="pre">dp[0][n-1]</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — Interval DP</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">interval_dp</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+
+    <span class="c1"># Fill by increasing length — small intervals first</span>
+    <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>          <span class="c1"># interval length</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>     <span class="c1"># start of interval</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span>             <span class="c1"># end of interval</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>           <span class="c1"># split point</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span>
+                               <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">COST</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="c1"># Example: LC 312 — Burst Balloons</span>
+<span class="c1"># dp[i][j] = max coins from bursting all balloons in (i, j) exclusive</span>
+<span class="c1"># Trick: think of k as the LAST balloon to burst in range (i, j)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">maxCoins</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>                 <span class="c1"># add boundary balloons</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">length</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">length</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>       <span class="c1"># k = last balloon to burst</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span>
+                               <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>State definition</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 312 — Burst Balloons</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = max coins in open interval <code class="docutils literal notranslate"><span class="pre">(i,j)</span></code></p></td>
+<td class="text-left"><p>Think of k as the <strong>last</strong> to burst, not first</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 1312 — Min Insertions to Make Palindrome</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = min insertions for <code class="docutils literal notranslate"><span class="pre">s[i..j]</span></code></p></td>
+<td class="text-left"><p>Similar to edit distance on a single string</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 1039 — Minimum Score Triangulation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">dp[i][j]</span></code> = min score triangulating polygon <code class="docutils literal notranslate"><span class="pre">[i..j]</span></code></p></td>
+<td class="text-left"><p>Split at vertex k</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="type-9-dp-on-trees">
+<h2>Type 9 — DP on Trees<a class="headerlink" href="#type-9-dp-on-trees" title="Link to this heading">#</a></h2>
+<p><strong>Pattern:</strong> DP where the subproblems follow the tree structure. Each node’s result depends on its children’s results — naturally a postorder DFS.</p>
+<p><strong>Signal words:</strong> “max sum with no two adjacent nodes”, “minimum vertex cover”, “tree diameter”.</p>
+<p><strong>Key insight:</strong> the state usually includes two choices at each node: <strong>include this node</strong> or <strong>exclude this node</strong>. Return both from each DFS call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Template — DP on Trees</span>
+<span class="c1"># Returns (result_if_included, result_if_excluded) for each node</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dp_tree</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">BASE_INCLUDED</span><span class="p">,</span> <span class="n">BASE_EXCLUDED</span><span class="p">)</span>
+
+    <span class="n">left_inc</span><span class="p">,</span>  <span class="n">left_exc</span>  <span class="o">=</span> <span class="n">dp_tree</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">right_inc</span><span class="p">,</span> <span class="n">right_exc</span> <span class="o">=</span> <span class="n">dp_tree</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="c1"># If we include current node: children must be excluded</span>
+    <span class="n">include</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">left_exc</span> <span class="o">+</span> <span class="n">right_exc</span>
+
+    <span class="c1"># If we exclude current node: children can be included OR excluded</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">left_inc</span><span class="p">,</span> <span class="n">left_exc</span><span class="p">)</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">right_inc</span><span class="p">,</span> <span class="n">right_exc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
+
+
+<span class="c1"># Example: LC 337 — House Robber III</span>
+<span class="c1"># Cannot rob two directly connected nodes</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rob_tree</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>          <span class="c1"># (rob this node, skip this node)</span>
+
+        <span class="n">left_rob</span><span class="p">,</span>  <span class="n">left_skip</span>  <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">right_rob</span><span class="p">,</span> <span class="n">right_skip</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+        <span class="n">rob</span>  <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">left_skip</span> <span class="o">+</span> <span class="n">right_skip</span>   <span class="c1"># rob here: children must be skipped</span>
+        <span class="n">skip</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">left_rob</span><span class="p">,</span> <span class="n">left_skip</span><span class="p">)</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">right_rob</span><span class="p">,</span> <span class="n">right_skip</span><span class="p">)</span>  <span class="c1"># skip here: children free</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">rob</span><span class="p">,</span> <span class="n">skip</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Practice problems:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>State per node</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>LC 337 — House Robber III</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">(rob,</span> <span class="pre">skip)</span></code></p></td>
+<td class="text-left"><p>Classic tree DP</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>LC 124 — Binary Tree Max Path Sum</p></td>
+<td class="text-left"><p>max gain from this subtree</p></td>
+<td class="text-left"><p>Global variable for cross-root answer</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LC 543 — Diameter of Binary Tree</p></td>
+<td class="text-left"><p>height of this subtree</p></td>
+<td class="text-left"><p>Global variable updated at each node</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="interval-advanced-dp-summary">
+<h3>Interval &amp; Advanced DP — Summary<a class="headerlink" href="#interval-advanced-dp-summary" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Signal words</p></th>
+<th class="head text-left"><p>Fill order</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Interval DP</p></td>
+<td class="text-left"><p>“burst”, “merge”, “score from splitting”</p></td>
+<td class="text-left"><p>By increasing length</p></td>
+<td class="text-left"><p>312, 1312, 1039</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>DP on Trees</p></td>
+<td class="text-left"><p>“no adjacent nodes”, “tree robber”</p></td>
+<td class="text-left"><p>Postorder DFS</p></td>
+<td class="text-left"><p>337, 124, 543</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="part-5-decision-guide">
+<h1>Part 5 — Decision Guide<a class="headerlink" href="#part-5-decision-guide" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Does the problem have overlapping subproblems and optimal substructure?
+└── Yes → Use DP. Apply the 5-step framework first.
+
+What is the shape of the input?
+├── Single array or number
+│   ├── Decisions at each index, small fixed window → Linear / Fibonacci DP  (70, 198)
+│   ├── Max/min of a contiguous subarray            → Kadane&#39;s               (53, 152)
+│   └── Longest subsequence with a condition        → LIS pattern            (300, 354)
+│
+├── Two strings
+│   └── Comparing / aligning characters             → String DP 2D table     (1143, 72)
+│
+├── 2D grid
+│   └── Paths from top-left to bottom-right         → Grid DP                (62, 64)
+│
+├── Set of items + a capacity / target
+│   ├── Each item used at most once                 → 0/1 Knapsack (backwards) (416, 494)
+│   └── Each item used unlimited times              → Unbounded Knapsack (forwards) (322, 518)
+│
+├── Contiguous range [i, j] (merge / split)
+│   └── Split range at midpoint k                   → Interval DP (by length) (312, 1039)
+│
+└── Tree structure
+    └── Choices at each node affecting parent        → DP on Trees (postorder DFS) (337)
+
+Which implementation style?
+├── State space is sparse (not all states reached)  → Top-down (memo)
+└── Need space optimization or max performance      → Bottom-up (table)
+</pre></div>
+</div>
+<hr class="docutils" />
+<section id="full-pattern-cheat-sheet">
+<h2>Full Pattern Cheat Sheet<a class="headerlink" href="#full-pattern-cheat-sheet" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Pattern</p></th>
+<th class="head text-left"><p>Dimensions</p></th>
+<th class="head text-left"><p>Fill direction</p></th>
+<th class="head text-left"><p>Key trick</p></th>
+<th class="head text-left"><p>Problems</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Linear / Fibonacci</p></td>
+<td class="text-left"><p>1D</p></td>
+<td class="text-left"><p>Left → right</p></td>
+<td class="text-left"><p>Can reduce to O(1) space</p></td>
+<td class="text-left"><p>70, 198, 746</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Kadane’s</p></td>
+<td class="text-left"><p>1D</p></td>
+<td class="text-left"><p>Left → right</p></td>
+<td class="text-left"><p>Extend or start fresh</p></td>
+<td class="text-left"><p>53, 152, 918</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LIS</p></td>
+<td class="text-left"><p>1D</p></td>
+<td class="text-left"><p>Left → right</p></td>
+<td class="text-left"><p>Answer is <code class="docutils literal notranslate"><span class="pre">max(dp)</span></code>, not <code class="docutils literal notranslate"><span class="pre">dp[-1]</span></code></p></td>
+<td class="text-left"><p>300, 354, 673</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Grid DP</p></td>
+<td class="text-left"><p>2D</p></td>
+<td class="text-left"><p>Top-left → bottom-right</p></td>
+<td class="text-left"><p>Init first row and col separately</p></td>
+<td class="text-left"><p>62, 63, 64</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>String DP</p></td>
+<td class="text-left"><p>2D</p></td>
+<td class="text-left"><p>Top-left → bottom-right</p></td>
+<td class="text-left"><p>Extra row/col for empty string</p></td>
+<td class="text-left"><p>1143, 72, 583</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>0/1 Knapsack</p></td>
+<td class="text-left"><p>1D</p></td>
+<td class="text-left"><p><strong>Backwards</strong></p></td>
+<td class="text-left"><p>One item per use</p></td>
+<td class="text-left"><p>416, 494, 474</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Unbounded Knapsack</p></td>
+<td class="text-left"><p>1D</p></td>
+<td class="text-left"><p><strong>Forwards</strong></p></td>
+<td class="text-left"><p>Reuse same item</p></td>
+<td class="text-left"><p>322, 518, 139</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Interval DP</p></td>
+<td class="text-left"><p>2D</p></td>
+<td class="text-left"><p>By increasing length</p></td>
+<td class="text-left"><p>Split at midpoint k</p></td>
+<td class="text-left"><p>312, 1039</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>DP on Trees</p></td>
+<td class="text-left"><p>Per node</p></td>
+<td class="text-left"><p>Postorder DFS</p></td>
+<td class="text-left"><p>Return (include, exclude) tuple</p></td>
+<td class="text-left"><p>337, 124</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Cheatsheet_Heap_and_Monotonic_Stack.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Heap &amp; Monotonic Stack — Cheat Sheet</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Cheatsheet_backtracking.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Backtracking — Cheat Sheet</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
