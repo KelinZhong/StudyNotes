@@ -1,0 +1,1422 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python Builtins — Technical Reference &#8212; Data Science Study Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Python LeetCode/reference_python_builtins';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Strings — Technical Reference" href="reference_python_strings.html" />
+    <link rel="prev" title="Python Data Structures and Algorithm" href="Python_DSA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Science Study Notes</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    Topics
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Python%20Data%20Libs/Python_Data_Libs.html">
+    Python Data Library
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../SQL%20LeetCode/SQL_quickcheck.html">
+    SQL LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="Python_DSA.html">
+    Python LeetCode
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Machine%20Learning/ML0.html">
+    Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Deep%20Learning/DL0.html">
+    Deep Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../PyTorch%20Guide/P0_pytorch.html">
+    PyTorch Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../TensorFlow%20Guide/tf0.html">
+    TensorFlow Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Causal%20ML/cml0.html">
+    Causal Machine Learning Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../Data%20Science%20Workflow/ds0.html">
+    Data Science Workflow
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Builtins — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_python_strings.html">Python Strings — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference_Arrays_and_Hashing.html">Arrays &amp; Hashing — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Sliding_Window_and_Two_Pointers.html">Sliding Window &amp; Two Pointers — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Heap_and_Monotonic_Stack.html">Heap &amp; Monotonic Stack — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_DP.html">Dynamic Programming — Study Guide</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_backtracking.html">Backtracking — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Study_Guide_Trees_and_Graphs.html">Trees &amp; Graphs — Study Guide</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Binary_Search.html">Binary Search — Cheat Sheet</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Linkedlists_and_Bit_Manipulation.html">Linked Lists &amp; Bit Manipulation — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference_Divide_Conquer.html">Divide &amp; Conquer — Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet_Greedy.html">Greedy — Cheat Sheet</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Reference_Segment_Tree_Bit.html">Segment Tree &amp; BIT (Fenwick Tree) — Technical Reference</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-index">Quick Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list">§1 — List</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-creation-copying">§1a — Creation &amp; copying</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-modification">§1b — Modification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-search">§1c — Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sorting">§1d — Sorting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-iteration-idioms">§1e — Iteration idioms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionary">§2 — Dictionary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-creation-access">§2a — Creation &amp; access</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-iteration">§2b — Iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-defaultdict-setdefault">§2c — defaultdict &amp; setdefault</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-counter">§2d — Counter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-ordereddict-lru-cache-pattern">§2e — OrderedDict (LRU Cache pattern)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">§3 — Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-creation-modification">§3a — Creation &amp; modification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-set-operations">§3b — Set operations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuple">§4 — Tuple</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-creation-immutability">§4a — Creation &amp; immutability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-namedtuple">§4b — namedtuple</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deque-collections-deque">§5 — deque (<code class="docutils literal notranslate"><span class="pre">collections.deque</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-operations-complexity">§5a — Operations &amp; complexity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-bfs-pattern">§5b — BFS pattern</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#int-float">§6 — int &amp; float</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-key-properties">§6a — Key properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-math-functions">§6b — Math functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bool-none">§7 — bool &amp; None</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-bool">§7a — bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-none">§7b — None</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-functions">§8 — Built-in Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#itertools-functools">§9 — <code class="docutils literal notranslate"><span class="pre">itertools</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">functools</span></code></a></li>
+</ul>
+  </nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../intro.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="Python_DSA.html" class="nav-link">Python Data Structures and Algorithm</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Python Builtins — Technical Reference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="python-builtins-technical-reference">
+<h1>Python Builtins — Technical Reference<a class="headerlink" href="#python-builtins-technical-reference" title="Link to this heading">#</a></h1>
+<p><strong>Folder:</strong> LeetCode Python</p>
+<p><strong>Purpose:</strong> quick lookup for Python built-in types and their methods as they appear in LeetCode and general Python work. Excludes heapq, monotonic stack, linked list, bit manipulation, and string operations — those are covered in dedicated files.</p>
+<section id="quick-index">
+<h2>Quick Index<a class="headerlink" href="#quick-index" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Section</p></th>
+<th class="head text-left"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>§1</p></td>
+<td class="text-left"><p>List</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§2</p></td>
+<td class="text-left"><p>Dictionary</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§3</p></td>
+<td class="text-left"><p>Set</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§4</p></td>
+<td class="text-left"><p>Tuple</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§5</p></td>
+<td class="text-left"><p>deque (<code class="docutils literal notranslate"><span class="pre">collections.deque</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§6</p></td>
+<td class="text-left"><p>int &amp; float</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§7</p></td>
+<td class="text-left"><p>bool &amp; None</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>§8</p></td>
+<td class="text-left"><p>Built-in functions</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>§9</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">itertools</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">functools</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="list">
+<h2>§1 — List<a class="headerlink" href="#list" title="Link to this heading">#</a></h2>
+<section id="a-creation-copying">
+<h3>§1a — Creation &amp; copying<a class="headerlink" href="#a-creation-copying" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creation</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>                          <span class="c1"># empty list</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>                     <span class="c1"># list of n zeros</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>              <span class="c1"># [0, 1, 2, ..., n-1]</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>    <span class="c1"># list comprehension</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span>                     <span class="c1"># 1D</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>  <span class="c1"># 2D — correct</span>
+<span class="c1"># grid = [[0] * n] * m  ← WRONG: all rows share the same reference</span>
+
+<span class="c1"># Copying</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="n">lst2</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[:]</span>                     <span class="c1"># shallow copy — new list, same object references</span>
+<span class="n">lst2</span> <span class="o">=</span> <span class="n">lst</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>                 <span class="c1"># shallow copy — identical to lst[:]</span>
+<span class="n">lst2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>                  <span class="c1"># shallow copy</span>
+<span class="n">lst2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>         <span class="c1"># deep copy — recursively copies nested objects</span>
+
+<span class="c1"># Shallow vs deep copy</span>
+<span class="c1"># Shallow: safe for flat lists of primitives (ints, strings)</span>
+<span class="c1"># Deep:    required for nested lists or lists of mutable objects</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-modification">
+<h3>§1b — Modification<a class="headerlink" href="#b-modification" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># Add</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>           <span class="c1"># [1, 2, 3, 4] — O(1) amortized</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>      <span class="c1"># [1, 2, 3, 4, 5, 6] — add multiple</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>       <span class="c1"># [1, 99, 2, ...] — O(n) — inserts at index 1</span>
+
+<span class="c1"># Remove</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>               <span class="c1"># removes and returns LAST element — O(1)</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>              <span class="c1"># removes and returns element at index 0 — O(n)</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>          <span class="c1"># removes FIRST occurrence of value 99 — O(n), raises ValueError if not found</span>
+<span class="k">del</span> <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>              <span class="c1"># delete by index — O(n)</span>
+<span class="k">del</span> <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>            <span class="c1"># delete slice</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>             <span class="c1"># empty the list</span>
+
+<span class="c1"># Swap — in-place, no temp variable needed</span>
+<span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lst</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="c-search">
+<h3>§1c — Search<a class="headerlink" href="#c-search" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="mi">3</span> <span class="ow">in</span> <span class="n">lst</span>                <span class="c1"># True — O(n)</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>            <span class="c1"># 1 — first occurrence, raises ValueError if not found</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>            <span class="c1"># 2 — count occurrences</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d-sorting">
+<h3>§1d — Sorting<a class="headerlink" href="#d-sorting" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># sort() — in-place, returns None</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>                          <span class="c1"># ascending</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>              <span class="c1"># descending</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>        <span class="c1"># sort by second element</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1"># sort by multiple keys</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">)</span>                   <span class="c1"># sort by absolute value</span>
+
+<span class="c1"># sorted() — returns NEW sorted list, original unchanged</span>
+<span class="n">new_lst</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>               <span class="c1"># ascending</span>
+<span class="n">new_lst</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># descending</span>
+<span class="n">new_lst</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>      <span class="c1"># sort strings by length</span>
+
+<span class="c1"># Custom comparator — when key= is not enough</span>
+<span class="c1"># Example: sort so that concatenated result is largest (LC 179)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>     <span class="c1"># a should come first</span>
+    <span class="k">elif</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span> <span class="s1">&#39;34&#39;</span><span class="p">]</span>
+<span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">compare</span><span class="p">))</span>
+
+<span class="c1"># sort() vs sorted()</span>
+<span class="c1"># sort()   → in-place, modifies original, returns None</span>
+<span class="c1"># sorted() → returns new list, original unchanged</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="e-iteration-idioms">
+<h3>§1e — Iteration idioms<a class="headerlink" href="#e-iteration-idioms" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+
+<span class="c1"># enumerate — index + value</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>       <span class="c1"># i=0,1,2; val=&#39;a&#39;,&#39;b&#39;,&#39;c&#39;</span>
+    <span class="k">pass</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>    <span class="c1"># start index at 1</span>
+    <span class="k">pass</span>
+
+<span class="c1"># zip — pair elements from multiple iterables</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>        <span class="c1"># stops at shortest</span>
+    <span class="k">pass</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">]))</span>   <span class="c1"># [(1,&#39;a&#39;), (2,&#39;b&#39;), (3,&#39;c&#39;)]</span>
+
+<span class="c1"># zip to unzip (transpose)</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span>
+<span class="n">transposed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">))</span>     <span class="c1"># [(1,3,5), (2,4,6)]</span>
+
+<span class="c1"># List comprehension</span>
+<span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>          <span class="c1"># filter</span>
+<span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>                <span class="c1"># transform</span>
+<span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matrix</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span> <span class="c1"># flatten 2D list</span>
+<span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>          <span class="c1"># 2D grid initialization</span>
+
+<span class="c1"># any / all</span>
+<span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">)</span>            <span class="c1"># True if at least one element &gt; 0</span>
+<span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">)</span>            <span class="c1"># True if all elements &gt; 0</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">)</span>            <span class="c1"># count of elements &gt; 0 (True == 1)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[[0]*n]*m</span></code> creates m references to the same row — use <code class="docutils literal notranslate"><span class="pre">[[0]*n</span> <span class="pre">for</span> <span class="pre">_</span> <span class="pre">in</span> <span class="pre">range(m)]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lst.sort()</span></code> returns <code class="docutils literal notranslate"><span class="pre">None</span></code> — never do <code class="docutils literal notranslate"><span class="pre">lst</span> <span class="pre">=</span> <span class="pre">lst.sort()</span></code>; use <code class="docutils literal notranslate"><span class="pre">sorted(lst)</span></code> instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list.pop(0)</span></code> is O(n) — use <code class="docutils literal notranslate"><span class="pre">deque.popleft()</span></code> for O(1) front removal</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list.insert(0,</span> <span class="pre">val)</span></code> is O(n) — use <code class="docutils literal notranslate"><span class="pre">deque.appendleft()</span></code> for O(1) front insertion</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list.remove(val)</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if val not in list — check <code class="docutils literal notranslate"><span class="pre">val</span> <span class="pre">in</span> <span class="pre">lst</span></code> first</p></li>
+</ul>
+<p>Problems: LC 179, LC 56, LC 912, LC 75</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="dictionary">
+<h2>§2 — Dictionary<a class="headerlink" href="#dictionary" title="Link to this heading">#</a></h2>
+<section id="a-creation-access">
+<h3>§2a — Creation &amp; access<a class="headerlink" href="#a-creation-access" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># Creation</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>                              <span class="c1"># empty dict</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>         <span class="c1"># from two lists</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span><span class="p">}</span>       <span class="c1"># dict comprehension</span>
+
+<span class="c1"># Access</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>                              <span class="c1"># KeyError if not found</span>
+<span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>                          <span class="c1"># None if not found — safe</span>
+<span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>                       <span class="c1"># 0 if not found — with default</span>
+
+<span class="c1"># Modification</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>                          <span class="c1"># add or update</span>
+<span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>                          <span class="c1"># KeyError if not found</span>
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>                          <span class="c1"># removes and returns — KeyError if not found</span>
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>                    <span class="c1"># removes and returns None if not found — safe</span>
+<span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>          <span class="c1"># merge another dict</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-iteration">
+<h3>§2b — Iteration<a class="headerlink" href="#b-iteration" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>                            <span class="c1"># dict_keys([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>                          <span class="c1"># dict_values([1, 2, 3])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>                           <span class="c1"># dict_items([(&#39;a&#39;,1), (&#39;b&#39;,2), (&#39;c&#39;,3)])</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>                         <span class="c1"># iterate over keys</span>
+    <span class="k">pass</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>              <span class="c1"># iterate over key-value pairs</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Check existence</span>
+<span class="s1">&#39;a&#39;</span> <span class="ow">in</span> <span class="n">d</span>                            <span class="c1"># True — O(1) key lookup</span>
+<span class="s1">&#39;a&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="c-defaultdict-setdefault">
+<h3>§2c — defaultdict &amp; setdefault<a class="headerlink" href="#c-defaultdict-setdefault" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># defaultdict — auto-initializes missing keys</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>                <span class="c1"># missing keys default to 0</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>                         <span class="c1"># no KeyError</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>               <span class="c1"># missing keys default to []</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                  <span class="c1"># no KeyError</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>                <span class="c1"># missing keys default to set()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span>  <span class="c1"># custom default</span>
+
+<span class="c1"># setdefault — initialize only if key is missing, then return value</span>
+<span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># equivalent to defaultdict(list) pattern</span>
+<span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>            <span class="c1"># initialize to 0 if not present</span>
+
+<span class="c1"># defaultdict vs setdefault</span>
+<span class="c1"># defaultdict: set once at creation, applies to ALL missing keys</span>
+<span class="c1"># setdefault:  set per key, more flexible, works on regular dict</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d-counter">
+<h3>§2d — Counter<a class="headerlink" href="#d-counter" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;aabbc&#39;</span><span class="p">)</span>                <span class="c1"># Counter({&#39;a&#39;:2, &#39;b&#39;:2, &#39;c&#39;:1})</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>           <span class="c1"># works on any iterable</span>
+
+<span class="n">c</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>                              <span class="c1"># 2 — returns 0 for missing keys (not KeyError)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                    <span class="c1"># [(&#39;a&#39;,2), (&#39;b&#39;,2)] — top 2 most frequent</span>
+<span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[:</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>             <span class="c1"># bottom 2 least frequent</span>
+
+<span class="c1"># Counter arithmetic</span>
+<span class="n">c1</span> <span class="o">+</span> <span class="n">c2</span>                             <span class="c1"># combine counts</span>
+<span class="n">c1</span> <span class="o">-</span> <span class="n">c2</span>                             <span class="c1"># subtract (keeps only positive)</span>
+<span class="n">c1</span> <span class="o">&amp;</span> <span class="n">c2</span>                             <span class="c1"># intersection (min of each)</span>
+<span class="n">c1</span> <span class="o">|</span> <span class="n">c2</span>                             <span class="c1"># union (max of each)</span>
+
+<span class="c1"># Check if one string&#39;s chars are subset of another</span>
+<span class="nb">all</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">s1</span><span class="p">)[</span><span class="n">ch</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">s2</span><span class="p">)[</span><span class="n">ch</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="n">s1</span><span class="p">))</span>
+<span class="c1"># Or: not (Counter(s1) - Counter(s2))  — empty counter is falsy</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="e-ordereddict-lru-cache-pattern">
+<h3>§2e — OrderedDict (LRU Cache pattern)<a class="headerlink" href="#e-ordereddict-lru-cache-pattern" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="c1"># OrderedDict maintains insertion order and supports move_to_end</span>
+<span class="c1"># Used for LRU Cache implementation (LC 146)</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>                    <span class="c1"># insert</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>              <span class="c1"># move to most recently used (end)</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># move to front (least recently used)</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>            <span class="c1"># remove and return last item (MRU)</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>           <span class="c1"># remove and return first item (LRU)</span>
+
+<span class="c1"># Note: Python 3.7+ regular dict maintains insertion order too</span>
+<span class="c1"># Use OrderedDict when you need move_to_end or popitem(last=)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">d[key]</span></code> raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> — always use <code class="docutils literal notranslate"><span class="pre">d.get(key,</span> <span class="pre">default)</span></code> when key may be missing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Counter</span></code> returns 0 for missing keys — unlike regular dict which raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Counter(s1)</span> <span class="pre">-</span> <span class="pre">Counter(s2)</span></code> drops negative counts — use for subset checking</p></li>
+<li><p>Iterating over dict while modifying it — make a copy of keys first: <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">k</span> <span class="pre">in</span> <span class="pre">list(d.keys())</span></code></p></li>
+</ul>
+<p>Problems: LC 1, LC 49, LC 146, LC 347, LC 560</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="set">
+<h2>§3 — Set<a class="headerlink" href="#set" title="Link to this heading">#</a></h2>
+<section id="a-creation-modification">
+<h3>§3a — Creation &amp; modification<a class="headerlink" href="#a-creation-modification" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>                           <span class="c1"># empty set — NOT {} (that&#39;s a dict)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>               <span class="c1"># {1, 2, 3} — deduplicates</span>
+
+<span class="c1"># Modification</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>                            <span class="c1"># add element — O(1)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>                         <span class="c1"># remove — raises KeyError if not found</span>
+<span class="n">s</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>                        <span class="c1"># remove — NO error if not found (safer)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>                             <span class="c1"># remove and return arbitrary element</span>
+<span class="n">s</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                           <span class="c1"># empty the set</span>
+
+<span class="c1"># Lookup</span>
+<span class="mi">4</span> <span class="ow">in</span> <span class="n">s</span>                              <span class="c1"># O(1) — main advantage over list</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-set-operations">
+<h3>§3b — Set operations<a class="headerlink" href="#b-set-operations" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span>
+
+<span class="c1"># Operations — return new set</span>
+<span class="n">a</span> <span class="o">|</span> <span class="n">b</span>                               <span class="c1"># {1,2,3,4,5,6} — union</span>
+<span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span>                               <span class="c1"># {3,4}          — intersection</span>
+<span class="n">a</span> <span class="o">-</span> <span class="n">b</span>                               <span class="c1"># {1,2}          — difference (in a, not in b)</span>
+<span class="n">a</span> <span class="o">^</span> <span class="n">b</span>                               <span class="c1"># {1,2,5,6}      — symmetric difference</span>
+
+<span class="c1"># Method equivalents</span>
+<span class="n">a</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Subset / superset checks</span>
+<span class="n">a</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>                       <span class="c1"># True if all elements of a are in b</span>
+<span class="n">a</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>                     <span class="c1"># True if a contains all elements of b</span>
+<span class="n">a</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>                     <span class="c1"># True if a and b have no common elements</span>
+<span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>                              <span class="c1"># subset</span>
+<span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span>                              <span class="c1"># superset</span>
+
+<span class="c1"># frozenset — immutable set, usable as dict key or set element</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="nb">frozenset</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]):</span> <span class="s1">&#39;pair&#39;</span><span class="p">}</span>      <span class="c1"># use as dict key</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="nb">frozenset</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">frozenset</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])}</span>  <span class="c1"># set of sets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">set()</span></code> not <code class="docutils literal notranslate"><span class="pre">{}</span></code> for empty set — <code class="docutils literal notranslate"><span class="pre">{}</span></code> creates an empty dict</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remove()</span></code> vs <code class="docutils literal notranslate"><span class="pre">discard()</span></code> — use <code class="docutils literal notranslate"><span class="pre">discard()</span></code> to avoid <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> when element may not exist</p></li>
+<li><p>Sets are unordered — cannot index or slice a set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frozenset</span></code> required when using a set as a dict key or putting it inside another set</p></li>
+</ul>
+<p>Problems: LC 128, LC 217, LC 349, LC 202</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tuple">
+<h2>§4 — Tuple<a class="headerlink" href="#tuple" title="Link to this heading">#</a></h2>
+<section id="a-creation-immutability">
+<h3>§4a — Creation &amp; immutability<a class="headerlink" href="#a-creation-immutability" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>                       <span class="c1"># tuple</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>                            <span class="c1"># single-element tuple — comma required</span>
+<span class="n">t</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>                <span class="c1"># from list</span>
+<span class="n">t</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span>                    <span class="c1"># (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span>
+
+<span class="c1"># Immutable — cannot change elements</span>
+<span class="c1"># t[0] = 5  → TypeError</span>
+
+<span class="c1"># Can be used as dict key or set element (list cannot)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="s1">&#39;origin&#39;</span><span class="p">}</span>             <span class="c1"># tuple as dict key</span>
+<span class="n">visited</span> <span class="o">=</span> <span class="p">{(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="o">...</span><span class="p">}</span> <span class="c1"># set of coordinate tuples</span>
+
+<span class="c1"># Unpacking</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">first</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>        <span class="c1"># first=1, rest=[2,3,4]</span>
+<span class="o">*</span><span class="n">init</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>         <span class="c1"># init=[1,2,3], last=4</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>                         <span class="c1"># swap using tuple unpacking</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-namedtuple">
+<h3>§4b — namedtuple<a class="headerlink" href="#b-namedtuple" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">Point</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Point&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">x</span>                                 <span class="c1"># 1 — access by name</span>
+<span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                <span class="c1"># 1 — access by index</span>
+<span class="n">p</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>                         <span class="c1"># {&#39;x&#39;: 1, &#39;y&#39;: 2}</span>
+
+<span class="c1"># Common use: graph edges, intervals, coordinates with named fields</span>
+<span class="n">Interval</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Interval&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">])</span>
+<span class="n">Edge</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Edge&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;node&#39;</span><span class="p">])</span>  <span class="c1"># for heap — weight first for comparison</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Forgetting comma for single-element tuple — <code class="docutils literal notranslate"><span class="pre">(1)</span></code> is just <code class="docutils literal notranslate"><span class="pre">1</span></code>; use <code class="docutils literal notranslate"><span class="pre">(1,)</span></code></p></li>
+<li><p>Trying to use a list as a dict key — use tuple instead</p></li>
+<li><p>Tuple in heap: comparison is element by element — put the priority field first</p></li>
+</ul>
+<p>Problems: LC 973, LC 56 (interval sorting)</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="deque-collections-deque">
+<h2>§5 — deque (<code class="docutils literal notranslate"><span class="pre">collections.deque</span></code>)<a class="headerlink" href="#deque-collections-deque" title="Link to this heading">#</a></h2>
+<section id="a-operations-complexity">
+<h3>§5a — Operations &amp; complexity<a class="headerlink" href="#a-operations-complexity" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="n">dq</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>                        <span class="c1"># empty deque</span>
+<span class="n">dq</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>               <span class="c1"># from iterable</span>
+<span class="n">dq</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>                <span class="c1"># fixed-size — auto-evicts oldest when full</span>
+
+<span class="c1"># O(1) operations on both ends</span>
+<span class="n">dq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>                        <span class="c1"># add to right</span>
+<span class="n">dq</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                    <span class="c1"># add to left</span>
+<span class="n">dq</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>                            <span class="c1"># remove from right</span>
+<span class="n">dq</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>                        <span class="c1"># remove from left — O(1) vs list O(n)</span>
+
+<span class="c1"># Access</span>
+<span class="n">dq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                               <span class="c1"># left end — O(1)</span>
+<span class="n">dq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                              <span class="c1"># right end — O(1)</span>
+<span class="n">dq</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>                               <span class="c1"># arbitrary index — O(n) for deque</span>
+
+<span class="c1"># Rotation</span>
+<span class="n">dq</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                        <span class="c1"># rotate right by 1</span>
+<span class="n">dq</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                       <span class="c1"># rotate left by 1</span>
+
+<span class="c1"># deque vs list — when to use which</span>
+<span class="c1"># deque:  O(1) appendleft / popleft — use for BFS queue, sliding window</span>
+<span class="c1"># list:   O(1) append / pop at end  — use for stack, DFS</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-bfs-pattern">
+<h3>§5b — BFS pattern<a class="headerlink" href="#b-bfs-pattern" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="c1"># Always use deque for BFS — never list</span>
+<span class="c1"># list.pop(0) is O(n); deque.popleft() is O(1)</span>
+<span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+<span class="n">visited</span> <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">}</span>
+<span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>          <span class="c1"># O(1)</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+<span class="c1"># Fixed-size sliding window with maxlen</span>
+<span class="n">window</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>              <span class="c1"># auto-evicts oldest when len &gt; k</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">window</span><span class="p">)</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">process</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">list.pop(0)</span></code> for BFS — O(n) per operation makes BFS O(n²); always use <code class="docutils literal notranslate"><span class="pre">deque.popleft()</span></code></p></li>
+<li><p>Arbitrary index access on deque is O(n) — if you need random access use a list</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deque(maxlen=k)</span></code> silently drops oldest elements — check length before processing</p></li>
+</ul>
+<p>Problems: LC 102, LC 994, LC 239, LC 146</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="int-float">
+<h2>§6 — int &amp; float<a class="headerlink" href="#int-float" title="Link to this heading">#</a></h2>
+<section id="a-key-properties">
+<h3>§6a — Key properties<a class="headerlink" href="#a-key-properties" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python integers have no overflow — arbitrary precision</span>
+<span class="c1"># Unlike Java/C++ where int overflows at 2^31 - 1</span>
+<span class="mi">2</span><span class="o">**</span><span class="mi">100</span>                              <span class="c1"># works fine</span>
+
+<span class="c1"># Infinity</span>
+<span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>                        <span class="c1"># positive infinity</span>
+<span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>                       <span class="c1"># negative infinity</span>
+<span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span>               <span class="c1"># True — use as initial min/max value</span>
+
+<span class="c1"># Division</span>
+<span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span>                               <span class="c1"># 3.5  — true division (always float)</span>
+<span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>                              <span class="c1"># 3    — floor division (rounds toward -inf)</span>
+<span class="mi">7</span> <span class="o">%</span> <span class="mi">2</span>                               <span class="c1"># 1    — modulo</span>
+<span class="o">-</span><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>                             <span class="c1"># -4   — floors toward -inf (not toward 0)</span>
+<span class="o">-</span><span class="mi">7</span> <span class="o">%</span> <span class="mi">2</span>                              <span class="c1"># 1    — Python modulo always non-negative for positive divisor</span>
+<span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>                         <span class="c1"># -3   — truncation toward zero (C-style)</span>
+
+<span class="c1"># Absolute value</span>
+<span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>                             <span class="c1"># 5</span>
+
+<span class="c1"># Power</span>
+<span class="mi">2</span><span class="o">**</span><span class="mi">10</span>                               <span class="c1"># 1024</span>
+<span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                          <span class="c1"># 1024</span>
+<span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>                    <span class="c1"># 24  — modular exponentiation O(log n), no overflow</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-math-functions">
+<h3>§6b — Math functions<a class="headerlink" href="#b-math-functions" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mf">3.2</span><span class="p">)</span>                      <span class="c1"># 4  — round up</span>
+<span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">3.8</span><span class="p">)</span>                     <span class="c1"># 3  — round down</span>
+<span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>                       <span class="c1"># 4.0</span>
+<span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>                      <span class="c1"># 3.0 — log base 2</span>
+<span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>                        <span class="c1"># 3.0</span>
+<span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>                     <span class="c1"># 2.0</span>
+<span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>                     <span class="c1"># 4   — greatest common divisor</span>
+<span class="n">math</span><span class="o">.</span><span class="n">lcm</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>                      <span class="c1"># 12  — least common multiple (Python 3.9+)</span>
+<span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>                   <span class="c1"># GCD of multiple numbers (Python 3.9+)</span>
+<span class="n">math</span><span class="o">.</span><span class="n">isqrt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                      <span class="c1"># 3   — integer square root (floor)</span>
+<span class="n">math</span><span class="o">.</span><span class="n">inf</span>                            <span class="c1"># same as float(&#39;inf&#39;)</span>
+
+<span class="c1"># Integer ceiling division without import</span>
+<span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">b</span>                    <span class="c1"># equivalent to math.ceil(a / b)</span>
+<span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">a</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span>                          <span class="c1"># also ceiling division</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">//</span></code> floors toward negative infinity — <code class="docutils literal notranslate"><span class="pre">-7</span> <span class="pre">//</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">-4</span></code> not <code class="docutils literal notranslate"><span class="pre">-3</span></code>; use <code class="docutils literal notranslate"><span class="pre">int(a/b)</span></code> for C-style truncation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code> returns float — use <code class="docutils literal notranslate"><span class="pre">math.isqrt</span></code> for exact integer square root</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pow(x,</span> <span class="pre">n,</span> <span class="pre">mod)</span></code> is much faster than <code class="docutils literal notranslate"><span class="pre">(x**n)</span> <span class="pre">%</span> <span class="pre">mod</span></code> for large n — always use the 3-argument form</p></li>
+<li><p>No overflow in Python — but intermediate values in <code class="docutils literal notranslate"><span class="pre">(x**n)</span> <span class="pre">%</span> <span class="pre">mod</span></code> without <code class="docutils literal notranslate"><span class="pre">pow()</span></code> can be astronomically large</p></li>
+</ul>
+<p>Problems: LC 29, LC 50, LC 204, LC 1492</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="bool-none">
+<h2>§7 — bool &amp; None<a class="headerlink" href="#bool-none" title="Link to this heading">#</a></h2>
+<section id="a-bool">
+<h3>§7a — bool<a class="headerlink" href="#a-bool" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># bool is a subclass of int in Python</span>
+<span class="kc">True</span> <span class="o">==</span> <span class="mi">1</span>                           <span class="c1"># True</span>
+<span class="kc">False</span> <span class="o">==</span> <span class="mi">0</span>                          <span class="c1"># True</span>
+<span class="kc">True</span> <span class="o">+</span> <span class="kc">True</span>                         <span class="c1"># 2</span>
+
+<span class="c1"># Count elements satisfying a condition</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">)</span>           <span class="c1"># count positive numbers</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span>        <span class="c1"># count uppercase letters</span>
+<span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>      <span class="c1"># explicit form</span>
+
+<span class="c1"># Falsy values in Python</span>
+<span class="c1"># False, 0, 0.0, &#39;&#39;, [], {}, set(), None, deque()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">lst</span><span class="p">:</span> <span class="o">...</span>                     <span class="c1"># True when list is empty</span>
+<span class="k">if</span> <span class="n">lst</span><span class="p">:</span> <span class="o">...</span>                         <span class="c1"># True when list is non-empty</span>
+
+<span class="c1"># Boolean operators</span>
+<span class="c1"># and: returns first falsy value, or last value if all truthy</span>
+<span class="c1"># or:  returns first truthy value, or last value if all falsy</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">b</span>                          <span class="c1"># x = a if a is truthy, else b</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="ow">and</span> <span class="n">b</span>                         <span class="c1"># x = b if a is truthy, else a</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-none">
+<h3>§7b — None<a class="headerlink" href="#b-none" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span>                           <span class="c1"># True — correct way to check</span>
+<span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="n">x</span> <span class="o">==</span> <span class="kc">None</span>                           <span class="c1"># works but not recommended — use &#39;is&#39;</span>
+
+<span class="c1"># None as default sentinel</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">val</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># TreeNode / ListNode null check</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>                  <span class="c1"># True when node is None</span>
+<span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>              <span class="c1"># explicit form</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">None</span></code> instead of <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">None</span></code> — functionally equivalent for None but <code class="docutils literal notranslate"><span class="pre">is</span></code> expresses intent</p></li>
+<li><p>Using mutable default argument <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">func(lst=[])</span></code> — shared across all calls; use <code class="docutils literal notranslate"><span class="pre">None</span></code> instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sum(condition</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">lst)</span></code> relies on <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">==</span> <span class="pre">1</span></code> — works but make intent clear with a comment</p></li>
+</ul>
+<p>Problems: LC 104, LC 206 (node is None check)</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="built-in-functions">
+<h2>§8 — Built-in Functions<a class="headerlink" href="#built-in-functions" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># min / max</span>
+<span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>                           <span class="c1"># smaller of two values</span>
+<span class="nb">min</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>                            <span class="c1"># smallest in list</span>
+<span class="nb">min</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>                   <span class="c1"># smallest by length</span>
+<span class="nb">min</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                 <span class="c1"># 0 if lst is empty</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>                        <span class="c1"># largest of multiple values</span>
+
+<span class="c1"># sum</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>                            <span class="c1"># sum of list</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>                     <span class="c1"># sum + start value</span>
+
+<span class="c1"># len</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>                            <span class="c1"># O(1) for list, dict, set, string, deque</span>
+
+<span class="c1"># range</span>
+<span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>                            <span class="c1"># 0 to n-1</span>
+<span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>                         <span class="c1"># a to b-1</span>
+<span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>                   <span class="c1"># with step</span>
+<span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>                  <span class="c1"># n-1 down to 0 (reverse)</span>
+
+<span class="c1"># map / filter</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">]))</span>       <span class="c1"># [1, 2, 3] — apply function to each element</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">lst</span><span class="p">))</span>   <span class="c1"># keep only positive elements</span>
+
+<span class="c1"># sorted with key</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">)</span>      <span class="c1"># descending</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="n">w</span><span class="p">))</span>  <span class="c1"># by length then alphabetically</span>
+
+<span class="c1"># enumerate</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">]))</span>          <span class="c1"># [(0,&#39;a&#39;), (1,&#39;b&#39;)]</span>
+
+<span class="c1"># zip</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">]))</span>         <span class="c1"># [(1,&#39;a&#39;), (2,&#39;b&#39;)]</span>
+
+<span class="c1"># isinstance</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>                  <span class="c1"># True if x is int</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>         <span class="c1"># True if x is int or float</span>
+
+<span class="c1"># round</span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">3.14159</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>                   <span class="c1"># 3.14</span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span>                          <span class="c1"># 4 (banker&#39;s rounding — rounds to even)</span>
+
+<span class="c1"># divmod</span>
+<span class="nb">divmod</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>                       <span class="c1"># (3, 1) — quotient and remainder at once</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">min([])</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> — use <code class="docutils literal notranslate"><span class="pre">min(lst,</span> <span class="pre">default=0)</span></code> for empty lists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map()</span></code> returns an iterator — wrap in <code class="docutils literal notranslate"><span class="pre">list()</span></code> if you need to index or reuse</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">round(0.5)</span> <span class="pre">==</span> <span class="pre">0</span></code> in Python 3 — banker’s rounding rounds to even; use <code class="docutils literal notranslate"><span class="pre">math.ceil/floor</span></code> for predictable behavior</p></li>
+</ul>
+<p>Problems: LC 1, LC 15, LC 56</p>
+</section>
+<hr class="docutils" />
+<section id="itertools-functools">
+<h2>§9 — <code class="docutils literal notranslate"><span class="pre">itertools</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">functools</span></code><a class="headerlink" href="#itertools-functools" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+
+<span class="c1"># itertools — combinatorics</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]))</span>       <span class="c1"># all permutations</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>    <span class="c1"># permutations of length 2</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>    <span class="c1"># [(1,2),(1,3),(2,3)] — no repeats</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations_with_replacement</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># repeats allowed</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>       <span class="c1"># cartesian product [(1,3),(1,4),(2,3),(2,4)]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>    <span class="c1"># all binary strings of length 3</span>
+
+<span class="c1"># itertools — iteration</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>         <span class="c1"># [1,2,3,4] — flatten one level</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]))</span>  <span class="c1"># same</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">accumulate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>       <span class="c1"># [1,3,6,10] — running sum</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">accumulate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">max</span><span class="p">))</span>    <span class="c1"># [1,2,3] — running max</span>
+
+<span class="c1"># functools</span>
+<span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>  <span class="c1"># 10 — fold left</span>
+<span class="n">functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>              <span class="c1"># memoization decorator</span>
+<span class="n">functools</span><span class="o">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">compare_fn</span><span class="p">)</span>               <span class="c1"># convert comparator to key function</span>
+
+<span class="c1"># lru_cache for memoization in recursive functions</span>
+<span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dp</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">j</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">i</span>
+    <span class="k">if</span> <span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Common mistakes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">itertools</span></code> functions return iterators — wrap in <code class="docutils literal notranslate"><span class="pre">list()</span></code> to materialize</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;lru_cache</span></code> requires all function arguments to be hashable — cannot cache functions with list arguments; convert to tuple</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">functools.reduce</span></code> raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> on empty list — provide initial value as third argument</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">itertools.combinations</span></code> vs <code class="docutils literal notranslate"><span class="pre">permutations</span></code> — combinations ignore order, permutations don’t</p></li>
+</ul>
+<p>Problems: LC 46, LC 78, LC 39, LC 322 (lru_cache for DP)</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Python LeetCode"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Python_DSA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python Data Structures and Algorithm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reference_python_strings.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python Strings — Technical Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
