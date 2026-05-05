@@ -17,6 +17,8 @@ chapters:
   - file: Python LeetCode/Python_DSA
     title: Python LeetCode
     sections:
+      - file: Python LeetCode/reference_python_builtins
+      - file: Python LeetCode/reference_python_strings
       - file: Python LeetCode/Reference_Arrays_and_Hashing
       - file: Python LeetCode/Study_Guide_Sliding_Window_and_Two_Pointers
       - file: Python LeetCode/Cheatsheet_Heap_and_Monotonic_Stack
