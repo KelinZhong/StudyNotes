@@ -2,7 +2,7 @@ format: jb-book
 root: intro
 chapters:
   - file: Python Data Libs/Python_Data_Libs
-    title: Python Data Library
+    title: Python Data Library & Data Manipulation
     sections:
       - file: Python Data Libs/Reference_Pandas
       - file: Python Data Libs/Reference_NumPy
@@ -10,6 +10,12 @@ chapters:
       - file: Python Data Libs/DM_Intermediate
       - file: Python Data Libs/DM_Advanced
 
+  - file: Experiment/exp0
+    title: Experiment in Python
+    sections:
+      - file: Experiment/Exp_Design
+      - file: Experiment/Exp_Analysis
+      - file: Experiment/Exp_Beyond_AB
 
   - file: SQL LeetCode/SQL_quickcheck
     title: SQL LeetCode
