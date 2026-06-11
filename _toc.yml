@@ -9,12 +9,14 @@ chapters:
       - file: Python Data Libs/DM_Basic
       - file: Python Data Libs/DM_Intermediate
       - file: Python Data Libs/DM_Advanced
+      - file: Python Data Libs/metrics_Python
 
   - file: SQL LeetCode/SQL_quickcheck
     title: SQL LeetCode
     sections:
       - file: SQL LeetCode/reference_SQL_syntax
       - file: SQL LeetCode/reference_SQL_patterns
+      - file: SQL LettCode/metrics_SQL
 
   - file: Python LeetCode/Python_DSA
     title: Python LeetCode
