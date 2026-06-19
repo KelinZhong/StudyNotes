@@ -122,8 +122,3 @@ chapters:
     - file: Business Decisions/bd2_cost_benefit
     - file: Business Decisions/bd3_shipping_decision
 
-  - file: HFT/HFT0
-    title: HFT
-    sections:
-      - file: HFT/HFT_Quant_Event_Review_Guide
-      - file: HFT/HFT_Quant_Event_Cheat_Sheet
