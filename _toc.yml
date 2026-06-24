@@ -10,6 +10,7 @@ chapters:
       - file: Python Data Libs/DM_Intermediate
       - file: Python Data Libs/DM_Advanced
       - file: Python Data Libs/metrics_Python
+      - file: Python Data Libs/Reference_Sampling
 
   - file: SQL LeetCode/SQL_quickcheck
     title: SQL LeetCode
