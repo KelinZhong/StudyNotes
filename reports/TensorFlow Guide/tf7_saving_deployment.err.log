@@ -1,0 +1,206 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nbclient/client.py", line 1323, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+np.random.seed(42)
+X = np.random.randn(200, 8).astype(np.float32)
+y = (X[:, 0] + X[:, 1] > 0).astype(np.int32)
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(64, activation='relu', input_shape=(8,)),
+    tf.keras.layers.Dense(32, activation='relu'),
+    tf.keras.layers.Dense(1,  activation='sigmoid'),
+])
+model.compile(optimizer='adam', loss='binary_crossentropy')
+model.fit(X[:160], y[:160], epochs=10, verbose=0)
+model.export('/tmp/model_for_tflite')   # Use export() for SavedModel in Keras 3
+
+# Convert to TFLite (no quantization)
+converter = tf.lite.TFLiteConverter.from_saved_model('/tmp/model_for_tflite')
+tflite_model = converter.convert()
+with open('/tmp/model.tflite', 'wb') as f:
+    f.write(tflite_model)
+
+# Convert with dynamic range quantization
+converter_q = tf.lite.TFLiteConverter.from_saved_model('/tmp/model_for_tflite')
+converter_q.optimizations = [tf.lite.Optimize.DEFAULT]
+tflite_quant = converter_q.convert()
+with open('/tmp/model_quant.tflite', 'wb') as f:
+    f.write(tflite_quant)
+
+orig_size  = sum(os.path.getsize(os.path.join(r,f))
+                  for r,d,files in os.walk('/tmp/model_for_tflite') for f in files) / 1024
+lite_size  = os.path.getsize('/tmp/model.tflite')  / 1024
+quant_size = os.path.getsize('/tmp/model_quant.tflite') / 1024
+
+print(f"SavedModel size    : {orig_size:.1f} KB")
+print(f"TFLite size        : {lite_size:.1f} KB")
+print(f"TFLite quant size  : {quant_size:.1f} KB")
+
+# TFLite inference
+interpreter = tf.lite.Interpreter(model_path='/tmp/model.tflite')
+interpreter.allocate_tensors()
+inp_details = interpreter.get_input_details()
+out_details = interpreter.get_output_details()
+print(f"Input  shape: {inp_details[0]['shape']}")
+print(f"Output shape: {out_details[0]['shape']}")
+
+x_test = X[160:161]
+interpreter.set_tensor(inp_details[0]['index'], x_test)
+interpreter.invoke()
+tflite_out = interpreter.get_tensor(out_details[0]['index'])
+keras_out  = model.predict(x_test, verbose=0)
+print(f"Keras output : {keras_out[0][0]:.4f}")
+print(f"TFLite output: {tflite_out[0][0]:.4f}")
+
+# Size and latency comparison
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+formats = ['SavedModel (float32)', 'TFLite (float32)', 'TFLite (quantized)']
+sizes   = [orig_size, lite_size, quant_size]
+colors  = ['#3498DB', '#F39C12', '#2ECC71']
+
+bars = axes[0].bar(formats, sizes, color=colors, alpha=0.85, edgecolor='white', width=0.5)
+axes[0].set_ylabel('File size (KB)', fontsize=11)
+axes[0].set_title('Model Size Comparison', fontsize=12, fontweight='bold')
+axes[0].grid(True, alpha=0.3, axis='y')
+axes[0].spines['top'].set_visible(False); axes[0].spines['right'].set_visible(False)
+for bar, val in zip(bars, sizes):
+    axes[0].text(bar.get_x()+bar.get_width()/2, bar.get_height()+0.5,
+                 f'{val:.1f} KB', ha='center', va='bottom', fontsize=10, fontweight='bold')
+
+import time
+n_runs = 100
+keras_times, tflite_times = [], []
+for _ in range(n_runs):
+    t = time.time(); model.predict(X[160:161], verbose=0); keras_times.append(time.time()-t)
+for _ in range(n_runs):
+    t = time.time()
+    interpreter.set_tensor(inp_details[0]['index'], X[160:161])
+    interpreter.invoke()
+    tflite_times.append(time.time()-t)
+
+axes[1].boxplot([keras_times, tflite_times], labels=['Keras predict', 'TFLite invoke'],
+                patch_artist=True,
+                boxprops=dict(facecolor='#3498DB', alpha=0.7),
+                medianprops=dict(color='white', linewidth=2))
+axes[1].set_ylabel('Inference time (s)', fontsize=11)
+axes[1].set_title(f'Inference Latency ({n_runs} runs)', fontsize=12, fontweight='bold')
+axes[1].grid(True, alpha=0.3, axis='y')
+axes[1].spines['top'].set_visible(False); axes[1].spines['right'].set_visible(False)
+
+plt.suptitle('TFLite: Size and Latency', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.savefig('tflite_comparison.png', dpi=120, bbox_inches='tight')
+plt.show()
+
+------------------
+
+----- stderr -----
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/keras/src/layers/core/dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+----- stdout -----
+INFO:tensorflow:Assets written to: /tmp/model_for_tflite/assets
+----- stderr -----
+INFO:tensorflow:Assets written to: /tmp/model_for_tflite/assets
+----- stdout -----
+Saved artifact at '/tmp/model_for_tflite'. The following endpoints are available:
+
+* Endpoint 'serve'
+  args_0 (POSITIONAL_ONLY): TensorSpec(shape=(None, 8), dtype=tf.float32, name='keras_tensor_16')
+Output Type:
+  TensorSpec(shape=(None, 1), dtype=tf.float32, name=None)
+Captures:
+  140172099218000: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  140172099218768: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  140172099218576: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  140172099213392: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  140172099219344: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  140172099218960: TensorSpec(shape=(), dtype=tf.resource, name=None)
+----- stderr -----
+W0000 00:00:1782856792.122674   21381 tf_tfl_flatbuffer_helpers.cc:364] Ignored output_format.
+W0000 00:00:1782856792.122704   21381 tf_tfl_flatbuffer_helpers.cc:367] Ignored drop_control_dependency.
+I0000 00:00:1782856792.123083   21381 reader.cc:83] Reading SavedModel from: /tmp/model_for_tflite
+I0000 00:00:1782856792.123449   21381 reader.cc:52] Reading meta graph with tags { serve }
+I0000 00:00:1782856792.123455   21381 reader.cc:147] Reading SavedModel debug info (if present) from: /tmp/model_for_tflite
+I0000 00:00:1782856792.126125   21381 mlir_graph_optimization_pass.cc:437] MLIR V1 optimization pass is not enabled
+I0000 00:00:1782856792.126735   21381 loader.cc:236] Restoring SavedModel bundle.
+I0000 00:00:1782856792.143780   21381 loader.cc:220] Running initialization op on SavedModel bundle at path: /tmp/model_for_tflite
+I0000 00:00:1782856792.149460   21381 loader.cc:471] SavedModel load for tags { serve }; Status: success: OK. Took 26384 microseconds.
+I0000 00:00:1782856792.157050   21381 dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+----- stdout -----
+SavedModel size    : 66.9 KB
+TFLite size        : 12.6 KB
+TFLite quant size  : 7.1 KB
+Input  shape: [1 8]
+Output shape: [1 1]
+WARNING:tensorflow:5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x7f7c5c1c2520> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+----- stderr -----
+W0000 00:00:1782856792.437419   21381 tf_tfl_flatbuffer_helpers.cc:364] Ignored output_format.
+W0000 00:00:1782856792.437444   21381 tf_tfl_flatbuffer_helpers.cc:367] Ignored drop_control_dependency.
+I0000 00:00:1782856792.437601   21381 reader.cc:83] Reading SavedModel from: /tmp/model_for_tflite
+I0000 00:00:1782856792.438017   21381 reader.cc:52] Reading meta graph with tags { serve }
+I0000 00:00:1782856792.438023   21381 reader.cc:147] Reading SavedModel debug info (if present) from: /tmp/model_for_tflite
+I0000 00:00:1782856792.440969   21381 loader.cc:236] Restoring SavedModel bundle.
+I0000 00:00:1782856792.457881   21381 loader.cc:220] Running initialization op on SavedModel bundle at path: /tmp/model_for_tflite
+I0000 00:00:1782856792.463483   21381 loader.cc:471] SavedModel load for tags { serve }; Status: success: OK. Took 25888 microseconds.
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tensorflow/lite/python/interpreter.py:457: UserWarning:     Warning: tf.lite.Interpreter is deprecated and is scheduled for deletion in
+    TF 2.20. Please use the LiteRT interpreter from the ai_edge_litert package.
+    See the [migration guide](https://ai.google.dev/edge/litert/migration)
+    for details.
+    
+  warnings.warn(_INTERPRETER_DELETION_WARNING)
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING:tensorflow:5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x7f7c5c1c2520> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+----- stdout -----
+Keras output : 0.5002
+TFLite output: 0.5002
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mTypeError[39m                                 Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 83[39m
+[32m     79[39m     interpreter.set_tensor(inp_details[[32m0[39m][[33m'index'[39m], X[[32m160[39m:[32m161[39m])
+[32m     80[39m     interpreter.invoke()
+[32m     81[39m     tflite_times.append(time.time()-t)
+[32m     82[39m 
+[32m---> [39m[32m83[39m axes[1].boxplot([keras_times, tflite_times], labels=['Keras predict', 'TFLite invoke'],
+[32m     84[39m                 patch_artist=[38;5;28;01mTrue[39;00m,
+[32m     85[39m                 boxprops=dict(facecolor=[33m'#3498DB'[39m, alpha=[32m0.7[39m),
+[32m     86[39m                 medianprops=dict(color='white', linewidth=2))
+
+    [31m[... skipping hidden 1 frame][39m
+
+[36mFile [39m[32m/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/matplotlib/__init__.py:1528[39m, in [36m_preprocess_data.<locals>.inner[39m[34m(ax, data, *args, **kwargs)[39m
+[32m   1525[39m __tracebackhide__ = [38;5;28;01mTrue[39;00m
+[32m   1527[39m [38;5;28;01mif[39;00m data [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m-> [39m[32m1528[39m     [38;5;28;01mreturn[39;00m [30;43mfunc[39;49m[30;43m([39;49m
+[32m   1529[39m [30;43m        [39;49m[30;43max[39;49m[30;43m,[39;49m
+[32m   1530[39m [30;43m        [39;49m[30;43m*[39;49m[30;43mmap[39;49m[30;43m([39;49m[30;43mcbook[39;49m[30;43m.[39;49m[30;43msanitize_sequence[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43margs[39;49m[30;43m)[39;49m[30;43m,[39;49m
+[32m   1531[39m [30;43m        [39;49m[30;43m*[39;49m[30;43m*[39;49m[30;43m{[39;49m[30;43mk[39;49m[30;43m:[39;49m[30;43m [39;49m[30;43mcbook[39;49m[30;43m.[39;49m[30;43msanitize_sequence[39;49m[30;43m([39;49m[30;43mv[39;49m[30;43m)[39;49m[30;43m [39;49m[30;43;01mfor[39;49;00m[30;43m [39;49m[30;43mk[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mv[39;49m[30;43m [39;49m[30;43;01min[39;49;00m[30;43m [39;49m[30;43mkwargs[39;49m[30;43m.[39;49m[30;43mitems[39;49m[30;43m([39;49m[30;43m)[39;49m[30;43m}[39;49m[30;43m)[39;49m
+[32m   1533[39m bound = new_sig.bind(ax, *args, **kwargs)
+[32m   1534[39m auto_label = (bound.arguments.get(label_namer)
+[32m   1535[39m               [38;5;129;01mor[39;00m bound.kwargs.get(label_namer))
+
+[31mTypeError[39m: Axes.boxplot() got an unexpected keyword argument 'labels'
+
