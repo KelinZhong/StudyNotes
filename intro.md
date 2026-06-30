@@ -1,4 +1,4 @@
-# My Study Notes
+# Python and SQL notes
 
 Personal study guides, cheatsheets, and references for data science related knowledge.
 
