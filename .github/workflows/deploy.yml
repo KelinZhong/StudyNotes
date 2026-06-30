@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ── Python toolchain (unchanged from the original workflow) ─────────────
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -28,32 +27,8 @@ jobs:
       - name: Install IPython kernel
         run: python -m ipykernel install --user --name python3 --display-name "Python 3"
 
-      # ── R toolchain (new, additive only — for r-notes/) ──────────────────────
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: 'release'
-
-      - name: Install R dependencies and IRkernel
-        run: Rscript r-notes/install.R
-
-      # ── Build the Python book (unchanged) ────────────────────────────────────
-      - name: Build the Python book
+      - name: Build the book
         run: jupyter-book build .
-
-      # ── Build the R book (new) ───────────────────────────────────────────────
-      - name: Build the R book
-        run: jupyter-book build r-notes/
-
-      # ── Merge both builds, then publish with a single push ──────────────────
-      # The R site is nested under /r-notes/ inside the Python site's output so
-      # that one ghp-import call publishes both — this is what prevents the two
-      # builds from clobbering each other on gh-pages (ghp-import -f replaces
-      # the whole branch on every run, so they must be merged before the push).
-      - name: Merge R book into the Python book's output
-        run: |
-          mkdir -p _build/html/r-notes
-          cp -r r-notes/_build/html/. _build/html/r-notes/
 
       - name: Deploy to GitHub Pages
         run: |
