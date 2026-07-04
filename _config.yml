@@ -6,7 +6,10 @@ repository:
 execute:
   execute_notebooks: "force"
   exclude_patterns:
-    - "Python Data Libs/*"
+    - "Python Data Libs/DM_*.ipynb"
+    - "Python Data Libs/metrics_*.ipynb"
+    - "Python Data Libs/Reference_Pandas.ipynb"
+    - "Python Data Libs/Reference_NumPy.ipynb"
     - "SQL LeetCode/*"
     - "Python LeetCode/*"
     - "Machine Learning/*"
