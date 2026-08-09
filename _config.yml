@@ -1,45 +1,14 @@
-title: Data Science Study Notes
+title: Study Notes
 author: Kelin Zhong
 repository:
   url: https://github.com/KelinZhong/StudyNotes
 
-execute:
-  execute_notebooks: "force"
-  exclude_patterns:
-    - "Python Data Libs/DM_*.ipynb"
-    - "Python Data Libs/metrics_*.ipynb"
-    - "Python Data Libs/Reference_Pandas.ipynb"
-    - "Python Data Libs/Reference_NumPy.ipynb"
-    - "SQL LeetCode/*"
-    - "Python LeetCode/*"
-    - "Machine Learning/*"
-    - "Data Science Workflow/DS7_*.ipynb"
-    - "Data Science Workflow/DS9_*.ipynb"
-    - "Data Science Workflow/DS10_*.ipynb"
-
 html:
   use_repository_button: true
-  home_page_in_navbar: true
 
 sphinx:
   config:
     html_theme: pydata_sphinx_theme
     html_theme_options:
-      # 1. Rename the "More" button to "Topics"
-      header_dropdown_text: "Topics"
-      
-      # 2. Force all top-level chapters into the "Topics" dropdown
-      header_links_before_dropdown: 0
-      
-      # 3. Keep the Sidebar working as you requested previously
-      primary_sidebar_end: ["page-toc"]
       secondary_sidebar_items: []
-      
-      # 4. Sidebar behavior settings
-      collapse_navigation: false
-      show_nav_level: 2
-      navigation_depth: 4
-      
-      # 5. Navbar Layout
-      navbar_center: ["navbar-nav"] # This ensures the "Topics" button appears
       navbar_end: ["theme-switcher", "navbar-icon-links"]
